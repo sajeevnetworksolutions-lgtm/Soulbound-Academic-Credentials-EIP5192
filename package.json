@@ -1,0 +1,35 @@
+{
+  "name": "soulbound-academic-credentials",
+  "version": "1.0.0",
+  "description": "Decentralized Academic Credential Verification and Tamper-Proof Certificate Issuance Platform using Soulbound Tokens (EIP-5192) and IPFS",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:amoy": "hardhat run scripts/deploy.js --network polygonAmoy",
+    "node": "hardhat node",
+    "seed": "hardhat run scripts/seed_demo.js --network localhost",
+    "client:dev": "npm --prefix client run dev",
+    "client:build": "npm --prefix client run build"
+  },
+  "keywords": [
+    "soulbound-tokens",
+    "eip-5192",
+    "academic-credentials",
+    "ipfs",
+    "tamper-proof",
+    "web3",
+    "polygon"
+  ],
+  "author": "M.Tech Scholar",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.18"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "dotenv": "^16.4.7"
+  }
+}

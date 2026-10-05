@@ -1,0 +1,4 @@
+PROJECT: Decentralized Academic Credential Verification via Soulbound Tokens
+STATUS: Publication-Grade M.Tech Synopsis Complete (Executive Academic Standard V2)
+PDF: MTech_Synopsis_15_Soulbound_Academic_Credentials.pdf
+DIAGRAM: Architecture_Diagram.png
