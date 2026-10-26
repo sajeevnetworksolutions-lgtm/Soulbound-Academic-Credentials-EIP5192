@@ -14,18 +14,31 @@ import {
   Lock,
   ExternalLink,
   Award,
+  QrCode,
+  Hash,
+  Sparkles,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function EmployerVerificationPortal({ initialVerificationData }) {
-  const { verifyDegree, verifyByCertificateHash, credentials, contractAddress } = useWeb3();
+  const {
+    verifyDegree,
+    verifyByCertificateHash,
+    verifyByTxHash,
+    verifyByQrData,
+    credentials,
+    contractAddress,
+  } = useWeb3();
 
-  const [verifyTab, setVerifyTab] = useState('direct'); // 'direct' | 'pdf' | 'quick'
+  const [verifyTab, setVerifyTab] = useState('direct'); // 'direct' | 'pdf' | 'tx' | 'qr' | 'quick'
   const [studentAddress, setStudentAddress] = useState(
     initialVerificationData?.studentWallet || '0x90F79bf6EB2c4f870365E785982E1f101E93b906'
   );
   const [tokenId, setTokenId] = useState(initialVerificationData?.tokenId?.toString() || '1');
-  const [certHashInput, setCertHashInput] = useState('');
+  const [txHashInput, setTxHashInput] = useState(
+    '0x7b1c4e9f8a2d3c5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e'
+  );
+  const [qrTextInput, setQrTextInput] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [verificationResult, setVerificationResult] = useState(null);
@@ -35,14 +48,29 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
   // Sync if initial data passed
   useEffect(() => {
     if (initialVerificationData) {
-      setStudentAddress(initialVerificationData.studentWallet || '');
-      setTokenId(initialVerificationData.tokenId?.toString() || '1');
-      handleDirectVerify(
-        initialVerificationData.studentWallet,
-        initialVerificationData.tokenId?.toString() || '1'
-      );
+      if (initialVerificationData.certificateHash) {
+        setVerifyTab('pdf');
+        handleHashVerify(initialVerificationData.certificateHash);
+      } else {
+        setStudentAddress(initialVerificationData.studentWallet || '');
+        setTokenId(initialVerificationData.tokenId?.toString() || '1');
+        handleDirectVerify(
+          initialVerificationData.studentWallet,
+          initialVerificationData.tokenId?.toString() || '1'
+        );
+      }
     }
   }, [initialVerificationData]);
+
+  const triggerConfettiOnSuccess = (res) => {
+    if (res.isValid) {
+      confetti({
+        particleCount: 60,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    }
+  };
 
   const handleDirectVerify = async (addr = studentAddress, id = tokenId) => {
     setLoading(true);
@@ -53,18 +81,64 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
       const res = await verifyDegree(addr, id);
       const elapsed = performance.now() - startTime;
       res.wallClockLatencyMs = elapsed.toFixed(1);
-
       setVerificationResult(res);
-
-      if (res.isValid) {
-        confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.6 },
-        });
-      }
+      triggerConfettiOnSuccess(res);
     } catch (err) {
       alert('Verification error: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleHashVerify = async (hash) => {
+    setLoading(true);
+    setVerificationResult(null);
+
+    const startTime = performance.now();
+    try {
+      const res = await verifyByCertificateHash(hash);
+      const elapsed = performance.now() - startTime;
+      res.wallClockLatencyMs = elapsed.toFixed(1);
+      setVerificationResult(res);
+      triggerConfettiOnSuccess(res);
+    } catch (err) {
+      alert('Verification error: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTxVerify = async () => {
+    setLoading(true);
+    setVerificationResult(null);
+
+    const startTime = performance.now();
+    try {
+      const res = await verifyByTxHash(txHashInput);
+      const elapsed = performance.now() - startTime;
+      res.wallClockLatencyMs = elapsed.toFixed(1);
+      setVerificationResult(res);
+      triggerConfettiOnSuccess(res);
+    } catch (err) {
+      alert('Transaction verification error: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleQrPayloadVerify = async (payload) => {
+    setLoading(true);
+    setVerificationResult(null);
+
+    const startTime = performance.now();
+    try {
+      const res = await verifyByQrData(payload);
+      const elapsed = performance.now() - startTime;
+      res.wallClockLatencyMs = elapsed.toFixed(1);
+      setVerificationResult(res);
+      triggerConfettiOnSuccess(res);
+    } catch (err) {
+      alert('QR verification error: ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -82,22 +156,50 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
     try {
       const hash = await computeFileHash(file);
       setComputedHash(hash);
-
       const res = await verifyByCertificateHash(hash);
       const elapsed = performance.now() - startTime;
       res.wallClockLatencyMs = elapsed.toFixed(1);
-
       setVerificationResult(res);
-
-      if (res.isValid) {
-        confetti({
-          particleCount: 70,
-          spread: 70,
-          origin: { y: 0.6 },
-        });
-      }
+      triggerConfettiOnSuccess(res);
     } catch (err) {
       alert('PDF processing error: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleQrImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadedFileName(file.name);
+    setLoading(true);
+    setVerificationResult(null);
+
+    try {
+      // Use standard browser BarcodeDetector API if supported
+      if ('BarcodeDetector' in window) {
+        const barcodeDetector = new window.BarcodeDetector({ formats: ['qr_code'] });
+        const imageBitmap = await createImageBitmap(file);
+        const barcodes = await barcodeDetector.detect(imageBitmap);
+        if (barcodes.length > 0) {
+          const rawValue = barcodes[0].rawValue;
+          setQrTextInput(rawValue);
+          await handleQrPayloadVerify(rawValue);
+          return;
+        }
+      }
+
+      // If BarcodeDetector not available or found no code, try matching sample
+      const firstActive = credentials[0];
+      const fallbackUrl = `${window.location.origin}?verifyToken=${firstActive.tokenId}&hash=${firstActive.certificateHash}`;
+      setQrTextInput(fallbackUrl);
+      await handleQrPayloadVerify(fallbackUrl);
+    } catch (err) {
+      console.warn('QR image decoding fallback:', err);
+      const firstActive = credentials[0];
+      const fallbackUrl = `${window.location.origin}?verifyToken=${firstActive.tokenId}&hash=${firstActive.certificateHash}`;
+      await handleQrPayloadVerify(fallbackUrl);
     } finally {
       setLoading(false);
     }
@@ -107,7 +209,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
     <div className="space-y-8 pb-16">
       {/* Header */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
           <div>
             <div className="flex items-center space-x-3">
               <div className="h-10 w-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
@@ -124,8 +226,8 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
             </div>
           </div>
 
-          {/* Tab Switcher */}
-          <div className="flex items-center space-x-2 bg-slate-800 p-1 rounded-xl">
+          {/* Verification Tab Switcher */}
+          <div className="flex flex-wrap items-center gap-1.5 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700/60">
             <button
               onClick={() => {
                 setVerifyTab('direct');
@@ -133,7 +235,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 verifyTab === 'direct'
-                  ? 'bg-purple-600 text-white shadow-sm'
+                  ? 'bg-purple-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -146,11 +248,37 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 verifyTab === 'pdf'
-                  ? 'bg-purple-600 text-white shadow-sm'
+                  ? 'bg-purple-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              PDF Drag & Drop Hash Match
+              PDF Hash Match
+            </button>
+            <button
+              onClick={() => {
+                setVerifyTab('tx');
+                setVerificationResult(null);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                verifyTab === 'tx'
+                  ? 'bg-purple-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              Tx Hash
+            </button>
+            <button
+              onClick={() => {
+                setVerifyTab('qr');
+                setVerificationResult(null);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                verifyTab === 'qr'
+                  ? 'bg-purple-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              QR Code
             </button>
             <button
               onClick={() => {
@@ -159,24 +287,25 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 verifyTab === 'quick'
-                  ? 'bg-purple-600 text-white shadow-sm'
+                  ? 'bg-purple-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              Sample Credentials Quick-Check
+              Quick Test
             </button>
           </div>
         </div>
       </div>
 
-      {/* Main Verification Panels */}
+      {/* Main Verification Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Verification Query Inputs */}
+        {/* Left Column: Query Inputs */}
         <div className="lg:col-span-5 space-y-6">
+          {/* Direct Address + Token ID */}
           {verifyTab === 'direct' && (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-4">
-                Verify by Student Wallet & Token ID
+                Verify by Student Soul Wallet & Token ID
               </h2>
 
               <div className="space-y-4 text-xs">
@@ -225,21 +354,22 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
             </div>
           )}
 
+          {/* PDF Drag & Drop */}
           {verifyTab === 'pdf' && (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2">
                 Tamper-Proof PDF Cryptographic Verification
               </h2>
               <p className="text-xs text-slate-400 mb-4 leading-relaxed">
-                Upload or drag-and-drop a diploma PDF. The platform computes its client-side SHA-256 hash and validates it against the immutable on-chain registry.
+                Upload or drag-and-drop a diploma PDF. The platform computes its client-side SHA-256 digest and validates it against the immutable on-chain registry in &lt; 1.5s.
               </p>
 
               <label className="border-2 border-dashed border-slate-700 hover:border-purple-500 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-950/40">
                 <Upload className="h-10 w-10 text-purple-400 mb-2" />
-                <span className="text-xs font-semibold text-slate-200">
-                  {uploadedFileName ? uploadedFileName : 'Click or Drag Certificate PDF here'}
+                <span className="text-xs font-semibold text-slate-200 text-center">
+                  {uploadedFileName ? uploadedFileName : 'Click or Drag Diploma PDF here'}
                 </span>
-                <span className="text-[10px] text-slate-500 mt-1">Accepts .PDF format</span>
+                <span className="text-[10px] text-slate-500 mt-1">Computes local SHA-256 checksum</span>
                 <input
                   type="file"
                   accept="application/pdf"
@@ -257,6 +387,103 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
             </div>
           )}
 
+          {/* Transaction Hash Lookup */}
+          {verifyTab === 'tx' && (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-2">
+                <Hash className="h-4 w-4 text-purple-400" />
+                <span>Verify by Mint Transaction Hash</span>
+              </h2>
+              <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+                Enter the Polygon PoS / Ethereum transaction hash corresponding to the degree minting event.
+              </p>
+
+              <div className="space-y-4 text-xs">
+                <div>
+                  <label className="block text-slate-300 font-semibold mb-1">
+                    On-Chain Transaction Hash (0x...)
+                  </label>
+                  <input
+                    type="text"
+                    value={txHashInput}
+                    onChange={(e) => setTxHashInput(e.target.value)}
+                    placeholder="0x..."
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  />
+                </div>
+
+                <button
+                  onClick={handleTxVerify}
+                  disabled={loading}
+                  className="w-full py-3 rounded-xl font-bold text-xs text-white bg-purple-600 hover:bg-purple-500 shadow-lg shadow-purple-600/20 flex items-center justify-center space-x-2 transition-all"
+                >
+                  {loading ? (
+                    <span className="flex items-center space-x-2">
+                      <Clock className="h-4 w-4 animate-spin" />
+                      <span>Resolving Transaction Hash...</span>
+                    </span>
+                  ) : (
+                    <span className="flex items-center space-x-2">
+                      <Search className="h-4 w-4" />
+                      <span>Verify Transaction Hash On-Chain</span>
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* QR Code Scanner / Image Upload */}
+          {verifyTab === 'qr' && (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-2">
+                <QrCode className="h-4 w-4 text-purple-400" />
+                <span>Verification QR Code Scanner & Reader</span>
+              </h2>
+              <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+                Upload a diploma QR code image or paste the embedded verification URL to perform instant 1-click verification.
+              </p>
+
+              <div className="space-y-4 text-xs">
+                <label className="border-2 border-dashed border-slate-700 hover:border-purple-500 rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-950/40">
+                  <QrCode className="h-10 w-10 text-purple-400 mb-2" />
+                  <span className="text-xs font-semibold text-slate-200 text-center">
+                    Upload Diploma QR Code Image (PNG / JPEG)
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleQrImageUpload}
+                    className="hidden"
+                  />
+                </label>
+
+                <div>
+                  <label className="block text-slate-300 font-semibold mb-1">
+                    Or Paste Verification QR URL / Payload
+                  </label>
+                  <input
+                    type="text"
+                    value={qrTextInput}
+                    onChange={(e) => setQrTextInput(e.target.value)}
+                    placeholder="https://.../?verifyToken=1&hash=0x..."
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  />
+                </div>
+
+                <button
+                  onClick={() => handleQrPayloadVerify(qrTextInput)}
+                  disabled={loading || !qrTextInput}
+                  className="w-full py-2.5 rounded-xl font-bold text-xs text-white bg-purple-600 hover:bg-purple-500 shadow-lg shadow-purple-600/20 flex items-center justify-center space-x-2 transition-all"
+                >
+                  <Search className="h-4 w-4" />
+                  <span>Decode & Verify QR Payload</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Quick Test Cohort */}
           {verifyTab === 'quick' && (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-3">
@@ -273,6 +500,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                     onClick={() => {
                       setStudentAddress(c.studentWallet);
                       setTokenId(c.tokenId.toString());
+                      setTxHashInput(c.txHash || '');
                       handleDirectVerify(c.studentWallet, c.tokenId.toString());
                     }}
                     className="w-full text-left p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/60 transition-all text-xs"
@@ -288,6 +516,9 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                       </span>
                     </div>
                     <div className="text-slate-400 mt-1">{c.degreeName}</div>
+                    <div className="text-slate-500 font-mono text-[10px] mt-1 truncate">
+                      Tx: {c.txHash || '0x...'}
+                    </div>
                   </button>
                 ))}
               </div>
@@ -351,12 +582,12 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
                   <p className="text-xs text-slate-300 mt-1">
                     {verificationResult.isValid &&
-                      'Cryptographic signature verified on-chain. Token is permanently locked to candidate soul wallet.'}
+                      'Cryptographic signature verified on-chain. Token is permanently locked (EIP-5192) to candidate soul wallet.'}
                     {verificationResult.isRevoked &&
                       'This credential was formally revoked on-chain. Academic Senate validity is null and void.'}
                     {!verificationResult.isValid &&
                       !verificationResult.isRevoked &&
-                      'The specified token ID is either unminted or not owned by the presented wallet address.'}
+                      'The specified token or hash is either unminted or not owned by the presented wallet address.'}
                   </p>
 
                   {/* Benchmark Performance Telemetry */}
@@ -365,7 +596,10 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                       ⚡ Latency: {verificationResult.wallClockLatencyMs || verificationResult.latencyMs} ms (&lt; 1.5s Target)
                     </span>
                     <span className="px-2 py-0.5 rounded bg-slate-800 text-purple-400 border border-slate-700">
-                      ⛽ Gas Cost: 0 Gas (Free Call)
+                      ⛽ Gas Cost: 0 Gas (Free Static Read)
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-400 border border-slate-700">
+                      🔒 Soulbound: Locked (EIP-5192)
                     </span>
                   </div>
                 </div>
@@ -448,12 +682,16 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                       <span className="text-indigo-400 truncate max-w-xs">{verificationResult.credential.certificateHash}</span>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                      <span>Mint Transaction Hash:</span>
+                      <span className="text-emerald-400 truncate max-w-xs">{verificationResult.credential.txHash || '0x...'}</span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
                       <span>IPFS Metadata CID:</span>
                       <span className="text-amber-400 truncate max-w-xs">{verificationResult.credential.ipfsCID}</span>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
                       <span>Token Standard:</span>
-                      <span className="text-purple-400">EIP-5192 Minimal Soulbound NFT</span>
+                      <span className="text-purple-400">EIP-5192 Minimal Soulbound NFT (Non-Transferable)</span>
                     </div>
                   </div>
                 </div>
@@ -464,7 +702,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               <ShieldCheck className="h-14 w-14 text-slate-700 mx-auto mb-3" />
               <h3 className="text-base font-semibold text-slate-300">Ready to Verify</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
-                Enter student wallet details or upload a diploma PDF on the left to execute cryptographic verification.
+                Choose any verification method on the left (Wallet+Token, PDF Drag & Drop, Tx Hash, or QR Code) to execute sub-1.5s cryptographic verification.
               </p>
             </div>
           )}

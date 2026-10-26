@@ -31,7 +31,7 @@ module.exports = {
     },
   },
   gasReporter: {
-    enabled: true,
+    enabled: process.env.REPORT_GAS === "true",
     currency: "USD",
   },
   paths: {

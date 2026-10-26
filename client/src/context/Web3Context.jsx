@@ -79,6 +79,7 @@ const INITIAL_DEMO_CREDENTIALS = [
     graduationDate: 1775174400,
     institutionName: 'National Institute of Advanced Technologies',
     certificateHash: '0x3a4b9c1d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b',
+    txHash: '0x7b1c4e9f8a2d3c5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e',
     ipfsCID: 'ipfs://QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
     issuanceTimestamp: Math.floor(Date.now() / 1000) - 86400 * 5,
     issuedByRegistrar: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
@@ -98,6 +99,7 @@ const INITIAL_DEMO_CREDENTIALS = [
     graduationDate: 1775174400,
     institutionName: 'National Institute of Advanced Technologies',
     certificateHash: '0x8f9e0d1c2b3a4f5e6d7c8b9a0f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b7a8f9e',
+    txHash: '0x4e8d2a6c1b9f7e5d3c8b4a2f6e0d9c7b5a3f1e9d8c6b4a2f0e8d6c4b2a0f8e6d',
     ipfsCID: 'ipfs://QmZtmD2qtWbpPyv6CW1bgX84TxjdVGsJNVsomNpNNq1xGQ',
     issuanceTimestamp: Math.floor(Date.now() / 1000) - 86400 * 2,
     issuedByRegistrar: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
@@ -117,6 +119,7 @@ const INITIAL_DEMO_CREDENTIALS = [
     graduationDate: 1743552000,
     institutionName: 'National Institute of Advanced Technologies',
     certificateHash: '0x5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d',
+    txHash: '0x9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b',
     ipfsCID: 'ipfs://QmRevokedSampleCIDCredentialForMarcus',
     issuanceTimestamp: Math.floor(Date.now() / 1000) - 86400 * 30,
     issuedByRegistrar: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
@@ -259,6 +262,9 @@ export function Web3Provider({ children }) {
       graduationDate: degreeData.graduationDate || Math.floor(Date.now() / 1000),
       institutionName: degreeData.institutionName,
       certificateHash: degreeData.certificateHash,
+      txHash:
+        degreeData.txHash ||
+        '0x' + computeSha256('mint_' + newId + '_' + Date.now() + '_' + degreeData.studentWallet).replace('0x', ''),
       ipfsCID: ipfsResult.ipfsUri,
       issuanceTimestamp: Math.floor(Date.now() / 1000),
       issuedByRegistrar: activeAddress,
@@ -496,6 +502,78 @@ export function Web3Provider({ children }) {
     };
   };
 
+  /**
+   * Verify by On-Chain Minting Transaction Hash
+   */
+  const verifyByTxHash = async (txHash) => {
+    const startTime = performance.now();
+    const normalized = (txHash || '').toLowerCase().trim();
+    const cred = credentials.find(
+      (c) => (c.txHash || '').toLowerCase().trim() === normalized
+    );
+    const latency = performance.now() - startTime;
+
+    if (!cred) {
+      return {
+        exists: false,
+        isValid: false,
+        isRevoked: false,
+        credential: null,
+        latencyMs: latency.toFixed(2),
+        gasCost: '0 Gas (Free View Call)',
+      };
+    }
+
+    return {
+      exists: true,
+      isValid: !cred.isRevoked,
+      isRevoked: cred.isRevoked,
+      credential: cred,
+      latencyMs: latency.toFixed(2),
+      gasCost: '0 Gas (Free View Call)',
+    };
+  };
+
+  /**
+   * Parse and verify QR code payload (URL or JSON)
+   */
+  const verifyByQrData = async (qrString) => {
+    try {
+      const trimmed = (qrString || '').trim();
+      let tokenId = null;
+      let hash = null;
+
+      if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+        const url = new URL(trimmed);
+        tokenId = url.searchParams.get('verifyToken') || url.searchParams.get('token');
+        hash = url.searchParams.get('hash');
+      } else if (trimmed.startsWith('{')) {
+        const parsed = JSON.parse(trimmed);
+        tokenId = parsed.tokenId || parsed.token;
+        hash = parsed.hash || parsed.certificateHash;
+      }
+
+      if (hash) {
+        return await verifyByCertificateHash(hash);
+      }
+      if (tokenId) {
+        const cred = credentials.find((c) => c.tokenId === Number(tokenId));
+        if (cred) {
+          return await verifyDegree(cred.studentWallet, cred.tokenId);
+        }
+      }
+      return {
+        isValid: false,
+        error: 'Could not extract valid verifiable token or hash from QR code payload.',
+      };
+    } catch (err) {
+      return {
+        isValid: false,
+        error: 'Invalid QR code payload format: ' + err.message,
+      };
+    }
+  };
+
   const getStudentCredentials = (studentAddr) => {
     return credentials.filter(
       (c) => c.studentWallet.toLowerCase() === studentAddr.toLowerCase()
@@ -523,6 +601,8 @@ export function Web3Provider({ children }) {
         reinstateDegree,
         verifyDegree,
         verifyByCertificateHash,
+        verifyByTxHash,
+        verifyByQrData,
         getStudentCredentials,
         pinataJwt,
         setPinataJwt,
