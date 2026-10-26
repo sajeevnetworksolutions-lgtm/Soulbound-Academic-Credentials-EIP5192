@@ -68,16 +68,17 @@ export default function DisciplinaryBoardPortal() {
   return (
     <div className="space-y-8 pb-16">
       {/* Header */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center space-x-3">
-          <div className="h-10 w-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center">
+      <div className="glass-panel p-6 sm:p-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-rose-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex items-center space-x-3.5 relative z-10">
+          <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-rose-500/20 to-red-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center shadow-lg shadow-rose-500/10">
             <AlertOctagon className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white">
+            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Academic Disciplinary & Ethics Board Portal
             </h1>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
               Dynamic on-chain credential suspension, revocation, and appeal reinstatement hooks (Objective 4).
             </p>
           </div>
@@ -86,7 +87,7 @@ export default function DisciplinaryBoardPortal() {
 
       {actionMessage && (
         <div
-          className={`p-4 rounded-xl border text-xs font-semibold flex items-center space-x-2 animate-in fade-in duration-200 ${
+          className={`p-4 rounded-xl border text-xs font-semibold flex items-center space-x-2 animate-in fade-in duration-200 shadow-lg ${
             actionMessage.type === 'revoked'
               ? 'bg-rose-950/40 border-rose-500/40 text-rose-300'
               : 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
@@ -102,13 +103,16 @@ export default function DisciplinaryBoardPortal() {
       )}
 
       {/* Main Action Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Revocation Trigger Form */}
-        <div className="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-6">
-          <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-4 flex items-center space-x-2">
-            <ShieldAlert className="h-4 w-4 text-rose-400" />
-            <span>Initiate Credential Revocation Hook</span>
-          </h2>
+        <div className="lg:col-span-6 glass-panel p-6 sm:p-7 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <h2 className="text-sm font-bold text-white flex items-center space-x-2">
+              <ShieldAlert className="h-4 w-4 text-rose-400" />
+              <span>Initiate Credential Revocation Hook</span>
+            </h2>
+            <span className="text-[11px] text-rose-400 font-mono">DISCIPLINARY_BOARD_ROLE</span>
+          </div>
 
           <form onSubmit={handleRevoke} className="space-y-4 text-xs">
             <div>
@@ -118,7 +122,7 @@ export default function DisciplinaryBoardPortal() {
               <select
                 value={selectedTokenId}
                 onChange={(e) => setSelectedTokenId(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                className="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 text-xs focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 focus:outline-none transition-all"
               >
                 <option value="">-- Choose Credential --</option>
                 {activeCredentials.map((c) => (
@@ -139,14 +143,14 @@ export default function DisciplinaryBoardPortal() {
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 placeholder="Reason for suspension or revocation..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-slate-100 text-xs focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                className="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-slate-100 text-xs focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 focus:outline-none transition-all"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl shadow-lg shadow-rose-600/20 flex items-center justify-center space-x-2 transition-all"
+              className="w-full bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-xs py-3 rounded-xl shadow-lg shadow-rose-950/50 flex items-center justify-center space-x-2 transition-all transform active:scale-[0.99]"
             >
               <AlertOctagon className="h-4 w-4" />
               <span>{loading ? 'Executing Revocation Hook...' : 'Execute On-Chain Revocation'}</span>
@@ -155,33 +159,36 @@ export default function DisciplinaryBoardPortal() {
         </div>
 
         {/* Revoked Credentials & Appeals Reinstatement */}
-        <div className="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-6">
-          <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-4 flex items-center space-x-2">
-            <RotateCcw className="h-4 w-4 text-amber-400" />
-            <span>Currently Revoked Credentials ({revokedCredentials.length})</span>
-          </h2>
+        <div className="lg:col-span-6 glass-panel p-6 sm:p-7 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <h2 className="text-sm font-bold text-white flex items-center space-x-2">
+              <RotateCcw className="h-4 w-4 text-amber-400" />
+              <span>Currently Revoked Credentials ({revokedCredentials.length})</span>
+            </h2>
+            <span className="text-[11px] text-amber-400 font-mono">Appellate Review</span>
+          </div>
 
           {revokedCredentials.length === 0 ? (
-            <div className="text-center py-10 text-slate-500 text-xs">
-              No credentials currently revoked. Academic integrity in good standing.
+            <div className="text-center py-12 text-slate-500 text-xs">
+              No credentials currently revoked. All issued degrees are in good standing.
             </div>
           ) : (
             <div className="space-y-3">
               {revokedCredentials.map((c) => (
                 <div
                   key={c.tokenId}
-                  className="bg-slate-800/60 border border-rose-500/30 rounded-xl p-4 text-xs space-y-2"
+                  className="glass-card-hover p-4 rounded-xl border border-rose-500/30 text-xs space-y-2"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-rose-400">Token #{c.tokenId}</span>
-                    <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-semibold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-semibold border border-rose-500/30">
                       Revoked
                     </span>
                   </div>
 
-                  <div className="font-bold text-slate-200">{c.studentName}</div>
+                  <div className="font-bold text-slate-100">{c.studentName}</div>
                   <div className="text-slate-400 text-[11px]">{c.degreeName}</div>
-                  <div className="text-rose-300 text-[11px] bg-rose-950/40 p-2 rounded-lg border border-rose-500/20">
+                  <div className="text-rose-300 text-[11px] bg-rose-950/40 p-2.5 rounded-lg border border-rose-500/20 leading-relaxed">
                     <strong>Reason: </strong> {c.revocationReason}
                   </div>
 
@@ -189,7 +196,7 @@ export default function DisciplinaryBoardPortal() {
                     <button
                       onClick={() => handleReinstate(c.tokenId)}
                       disabled={loading}
-                      className="bg-slate-700 hover:bg-slate-600 text-slate-200 text-[11px] font-semibold px-3 py-1.5 rounded-lg flex items-center space-x-1.5 transition-all"
+                      className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-semibold px-3 py-1.5 rounded-lg border border-slate-700 flex items-center space-x-1.5 transition-all"
                     >
                       <RotateCcw className="h-3.5 w-3.5 text-emerald-400" />
                       <span>Reinstate Credential (Pass Appeal)</span>
@@ -203,8 +210,8 @@ export default function DisciplinaryBoardPortal() {
       </div>
 
       {/* Disciplinary Audit Ledger */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-        <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-4 flex items-center space-x-2">
+      <div className="glass-panel p-6 sm:p-7 space-y-4">
+        <h2 className="text-sm font-bold text-white flex items-center space-x-2 pb-3 border-b border-slate-800">
           <FileText className="h-4 w-4 text-slate-400" />
           <span>Full Academic Integrity & Revocation Audit Ledger</span>
         </h2>
@@ -213,23 +220,23 @@ export default function DisciplinaryBoardPortal() {
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[10px]">
-                <th className="py-2.5 px-3">Token ID</th>
-                <th className="py-2.5 px-3">Student Name</th>
-                <th className="py-2.5 px-3">Degree</th>
-                <th className="py-2.5 px-3">Status</th>
-                <th className="py-2.5 px-3">Reason / Details</th>
-                <th className="py-2.5 px-3">Timestamp</th>
+                <th className="py-3 px-3">Token ID</th>
+                <th className="py-3 px-3">Student Name</th>
+                <th className="py-3 px-3">Degree</th>
+                <th className="py-3 px-3">Status</th>
+                <th className="py-3 px-3">Reason / Details</th>
+                <th className="py-3 px-3">Timestamp</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-slate-800/60">
               {credentials.map((c) => (
-                <tr key={c.tokenId} className="hover:bg-slate-800/30 text-[11px]">
-                  <td className="py-2.5 px-3 font-mono text-slate-300">#{c.tokenId}</td>
-                  <td className="py-2.5 px-3 font-semibold text-slate-100">{c.studentName}</td>
-                  <td className="py-2.5 px-3 text-slate-400">{c.degreeName}</td>
-                  <td className="py-2.5 px-3">
+                <tr key={c.tokenId} className="hover:bg-slate-800/40 text-[11px] transition-colors">
+                  <td className="py-3 px-3 font-mono text-slate-300">#{c.tokenId}</td>
+                  <td className="py-3 px-3 font-semibold text-slate-100">{c.studentName}</td>
+                  <td className="py-3 px-3 text-slate-400">{c.degreeName}</td>
+                  <td className="py-3 px-3">
                     <span
-                      className={`px-2 py-0.5 rounded font-medium text-[10px] ${
+                      className={`px-2.5 py-0.5 rounded-full font-medium text-[10px] ${
                         c.isRevoked
                           ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
                           : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
@@ -238,10 +245,10 @@ export default function DisciplinaryBoardPortal() {
                       {c.isRevoked ? 'Revoked' : 'Active & Valid'}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-slate-400 truncate max-w-xs">
+                  <td className="py-3 px-3 text-slate-400 truncate max-w-xs">
                     {c.isRevoked ? c.revocationReason : 'In Good Standing'}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-slate-500 text-[10px]">
+                  <td className="py-3 px-3 font-mono text-slate-500 text-[10px]">
                     {formatDate(c.revocationTimestamp || c.issuanceTimestamp)}
                   </td>
                 </tr>

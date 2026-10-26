@@ -208,7 +208,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
   return (
     <div className="space-y-8 pb-16">
       {/* Header */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+      <div className="glass-panel p-6 sm:p-8 relative overflow-hidden">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
           <div>
             <div className="flex items-center space-x-3">
@@ -303,7 +303,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
         <div className="lg:col-span-5 space-y-6">
           {/* Direct Address + Token ID */}
           {verifyTab === 'direct' && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div className="glass-panel p-6 sm:p-7 space-y-4">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-4">
                 Verify by Student Soul Wallet & Token ID
               </h2>
@@ -356,7 +356,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
           {/* PDF Drag & Drop */}
           {verifyTab === 'pdf' && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div className="glass-panel p-6 sm:p-7 space-y-4">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2">
                 Tamper-Proof PDF Cryptographic Verification
               </h2>
@@ -389,7 +389,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
           {/* Transaction Hash Lookup */}
           {verifyTab === 'tx' && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div className="glass-panel p-6 sm:p-7 space-y-4">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-2">
                 <Hash className="h-4 w-4 text-purple-400" />
                 <span>Verify by Mint Transaction Hash</span>
@@ -435,7 +435,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
           {/* QR Code Scanner / Image Upload */}
           {verifyTab === 'qr' && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div className="glass-panel p-6 sm:p-7 space-y-4">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-2">
                 <QrCode className="h-4 w-4 text-purple-400" />
                 <span>Verification QR Code Scanner & Reader</span>
@@ -485,7 +485,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
           {/* Quick Test Cohort */}
           {verifyTab === 'quick' && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div className="glass-panel p-6 sm:p-7 space-y-4">
               <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-3">
                 Quick Test Sample Credentials
               </h2>
@@ -542,7 +542,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
         {/* Right Column: Verification Results Badge & Proof */}
         <div className="lg:col-span-7">
           {verificationResult ? (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
+            <div className="glass-panel p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200 shadow-2xl">
               {/* Verdict Header */}
               <div
                 className={`p-5 rounded-2xl border flex items-start space-x-4 ${
@@ -698,7 +698,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               )}
             </div>
           ) : (
-            <div className="text-center py-24 bg-slate-900 border border-slate-800 rounded-2xl">
+            <div className="text-center py-24 glass-panel rounded-2xl">
               <ShieldCheck className="h-14 w-14 text-slate-700 mx-auto mb-3" />
               <h3 className="text-base font-semibold text-slate-300">Ready to Verify</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
