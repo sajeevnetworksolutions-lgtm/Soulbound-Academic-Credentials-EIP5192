@@ -41,7 +41,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#070b14]/90 backdrop-blur-xl border-b border-white/[0.08]">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/90 shadow-sm">
       {/* Top Bar: Brand, Network, and Web3 Identity */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -50,31 +50,31 @@ export default function Navbar({ activeTab, setActiveTab }) {
             className="flex items-center space-x-3.5 cursor-pointer group"
             onClick={() => setActiveTab('overview')}
           >
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-600 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform">
               <Award className="h-5 w-5 text-white" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-serif-title font-bold text-lg tracking-wider text-white">
+                <span className="font-serif-title font-bold text-lg tracking-wider text-slate-900">
                   SOULBOUND
                 </span>
-                <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono font-semibold border border-emerald-500/25">
+                <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-mono font-bold border border-emerald-300">
                   EIP-5192
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium">Decentralized Academic Credentials</p>
+              <p className="text-[11px] text-slate-500 font-medium">Decentralized Academic Credentials</p>
             </div>
           </div>
 
           {/* Web3 Network & Role Controls */}
           <div className="flex items-center space-x-3">
             {/* Network Indicator */}
-            <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-white/[0.08] text-xs text-slate-300 shadow-inner">
+            <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 shadow-inner">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="font-mono text-[11px] font-medium tracking-tight text-slate-200">
+              <span className="font-mono text-[11px] font-semibold tracking-tight text-slate-700">
                 {networkName}
               </span>
             </div>
@@ -83,29 +83,29 @@ export default function Navbar({ activeTab, setActiveTab }) {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center space-x-2.5 bg-slate-900/90 hover:bg-slate-800/90 border border-white/[0.1] px-3.5 py-1.5 rounded-xl text-xs font-medium text-white transition-all shadow-md hover:border-emerald-500/40"
+                className="flex items-center space-x-2.5 bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-500/60 px-3.5 py-1.5 rounded-xl text-xs font-medium text-slate-800 transition-all shadow-sm"
               >
                 <div
-                  className={`h-2.5 w-2.5 rounded-full ring-2 ring-white/10 ${
+                  className={`h-2.5 w-2.5 rounded-full ring-2 ring-slate-100 ${
                     currentAccount.color === 'emerald'
-                      ? 'bg-emerald-400'
+                      ? 'bg-emerald-500'
                       : currentAccount.color === 'indigo'
-                      ? 'bg-indigo-400'
+                      ? 'bg-indigo-500'
                       : currentAccount.color === 'rose'
-                      ? 'bg-rose-400'
+                      ? 'bg-rose-500'
                       : currentAccount.color === 'cyan'
-                      ? 'bg-cyan-400'
-                      : 'bg-amber-400'
+                      ? 'bg-cyan-500'
+                      : 'bg-amber-500'
                   }`}
                 />
                 <div className="text-left">
-                  <div className="text-xs font-semibold leading-tight text-slate-100 flex items-center space-x-1.5">
+                  <div className="text-xs font-bold leading-tight text-slate-800 flex items-center space-x-1.5">
                     <span>{currentAccount.role}</span>
-                    <span className="text-[10px] text-slate-400 font-normal hidden md:inline">
+                    <span className="text-[10px] text-slate-500 font-normal hidden md:inline">
                       ({currentAccount.name.split(' ')[0]})
                     </span>
                   </div>
-                  <div className="text-[10px] text-slate-400 font-mono">
+                  <div className="text-[10px] text-slate-500 font-mono">
                     {formatAddress(activeAddress)}
                   </div>
                 </div>
@@ -114,15 +114,17 @@ export default function Navbar({ activeTab, setActiveTab }) {
 
               {/* Role Dropdown Menu */}
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-80 bg-[#0b1220] border border-white/[0.12] rounded-2xl shadow-2xl py-2.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-4 py-2 border-b border-white/[0.08] flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="px-4 py-2 border-b border-slate-100 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                       Switch Active Web3 Role
                     </span>
-                    <span className="text-[10px] text-emerald-400 font-mono">Instant Simulation</span>
+                    <span className="text-[10px] text-emerald-700 font-semibold font-mono bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      Simulated
+                    </span>
                   </div>
 
-                  <div className="max-h-72 overflow-y-auto py-1 divide-y divide-white/[0.04]">
+                  <div className="max-h-72 overflow-y-auto py-1 divide-y divide-slate-100">
                     {PRESET_ACCOUNTS.map((acc) => {
                       const isSelected = !isMetaMaskConnected && currentAccount.role === acc.role;
                       return (
@@ -132,34 +134,34 @@ export default function Navbar({ activeTab, setActiveTab }) {
                             switchPresetAccount(acc);
                             setIsDropdownOpen(false);
                           }}
-                          className={`w-full text-left px-4 py-2.5 flex items-start space-x-3 hover:bg-white/[0.04] transition-colors ${
-                            isSelected ? 'bg-emerald-500/10 font-medium' : ''
+                          className={`w-full text-left px-4 py-2.5 flex items-start space-x-3 hover:bg-slate-50 transition-colors ${
+                            isSelected ? 'bg-emerald-50/80 font-medium' : ''
                           }`}
                         >
                           <div
                             className={`h-2.5 w-2.5 rounded-full mt-1 flex-shrink-0 ${
                               acc.color === 'emerald'
-                                ? 'bg-emerald-400'
+                                ? 'bg-emerald-500'
                                 : acc.color === 'indigo'
-                                ? 'bg-indigo-400'
+                                ? 'bg-indigo-500'
                                 : acc.color === 'rose'
-                                ? 'bg-rose-400'
+                                ? 'bg-rose-500'
                                 : acc.color === 'cyan'
-                                ? 'bg-cyan-400'
-                                : 'bg-amber-400'
+                                ? 'bg-cyan-500'
+                                : 'bg-amber-500'
                             }`}
                           />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
-                              <span className="font-semibold text-xs text-slate-100">
+                              <span className="font-bold text-xs text-slate-900">
                                 {acc.title}
                               </span>
                               {isSelected && (
-                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                               )}
                             </div>
-                            <div className="text-[11px] text-slate-300 truncate">{acc.name}</div>
-                            <div className="text-[10px] text-slate-500 font-mono truncate">
+                            <div className="text-[11px] text-slate-600 truncate">{acc.name}</div>
+                            <div className="text-[10px] text-slate-400 font-mono truncate">
                               {formatAddress(acc.address)} • {acc.description}
                             </div>
                           </div>
@@ -168,15 +170,15 @@ export default function Navbar({ activeTab, setActiveTab }) {
                     })}
                   </div>
 
-                  <div className="p-3 border-t border-white/[0.08]">
+                  <div className="p-3 border-t border-slate-100">
                     <button
                       onClick={() => {
                         connectMetaMask();
                         setIsDropdownOpen(false);
                       }}
-                      className="w-full flex items-center justify-center space-x-2 py-2 px-3 bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 rounded-xl text-xs font-semibold text-white shadow-lg shadow-emerald-500/10 transition-all"
+                      className="w-full flex items-center justify-center space-x-2 py-2 px-3 bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 rounded-xl text-xs font-bold text-white shadow-md shadow-indigo-600/10 transition-all"
                     >
-                      <Wallet className="h-3.5 w-3.5" />
+                      <Wallet className="h-3.5 w-3.5 text-white" />
                       <span>Connect External MetaMask Wallet</span>
                     </button>
                   </div>
@@ -187,7 +189,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
         </div>
 
         {/* Secondary Navigation Row: Spacious Persona Tabs */}
-        <div className="flex items-center space-x-1.5 py-2.5 overflow-x-auto scrollbar-none border-t border-white/[0.05]">
+        <div className="flex items-center space-x-1.5 py-2.5 overflow-x-auto scrollbar-none border-t border-slate-100">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -195,21 +197,21 @@ export default function Navbar({ activeTab, setActiveTab }) {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                   isActive
-                    ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-sm shadow-emerald-500/10 font-semibold'
+                    ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
                     : item.highlight
-                    ? 'text-purple-300 hover:text-white hover:bg-purple-500/10 border border-purple-500/20'
-                    : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                    ? 'text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
                 <Icon
                   className={`h-3.5 w-3.5 ${
                     isActive
-                      ? 'text-emerald-400'
+                      ? 'text-white'
                       : item.highlight
-                      ? 'text-purple-400'
-                      : 'text-slate-400'
+                      ? 'text-purple-600'
+                      : 'text-slate-500'
                   }`}
                 />
                 <span>{item.label}</span>

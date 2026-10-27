@@ -199,7 +199,7 @@ export default function DiplomaCertificate({ credential, onVerifyClick }) {
 
         <button
           onClick={copyVerifyUrl}
-          className="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium text-xs py-2.5 px-4 rounded-xl transition-all"
+          className="flex items-center space-x-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-sm"
         >
           {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
           <span>{copied ? 'Verification Link Copied!' : 'Copy Verification Link'}</span>

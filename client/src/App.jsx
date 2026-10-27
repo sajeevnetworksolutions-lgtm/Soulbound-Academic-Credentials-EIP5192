@@ -29,7 +29,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col text-slate-100">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col text-slate-800">
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8">
@@ -49,13 +49,13 @@ function AppContent() {
         {activeTab === 'benchmarks' && <BenchmarkDashboard />}
       </main>
 
-      {/* Modern Academic & Web3 Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-8 text-xs text-slate-500 text-center">
+      {/* Modern Academic & Web3 Light Footer */}
+      <footer className="border-t border-slate-200 bg-white py-8 text-xs text-slate-500 text-center shadow-inner mt-12">
         <div className="max-w-7xl mx-auto px-4 space-y-2">
-          <p className="font-mono">
+          <p className="font-mono text-slate-600 font-medium">
             M.Tech Dissertation Project • Decentralized Academic Credential Verification Platform
           </p>
-          <p className="text-[11px] text-slate-600">
+          <p className="text-[11px] text-slate-500">
             Compliant with EIP-5192 (Minimal Soulbound NFTs), EIP-721 Metadata, and IPFS Cryptographic Standards.
           </p>
         </div>

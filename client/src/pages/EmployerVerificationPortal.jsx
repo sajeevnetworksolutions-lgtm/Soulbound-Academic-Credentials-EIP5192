@@ -304,13 +304,13 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
           {/* Direct Address + Token ID */}
           {verifyTab === 'direct' && (
             <div className="glass-panel p-6 sm:p-7 space-y-4">
-              <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-4">
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 pb-2 border-b border-slate-100">
                 Verify by Student Soul Wallet & Token ID
               </h2>
 
               <div className="space-y-4 text-xs">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-slate-700 font-semibold mb-1">
                     Student Soulbound Wallet Address
                   </label>
                   <input
@@ -318,18 +318,18 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                     value={studentAddress}
                     onChange={(e) => setStudentAddress(e.target.value)}
                     placeholder="0x..."
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 font-mono text-xs focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 focus:outline-none shadow-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Token ID</label>
+                  <label className="block text-slate-700 font-semibold mb-1">Token ID</label>
                   <input
                     type="number"
                     value={tokenId}
                     onChange={(e) => setTokenId(e.target.value)}
                     placeholder="e.g. 1"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 font-mono text-xs focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 focus:outline-none shadow-sm"
                   />
                 </div>
 
@@ -357,16 +357,16 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
           {/* PDF Drag & Drop */}
           {verifyTab === 'pdf' && (
             <div className="glass-panel p-6 sm:p-7 space-y-4">
-              <h2 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400 mb-2">
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">
                 Tamper-Proof PDF Cryptographic Verification
               </h2>
               <p className="text-xs text-slate-400 mb-4 leading-relaxed">
                 Upload or drag-and-drop a diploma PDF. The platform computes its client-side SHA-256 digest and validates it against the immutable on-chain registry in &lt; 1.5s.
               </p>
 
-              <label className="border-2 border-dashed border-slate-700 hover:border-purple-500 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-950/40">
+              <label className="border-2 border-dashed border-slate-300 hover:border-purple-500 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-purple-50/20">
                 <Upload className="h-10 w-10 text-purple-400 mb-2" />
-                <span className="text-xs font-semibold text-slate-200 text-center">
+                <span className="text-xs font-semibold text-slate-700 font-medium text-center">
                   {uploadedFileName ? uploadedFileName : 'Click or Drag Diploma PDF here'}
                 </span>
                 <span className="text-[10px] text-slate-500 mt-1">Computes local SHA-256 checksum</span>
@@ -400,7 +400,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
               <div className="space-y-4 text-xs">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-slate-700 font-semibold mb-1">
                     On-Chain Transaction Hash (0x...)
                   </label>
                   <input
@@ -408,7 +408,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                     value={txHashInput}
                     onChange={(e) => setTxHashInput(e.target.value)}
                     placeholder="0x..."
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 font-mono text-xs focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 focus:outline-none shadow-sm"
                   />
                 </div>
 
@@ -445,9 +445,9 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               </p>
 
               <div className="space-y-4 text-xs">
-                <label className="border-2 border-dashed border-slate-700 hover:border-purple-500 rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-950/40">
+                <label className="border-2 border-dashed border-slate-300 hover:border-purple-500 rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer transition-colors bg-purple-50/20">
                   <QrCode className="h-10 w-10 text-purple-400 mb-2" />
-                  <span className="text-xs font-semibold text-slate-200 text-center">
+                  <span className="text-xs font-semibold text-slate-700 font-medium text-center">
                     Upload Diploma QR Code Image (PNG / JPEG)
                   </span>
                   <input
@@ -459,7 +459,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                 </label>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-slate-700 font-semibold mb-1">
                     Or Paste Verification QR URL / Payload
                   </label>
                   <input
@@ -467,7 +467,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                     value={qrTextInput}
                     onChange={(e) => setQrTextInput(e.target.value)}
                     placeholder="https://.../?verifyToken=1&hash=0x..."
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 font-mono text-xs focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 focus:outline-none shadow-sm"
                   />
                 </div>
 
@@ -503,20 +503,20 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                       setTxHashInput(c.txHash || '');
                       handleDirectVerify(c.studentWallet, c.tokenId.toString());
                     }}
-                    className="w-full text-left p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/60 transition-all text-xs"
+                    className="w-full text-left p-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 transition-all text-xs shadow-sm"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-200">{c.studentName}</span>
+                      <span className="font-bold text-slate-900">{c.studentName}</span>
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded font-mono ${
-                          c.isRevoked ? 'text-rose-400 bg-rose-500/10' : 'text-emerald-400 bg-emerald-500/10'
+                        className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
+                          c.isRevoked ? 'text-rose-700 bg-rose-50 border border-rose-200' : 'text-emerald-700 bg-emerald-50 border border-emerald-200'
                         }`}
                       >
                         {c.isRevoked ? 'REVOKED SAMPLE' : `Token #${c.tokenId}`}
                       </span>
                     </div>
-                    <div className="text-slate-400 mt-1">{c.degreeName}</div>
-                    <div className="text-slate-500 font-mono text-[10px] mt-1 truncate">
+                    <div className="text-slate-600 mt-1">{c.degreeName}</div>
+                    <div className="text-slate-400 font-mono text-[10px] mt-1 truncate">
                       Tx: {c.txHash || '0x...'}
                     </div>
                   </button>
@@ -526,13 +526,13 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
           )}
 
           {/* Quantitative Performance Benchmark Callout */}
-          <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 flex items-center space-x-3">
-            <div className="h-8 w-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center flex-shrink-0">
+          <div className="glass-panel rounded-2xl p-4 flex items-center space-x-3 border-emerald-200 bg-emerald-50/20">
+            <div className="h-8 w-8 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center flex-shrink-0">
               <Zap className="h-4 w-4" />
             </div>
             <div className="text-xs">
-              <span className="font-semibold text-slate-200">Zero-Gas & Sub-Second Latency: </span>
-              <span className="text-slate-400">
+              <span className="font-bold text-slate-800">Zero-Gas & Sub-Second Latency: </span>
+              <span className="text-slate-600">
                 All verification operations utilize EVM static read calls (0 Gas) executed in &lt; 1.5 seconds.
               </span>
             </div>
@@ -545,20 +545,20 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
             <div className="glass-panel p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200 shadow-2xl">
               {/* Verdict Header */}
               <div
-                className={`p-5 rounded-2xl border flex items-start space-x-4 ${
+                className={`p-5 rounded-2xl border flex items-start space-x-4 shadow-sm ${
                   verificationResult.isValid
-                    ? 'bg-emerald-950/30 border-emerald-500/50'
+                    ? 'bg-emerald-50 border-emerald-300'
                     : verificationResult.isRevoked
-                    ? 'bg-rose-950/30 border-rose-500/50'
-                    : 'bg-amber-950/30 border-amber-500/50'
+                    ? 'bg-rose-50 border-rose-300'
+                    : 'bg-amber-50 border-amber-300'
                 }`}
               >
                 {verificationResult.isValid ? (
-                  <CheckCircle2 className="h-10 w-10 text-emerald-400 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="h-10 w-10 text-emerald-600 flex-shrink-0 mt-1" />
                 ) : verificationResult.isRevoked ? (
-                  <XCircle className="h-10 w-10 text-rose-400 flex-shrink-0 mt-1" />
+                  <XCircle className="h-10 w-10 text-rose-600 flex-shrink-0 mt-1" />
                 ) : (
-                  <AlertTriangle className="h-10 w-10 text-amber-400 flex-shrink-0 mt-1" />
+                  <AlertTriangle className="h-10 w-10 text-amber-600 flex-shrink-0 mt-1" />
                 )}
 
                 <div className="flex-1">
@@ -566,10 +566,10 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                     <h2
                       className={`text-lg sm:text-xl font-bold ${
                         verificationResult.isValid
-                          ? 'text-emerald-400'
+                          ? 'text-emerald-900'
                           : verificationResult.isRevoked
-                          ? 'text-rose-400'
-                          : 'text-amber-400'
+                          ? 'text-rose-900'
+                          : 'text-amber-900'
                       }`}
                     >
                       {verificationResult.isValid && '✓ 100% AUTHENTIC DEGREE VERIFIED'}
@@ -580,7 +580,7 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                     </h2>
                   </div>
 
-                  <p className="text-xs text-slate-300 mt-1">
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                     {verificationResult.isValid &&
                       'Cryptographic signature verified on-chain. Token is permanently locked (EIP-5192) to candidate soul wallet.'}
                     {verificationResult.isRevoked &&
@@ -591,14 +591,14 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
                   </p>
 
                   {/* Benchmark Performance Telemetry */}
-                  <div className="mt-3 flex flex-wrap gap-3 text-[11px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-emerald-400 border border-slate-700">
+                  <div className="mt-3 flex flex-wrap gap-2.5 text-[11px] font-mono">
+                    <span className="px-2.5 py-1 rounded-lg bg-white text-emerald-800 border border-emerald-200 shadow-sm font-semibold">
                       ⚡ Latency: {verificationResult.wallClockLatencyMs || verificationResult.latencyMs} ms (&lt; 1.5s Target)
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-purple-400 border border-slate-700">
+                    <span className="px-2.5 py-1 rounded-lg bg-white text-purple-800 border border-purple-200 shadow-sm font-semibold">
                       ⛽ Gas Cost: 0 Gas (Free Static Read)
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-400 border border-slate-700">
+                    <span className="px-2.5 py-1 rounded-lg bg-white text-amber-800 border border-amber-200 shadow-sm font-semibold">
                       🔒 Soulbound: Locked (EIP-5192)
                     </span>
                   </div>
@@ -607,10 +607,10 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
 
               {/* Revocation Details Warning if Revoked */}
               {verificationResult.isRevoked && verificationResult.credential && (
-                <div className="p-4 bg-rose-900/30 border border-rose-500/40 rounded-xl text-xs space-y-1">
-                  <span className="font-bold text-rose-300">Revocation Reason: </span>
-                  <span className="text-slate-200">{verificationResult.credential.revocationReason}</span>
-                  <div className="text-[10px] text-rose-400 font-mono mt-1">
+                <div className="p-4 bg-rose-100/70 border border-rose-300 rounded-xl text-xs space-y-1 shadow-sm">
+                  <span className="font-bold text-rose-900">Revocation Reason: </span>
+                  <span className="text-rose-800">{verificationResult.credential.revocationReason}</span>
+                  <div className="text-[10px] text-rose-700 font-mono mt-1">
                     Revocation Reference Hash: {verificationResult.credential.revocationReasonHash}
                   </div>
                 </div>
@@ -619,79 +619,79 @@ export default function EmployerVerificationPortal({ initialVerificationData }) 
               {/* Verified Credential Metadata Card */}
               {verificationResult.credential && (
                 <div className="space-y-4">
-                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     On-Chain Verified Academic Details
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                    <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-                      <span className="text-slate-400 block text-[11px]">Graduate Full Name</span>
-                      <span className="font-bold text-slate-100 text-sm">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                      <span className="text-slate-500 block text-[11px]">Graduate Full Name</span>
+                      <span className="font-bold text-slate-900 text-sm">
                         {verificationResult.credential.studentName}
                       </span>
                     </div>
 
-                    <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-                      <span className="text-slate-400 block text-[11px]">Student Roll / ID</span>
-                      <span className="font-mono font-bold text-slate-100 text-sm">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                      <span className="text-slate-500 block text-[11px]">Student Roll / ID</span>
+                      <span className="font-mono font-bold text-slate-900 text-sm">
                         {verificationResult.credential.studentIdNumber}
                       </span>
                     </div>
 
-                    <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-                      <span className="text-slate-400 block text-[11px]">Degree Program</span>
-                      <span className="font-bold text-slate-100">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                      <span className="text-slate-500 block text-[11px]">Degree Program</span>
+                      <span className="font-bold text-slate-900">
                         {verificationResult.credential.degreeName}
                       </span>
                     </div>
 
-                    <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-                      <span className="text-slate-400 block text-[11px]">Major / Specialization</span>
-                      <span className="font-medium text-slate-200">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                      <span className="text-slate-500 block text-[11px]">Major / Specialization</span>
+                      <span className="font-medium text-slate-700">
                         {verificationResult.credential.majorSpecialization}
                       </span>
                     </div>
 
-                    <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-                      <span className="text-slate-400 block text-[11px]">Cumulative GPA</span>
-                      <span className="font-bold text-emerald-400">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                      <span className="text-slate-500 block text-[11px]">Cumulative GPA</span>
+                      <span className="font-bold text-emerald-700">
                         {verificationResult.credential.cgpa}
                       </span>
                     </div>
 
-                    <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
-                      <span className="text-slate-400 block text-[11px]">Issuing University</span>
-                      <span className="font-medium text-slate-200">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-sm">
+                      <span className="text-slate-500 block text-[11px]">Issuing University</span>
+                      <span className="font-medium text-slate-700">
                         {verificationResult.credential.institutionName}
                       </span>
                     </div>
                   </div>
 
                   {/* Cryptographic Proof Hashes */}
-                  <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-[11px] font-mono">
-                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-[11px] font-mono shadow-sm">
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-600 gap-1">
                       <span>Bound Soul Wallet:</span>
-                      <span className="text-emerald-400">{verificationResult.credential.studentWallet}</span>
+                      <span className="text-emerald-700 font-bold">{verificationResult.credential.studentWallet}</span>
                     </div>
-                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-600 gap-1">
                       <span>Registrar Signer:</span>
-                      <span className="text-slate-200">{verificationResult.credential.issuedByRegistrar}</span>
+                      <span className="text-slate-800">{verificationResult.credential.issuedByRegistrar}</span>
                     </div>
-                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-600 gap-1">
                       <span>Certificate SHA-256 Hash:</span>
-                      <span className="text-indigo-400 truncate max-w-xs">{verificationResult.credential.certificateHash}</span>
+                      <span className="text-indigo-700 font-semibold truncate max-w-xs">{verificationResult.credential.certificateHash}</span>
                     </div>
-                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-600 gap-1">
                       <span>Mint Transaction Hash:</span>
-                      <span className="text-emerald-400 truncate max-w-xs">{verificationResult.credential.txHash || '0x...'}</span>
+                      <span className="text-emerald-700 font-semibold truncate max-w-xs">{verificationResult.credential.txHash || '0x...'}</span>
                     </div>
-                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-600 gap-1">
                       <span>IPFS Metadata CID:</span>
-                      <span className="text-amber-400 truncate max-w-xs">{verificationResult.credential.ipfsCID}</span>
+                      <span className="text-amber-700 font-semibold truncate max-w-xs">{verificationResult.credential.ipfsCID}</span>
                     </div>
-                    <div className="flex flex-col sm:flex-row justify-between text-slate-400 gap-1">
+                    <div className="flex flex-col sm:flex-row justify-between text-slate-600 gap-1">
                       <span>Token Standard:</span>
-                      <span className="text-purple-400">EIP-5192 Minimal Soulbound NFT (Non-Transferable)</span>
+                      <span className="text-purple-700 font-bold">EIP-5192 Minimal Soulbound NFT (Non-Transferable)</span>
                     </div>
                   </div>
                 </div>
