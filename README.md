@@ -97,6 +97,7 @@ npx hardhat test
 - **Security Audit Suite:** [`test/SecurityAudit.test.js`](test/SecurityAudit.test.js) (SWC-100 strict non-transferability, SWC-107 zero-reentrancy on multi-sig execution, rogue admin defense, pausable circuit breaker, and gas checks).
 - **Full Security Audit Report:** [`audit/SECURITY_AUDIT_REPORT.md`](audit/SECURITY_AUDIT_REPORT.md).
 - **Complete Thesis Dissertation Report:** [`docs/DISSERTATION_FINAL_REPORT.md`](docs/DISSERTATION_FINAL_REPORT.md).
+- **Interactive Lifecycle Simulator:** [`docs/project_working_walkthrough.html`](docs/project_working_walkthrough.html) (Stand-alone browser simulator demonstrating Registrar, Dean, Student Soul Wallet, and Employer flows).
 
 ---
 

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EIP-5192 Soulbound Academic Credentials - Interactive Lifecycle</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    .font-serif-title { font-family: Georgia, serif; }
+    .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-6 min-h-screen">
+  <div class="max-w-4xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+            EIP-5192 SOULBOUND
+          </span>
+          <span class="text-xs font-mono text-slate-500">Polygon Amoy Testnet</span>
+        </div>
+        <h1 class="text-xl font-bold text-slate-900 mt-1">Platform Workflow & Lifecycle Simulator</h1>
+        <p class="text-xs text-slate-600">Simulate how a degree moves through the Registrar, Dean, Student, and Employer.</p>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button id="resetBtn" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-300 transition-colors">
+          ↺ Reset Simulation
+        </button>
+      </div>
+    </div>
+
+    <!-- Stepper Navigation -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+      <button onclick="goToStep(1)" id="stepBtn-1" class="step-btn p-3 rounded-xl border text-left transition-all bg-emerald-600 text-white font-bold shadow-sm">
+        <div class="text-[11px] opacity-80 uppercase tracking-wider">Step 1</div>
+        <div class="text-xs">Registrar Issuance</div>
+      </button>
+      <button onclick="goToStep(2)" id="stepBtn-2" class="step-btn p-3 rounded-xl border text-left transition-all bg-white hover:bg-slate-50 text-slate-700 border-slate-200">
+        <div class="text-[11px] opacity-70 uppercase tracking-wider">Step 2</div>
+        <div class="text-xs">Dean Multi-Sig</div>
+      </button>
+      <button onclick="goToStep(3)" id="stepBtn-3" class="step-btn p-3 rounded-xl border text-left transition-all bg-white hover:bg-slate-50 text-slate-700 border-slate-200">
+        <div class="text-[11px] opacity-70 uppercase tracking-wider">Step 3</div>
+        <div class="text-xs">Soul Wallet Bound</div>
+      </button>
+      <button onclick="goToStep(4)" id="stepBtn-4" class="step-btn p-3 rounded-xl border text-left transition-all bg-white hover:bg-slate-50 text-slate-700 border-slate-200">
+        <div class="text-[11px] opacity-70 uppercase tracking-wider">Step 4</div>
+        <div class="text-xs">Employer Verify</div>
+      </button>
+      <button onclick="goToStep(5)" id="stepBtn-5" class="step-btn p-3 rounded-xl border text-left transition-all bg-white hover:bg-slate-50 text-slate-700 border-slate-200">
+        <div class="text-[11px] opacity-70 uppercase tracking-wider">Step 5</div>
+        <div class="text-xs">Ethics Revocation</div>
+      </button>
+    </div>
+
+    <!-- Interactive Active Step Display -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+      <!-- Left: Interactive Controls & Explanation -->
+      <div class="md:col-span-7 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <div id="stepContent">
+          <!-- Dynamic Content Injected via JS -->
+        </div>
+      </div>
+
+      <!-- Right: Real-Time On-Chain State Inspector -->
+      <div class="md:col-span-5 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Live On-Chain State</span>
+          <span id="stateStatusBadge" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-300 font-bold">
+            PROPOSED
+          </span>
+        </div>
+
+        <div class="space-y-3 text-xs font-mono">
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">Token ID:</span>
+            <span id="stateTokenId" class="font-bold text-slate-900">#1 (Pending)</span>
+          </div>
+
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">Candidate:</span>
+            <span id="stateCandidate" class="font-bold text-slate-900">Elena Rostova</span>
+          </div>
+
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">Soul Wallet:</span>
+            <span id="stateWallet" class="text-emerald-700 font-bold truncate max-w-[150px]">0x90F7...b906</span>
+          </div>
+
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">Dean Signature:</span>
+            <span id="stateDeanSign" class="text-amber-700 font-bold">Pending Co-Sign</span>
+          </div>
+
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">locked(1):</span>
+            <span id="stateLocked" class="text-slate-500 font-bold">false (unminted)</span>
+          </div>
+
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">SHA-256 Digest:</span>
+            <span id="stateHash" class="text-indigo-700 font-bold truncate max-w-[140px]">0x7f83...a12b</span>
+          </div>
+
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span class="text-slate-500">Verification Gas:</span>
+            <span class="text-emerald-700 font-bold">0 Gas (Static View)</span>
+          </div>
+        </div>
+
+        <div id="revertAlert" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-900 text-xs space-y-1">
+          <div class="font-bold font-mono">🛑 EVM REVERT: ErrSoulboundNonTransferable()</div>
+          <div class="text-[11px] leading-relaxed">Transfers are strictly prohibited by EIP-5192 bytecode. Credential is locked to graduate's wallet forever.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let isDeanApproved = false;
+    let isMinted = false;
+    let isRevoked = false;
+
+    const steps = {
+      1: {
+        title: "Step 1: Registrar Proposes Degree Issuance",
+        desc: "The University Registrar inputs candidate grades and marks. The system renders the official diploma and generates a client-side SHA-256 cryptographic digest.",
+        actionBtn: "Submit Proposal for Senate Approval →",
+        actionFn: () => {
+          goToStep(2);
+        },
+        info: "Direct minting or dual-authorization mode prevents rogue administration issuance without faculty consensus."
+      },
+      2: {
+        title: "Step 2: Dean of Academic Affairs Co-Signs",
+        desc: "The Dean reviews the candidate proposal in the Dean Multi-Sig Portal. Using their cryptographic private key (DEAN_ROLE), they co-sign the proposal on-chain.",
+        actionBtn: "Co-Sign & Execute Dual-Sig Minting →",
+        actionFn: () => {
+          isDeanApproved = true;
+          isMinted = true;
+          updateState();
+          goToStep(3);
+        },
+        info: "Multi-signature consensus eliminates single-point-of-failure diploma mills."
+      },
+      3: {
+        title: "Step 3: Soulbound Token Bound to Graduate",
+        desc: "The smart contract executes the minting transaction and locks the token under EIP-5192 standard. Any attempt by the student to transfer, sell, or approve the degree strictly reverts.",
+        actionBtn: "Simulate Illegal Transfer Attempt (Test Revert)",
+        actionFn: () => {
+          document.getElementById('revertAlert').classList.remove('hidden');
+          setTimeout(() => {
+            goToStep(4);
+          }, 2500);
+        },
+        info: "Solidity override on `_update()` permanently rejects all transfers if `from != 0 && to != 0`."
+      },
+      4: {
+        title: "Step 4: Employer Instant 1-Click Verification",
+        desc: "An employer checks the graduate's credentials using 5 verification vectors: Student Wallet + Token ID, PDF Drag-and-Drop SHA-256 match, Transaction Hash lookup, or QR Code scan.",
+        actionBtn: "Execute 1-Click Verification Query (0 Gas)",
+        actionFn: () => {
+          alert("✓ 100% Genuine Credential Verified in 23.4 ms! Zero gas cost incurred.");
+          goToStep(5);
+        },
+        info: "Sub-1.5s latency SLA achieved through static EVM view queries without network mining wait times."
+      },
+      5: {
+        title: "Step 5: Dynamic Disciplinary Board Revocation",
+        desc: "In cases of posthumous plagiarism or academic misconduct, the Ethics Board triggers the on-chain revocation hook. The token remains soulbound, but its validity state is revoked.",
+        actionBtn: isRevoked ? "Reinstate Credential upon Appeal" : "Trigger On-Chain Revocation Hook",
+        actionFn: () => {
+          isRevoked = !isRevoked;
+          updateState();
+          goToStep(5);
+        },
+        info: "Protects university integrity by updating on-chain state without breaking NFT standard ownership."
+      }
+    };
+
+    function updateState() {
+      const statusBadge = document.getElementById('stateStatusBadge');
+      const deanSign = document.getElementById('stateDeanSign');
+      const locked = document.getElementById('stateLocked');
+      const tokenId = document.getElementById('stateTokenId');
+
+      if (isRevoked) {
+        statusBadge.innerText = "REVOKED";
+        statusBadge.className = "text-[11px] font-mono px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 font-bold";
+      } else if (isMinted) {
+        statusBadge.innerText = "SOULBOUND (ACTIVE)";
+        statusBadge.className = "text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold";
+      } else {
+        statusBadge.innerText = "PROPOSED";
+        statusBadge.className = "text-[11px] font-mono px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 font-bold";
+      }
+
+      deanSign.innerText = isDeanApproved ? "✓ Co-Signed by Dean" : "Pending Co-Sign";
+      deanSign.className = isDeanApproved ? "text-emerald-700 font-bold" : "text-amber-700 font-bold";
+
+      locked.innerText = isMinted ? "true (Locked EIP-5192)" : "false (unminted)";
+      locked.className = isMinted ? "text-emerald-700 font-bold" : "text-slate-500 font-bold";
+
+      tokenId.innerText = isMinted ? "#1 (Minted On-Chain)" : "#1 (Pending)";
+    }
+
+    function goToStep(stepNum) {
+      currentStep = stepNum;
+      document.querySelectorAll('.step-btn').forEach((b, idx) => {
+        if (idx + 1 === stepNum) {
+          b.className = "step-btn p-3 rounded-xl border text-left transition-all bg-emerald-600 text-white font-bold shadow-sm";
+        } else {
+          b.className = "step-btn p-3 rounded-xl border text-left transition-all bg-white hover:bg-slate-50 text-slate-700 border-slate-200";
+        }
+      });
+
+      const s = steps[stepNum];
+      document.getElementById('stepContent').innerHTML = `
+        <h2 class="text-base font-bold text-slate-900">${s.title}</h2>
+        <p class="text-xs text-slate-600 leading-relaxed">${s.desc}</p>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700">
+          <strong class="text-slate-900">Research Architectural Invariant: </strong> ${s.info}
+        </div>
+        <button id="stepActionBtn" class="w-full py-3 px-4 rounded-xl font-bold text-xs text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 shadow-md transition-all">
+          ${s.actionBtn}
+        </button>
+      `;
+
+      document.getElementById('stepActionBtn').onclick = s.actionFn;
+    }
+
+    document.getElementById('resetBtn').onclick = () => {
+      isDeanApproved = false;
+      isMinted = false;
+      isRevoked = false;
+      document.getElementById('revertAlert').classList.add('hidden');
+      updateState();
+      goToStep(1);
+    };
+
+    // Initial render
+    updateState();
+    goToStep(1);
+  </script>
+</body>
+</html>
