@@ -15,16 +15,41 @@ import {
   AlertTriangle,
   Database,
   X,
+  Printer,
+  Share2,
 } from 'lucide-react';
 
 export default function DiplomaCertificate({ credential, onVerifyClick }) {
   const [qrSrc, setQrSrc] = useState('');
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [ipfsJson, setIpfsJson] = useState(null);
   const [loadingIpfs, setLoadingIpfs] = useState(false);
 
   const verifyUrl = `${window.location.origin}?verifyToken=${credential.tokenId}&hash=${credential.certificateHash}`;
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${credential.studentName} — ${credential.degreeName}`,
+          text: `Verified EIP-5192 Soulbound Academic Credential for ${credential.studentName} issued by ${credential.institutionName}.`,
+          url: verifyUrl,
+        });
+        setShared(true);
+        setTimeout(() => setShared(false), 2000);
+        return;
+      } catch (e) {
+        // user cancelled or share unsupported
+      }
+    }
+    copyVerifyUrl();
+  };
 
   const handleToggleIpfs = async () => {
     if (ipfsJson) {
@@ -107,8 +132,11 @@ export default function DiplomaCertificate({ credential, onVerifyClick }) {
           <h1 className="font-serif-title font-bold text-xl sm:text-3xl tracking-wider text-slate-900 uppercase">
             {credential.institutionName || 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru'}
           </h1>
-          <p className="text-xs sm:text-sm font-serif-body italic text-slate-600 mt-1">
-            Empowered by Academic Senate & Decentralized Identity Registry
+          <div className="text-[10px] uppercase tracking-widest text-amber-800 font-serif font-bold mt-1">
+            ॥ विद्या धनं सर्व धनं प्रधानम् ॥ • Knowledge is the Supreme Wealth
+          </div>
+          <p className="text-xs sm:text-sm font-serif-body italic text-slate-600 mt-0.5">
+            Empowered by Academic Senate &amp; Decentralized Identity Registry
           </p>
         </div>
 
@@ -215,10 +243,26 @@ export default function DiplomaCertificate({ credential, onVerifyClick }) {
 
         <button
           onClick={copyVerifyUrl}
-          className="flex items-center space-x-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-sm"
+          className="flex items-center space-x-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-sm cursor-pointer"
         >
-          {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+          {copied ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
           <span>{copied ? 'Verification Link Copied!' : 'Copy Verification Link'}</span>
+        </button>
+
+        <button
+          onClick={handlePrint}
+          className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-sm cursor-pointer"
+        >
+          <Printer className="h-4 w-4 text-slate-700" />
+          <span>Print Diploma (A4)</span>
+        </button>
+
+        <button
+          onClick={handleShare}
+          className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-sm cursor-pointer"
+        >
+          <Share2 className="h-4 w-4 text-indigo-600" />
+          <span>{shared ? 'Shared!' : 'Share Credential'}</span>
         </button>
 
         {onVerifyClick && (

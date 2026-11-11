@@ -91,3 +91,21 @@
   animation: hologram-shimmer 6s infinite ease-in-out;
   pointer-events: none;
 }
+
+/* High-Resolution A4 Landscape Print Styling */
+@media print {
+  header, footer, button, input, select, textarea {
+    display: none !important;
+  }
+  body, main {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #0f172a !important;
+  }
+  .diploma-border {
+    box-shadow: none !important;
+    border: 4px double #0f172a !important;
+    page-break-inside: avoid;
+  }
+}

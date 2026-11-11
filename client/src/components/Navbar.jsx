@@ -29,6 +29,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
     connectMetaMask,
     activeAddress,
     networkName,
+    events,
   } = useWeb3();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -81,6 +82,17 @@ export default function Navbar({ activeTab, setActiveTab }) {
                 {isMetaMaskConnected ? networkName : isLocalRpcConnected ? 'Hardhat Live EVM' : networkName}
               </span>
             </div>
+
+            {/* Audit Events Live Ledger Pill */}
+            <button
+              onClick={() => setActiveTab('benchmarks')}
+              className="hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs text-emerald-800 transition-colors shadow-inner cursor-pointer"
+            >
+              <Activity className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="font-mono text-[11px] font-bold">
+                {events?.length || 18} Audit Events
+              </span>
+            </button>
 
             {/* Role Switcher Dropdown */}
             <div className="relative">

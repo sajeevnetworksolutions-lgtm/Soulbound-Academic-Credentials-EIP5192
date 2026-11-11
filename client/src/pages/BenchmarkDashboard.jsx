@@ -11,13 +11,35 @@ import {
   Shield,
   Users,
   BarChart3,
+  Calculator,
+  Globe2,
+  ArrowRightLeft,
+  Search,
+  Filter,
+  History,
+  Sparkles,
 } from 'lucide-react';
+import { formatAddress, formatDate } from '../services/hashUtil';
 
 export default function BenchmarkDashboard() {
-  const { credentials, proposals, verifyDegree, verifyByCertificateHash, verifyByTxHash, verifyByQrData } = useWeb3();
+  const { credentials, proposals, events, verifyDegree, verifyByCertificateHash, verifyByTxHash, verifyByQrData, contractAddress } = useWeb3();
 
   const [benchmarkRunning, setBenchmarkRunning] = useState(false);
   const [benchmarkStats, setBenchmarkStats] = useState(null);
+
+  // Economic Calculator State
+  const [calcGpaPriceGwei, setCalcGpaPriceGwei] = useState(30);
+  const [calcMaticPrice, setCalcMaticPrice] = useState(0.50);
+  const [calcCohortSize, setCalcCohortSize] = useState(500);
+
+  // CCIP Simulator State
+  const [ccipTargetChain, setCcipTargetChain] = useState('Arbitrum One');
+  const [ccipSimulating, setCcipSimulating] = useState(false);
+  const [ccipResult, setCcipResult] = useState(null);
+
+  // Event Ledger Filter State
+  const [eventFilter, setEventFilter] = useState('ALL'); // ALL | DegreeIssued | Locked | Proposal | Revoked
+  const [eventSearch, setEventSearch] = useState('');
 
   // Live Cohort Table II breakdown computed dynamically from context
   const cohort1 = credentials.filter((c) => c.cohortKey === 'undergrad' || (!c.cohortKey && !c.isRevoked));
@@ -417,6 +439,339 @@ export default function BenchmarkDashboard() {
               Mitigated via <code className="font-mono">ReentrancyGuard</code> non-reentrant locks, <code className="font-mono">ErrProposalAlreadyExecuted()</code>, and duplicate hash rejection.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* 5. Interactive Gas Cost & Institutional Savings Calculator */}
+      <div className="glass-panel p-6 sm:p-8 space-y-6 bg-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+          <div className="flex items-center space-x-2">
+            <Calculator className="h-5 w-5 text-indigo-600" />
+            <h2 className="text-base font-bold text-slate-900">
+              Interactive Economic Feasibility &amp; University Savings Calculator
+            </h2>
+          </div>
+          <span className="text-[11px] font-mono bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold border border-indigo-200">
+            Paper Section IV-B Projections
+          </span>
+        </div>
+
+        <p className="text-xs text-slate-600 leading-relaxed">
+          Estimate full graduation cohort issuance expenses on Polygon PoS vs Ethereum Mainnet and contrast against third-party clearinghouses (\$20–\$100/check).
+        </p>
+
+        {/* Input Sliders */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
+          <div>
+            <div className="flex justify-between items-center mb-1 font-semibold text-slate-700">
+              <span>Gas Price (Gwei):</span>
+              <span className="font-mono font-bold text-indigo-700">{calcGpaPriceGwei} Gwei</span>
+            </div>
+            <input
+              type="range"
+              min="15"
+              max="100"
+              step="5"
+              value={calcGpaPriceGwei}
+              onChange={(e) => setCalcGpaPriceGwei(parseInt(e.target.value))}
+              className="w-full accent-indigo-600 cursor-pointer"
+            />
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+              <span>15 Gwei (Low)</span>
+              <span>30 (Baseline)</span>
+              <span>100 (Congestion)</span>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex justify-between items-center mb-1 font-semibold text-slate-700">
+              <span>MATIC / POL Price ($):</span>
+              <span className="font-mono font-bold text-indigo-700">${calcMaticPrice.toFixed(2)}</span>
+            </div>
+            <input
+              type="range"
+              min="0.20"
+              max="2.00"
+              step="0.05"
+              value={calcMaticPrice}
+              onChange={(e) => setCalcMaticPrice(parseFloat(e.target.value))}
+              className="w-full accent-indigo-600 cursor-pointer"
+            />
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+              <span>$0.20</span>
+              <span>$0.50 (Paper Model)</span>
+              <span>$2.00</span>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex justify-between items-center mb-1 font-semibold text-slate-700">
+              <span>Graduating Cohort Size:</span>
+              <span className="font-mono font-bold text-indigo-700">{calcCohortSize.toLocaleString()} Degrees</span>
+            </div>
+            <input
+              type="range"
+              min="50"
+              max="5000"
+              step="50"
+              value={calcCohortSize}
+              onChange={(e) => setCalcCohortSize(parseInt(e.target.value))}
+              className="w-full accent-indigo-600 cursor-pointer"
+            />
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+              <span>50 (Class)</span>
+              <span>500 (Dept)</span>
+              <span>5,000 (University)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Calculated Results Matrix */}
+        {(() => {
+          const polygonBatchCost = (calcCohortSize * 46200 * calcGpaPriceGwei * 1e-9 * calcMaticPrice);
+          const polygonSingleCost = (calcCohortSize * 52140 * calcGpaPriceGwei * 1e-9 * calcMaticPrice);
+          const ethCost = (calcCohortSize * 52140 * 30 * 1e-9 * 2800);
+          const traditionalCost = (calcCohortSize * 35);
+          const netSavings = traditionalCost - polygonBatchCost;
+          const savingsPct = ((netSavings / traditionalCost) * 100).toFixed(1);
+
+          return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                <div className="text-[11px] uppercase font-bold text-emerald-800">Polygon PoS (Ours)</div>
+                <div className="text-2xl font-black text-emerald-900 mt-1">${polygonBatchCost.toFixed(2)}</div>
+                <div className="text-[10px] font-mono text-emerald-700 mt-1">
+                  ${(polygonBatchCost / calcCohortSize).toFixed(4)} / degree ({calcCohortSize} batch)
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div className="text-[11px] uppercase font-semibold text-slate-600">Polygon (Single Mints)</div>
+                <div className="text-2xl font-black text-slate-800 mt-1">${polygonSingleCost.toFixed(2)}</div>
+                <div className="text-[10px] font-mono text-slate-500 mt-1">
+                  ${(polygonSingleCost / calcCohortSize).toFixed(4)} / degree
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div className="text-[11px] uppercase font-semibold text-slate-600">Ethereum L1 (ERC-721)</div>
+                <div className="text-2xl font-black text-slate-800 mt-1">${ethCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
+                <div className="text-[10px] font-mono text-slate-500 mt-1">
+                  ${(ethCost / calcCohortSize).toFixed(2)} / degree (at $2,800 ETH)
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200">
+                <div className="text-[11px] uppercase font-bold text-indigo-800">Net System Savings</div>
+                <div className="text-2xl font-black text-indigo-900 mt-1">${netSavings.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
+                <div className="text-[10px] font-mono text-indigo-700 mt-1 font-bold">
+                  {savingsPct}% Cheaper than Clearinghouses
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+      </div>
+
+      {/* 6. Chainlink CCIP Cross-Chain Attestation Simulator */}
+      <div className="glass-panel p-6 sm:p-8 space-y-4 bg-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+          <div className="flex items-center space-x-2">
+            <Globe2 className="h-5 w-5 text-indigo-600" />
+            <h2 className="text-base font-bold text-slate-900">
+              Chainlink CCIP Cross-Chain Credential Attestation Simulator
+            </h2>
+          </div>
+          <span className="text-[11px] font-mono bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold border border-indigo-200">
+            Paper Section V (Future Work)
+          </span>
+        </div>
+
+        <p className="text-xs text-slate-600 leading-relaxed">
+          Simulate cross-chain verification interoperability. A degree minted on <strong className="text-slate-900">Polygon PoS</strong> is securely queried from <strong className="text-slate-900">Arbitrum One</strong> or <strong className="text-slate-900">Ethereum Mainnet</strong> via decentralized CCIP message passing lanes without redeploying the credentials registry.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          {/* Source Chain */}
+          <div className="md:col-span-5 p-3.5 rounded-xl bg-white border border-slate-200 space-y-1 text-xs">
+            <span className="text-[10px] font-bold text-purple-700 uppercase font-mono">Source Chain (Minted SBT)</span>
+            <div className="font-bold text-slate-900 text-sm">Polygon PoS (Chain ID 137 / 80002)</div>
+            <div className="text-[11px] text-slate-500 font-mono">Registry: {formatAddress(contractAddress)}</div>
+            <div className="text-[11px] text-emerald-700 font-semibold">Token #7: Shilpa H R (Locked SBT)</div>
+          </div>
+
+          {/* Router Bridge Arrow */}
+          <div className="md:col-span-2 flex flex-col items-center justify-center">
+            <ArrowRightLeft className="h-6 w-6 text-indigo-600 my-1 hidden md:block" />
+            <button
+              type="button"
+              onClick={async () => {
+                setCcipSimulating(true);
+                setCcipResult(null);
+                await new Promise((r) => setTimeout(r, 600));
+                setCcipResult({
+                  messageId: '0x' + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join(''),
+                  sourceChainSelector: '4051577828743386545 (Polygon)',
+                  destChainSelector: ccipTargetChain === 'Arbitrum One' ? '4949039107694359620' : '5009297550715157269',
+                  status: 'SUCCESSFUL_EXECUTION',
+                  feeTokens: '0.0024 LINK',
+                  latency: '1.82s',
+                  verified: true,
+                });
+                setCcipSimulating(false);
+              }}
+              disabled={ccipSimulating}
+              className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap"
+            >
+              {ccipSimulating ? 'Routing...' : 'Dispatch CCIP'}
+            </button>
+          </div>
+
+          {/* Destination Chain */}
+          <div className="md:col-span-5 p-3.5 rounded-xl bg-white border border-slate-200 space-y-1 text-xs">
+            <span className="text-[10px] font-bold text-indigo-700 uppercase font-mono">Destination Chain (Verifier Query)</span>
+            <select
+              value={ccipTargetChain}
+              onChange={(e) => setCcipTargetChain(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg p-1.5 text-xs font-bold text-slate-800 focus:outline-none"
+            >
+              <option value="Arbitrum One">Arbitrum One (Chain ID 42161)</option>
+              <option value="Ethereum Mainnet">Ethereum Mainnet (Chain ID 1)</option>
+              <option value="Optimism">Optimism (Chain ID 10)</option>
+            </select>
+            <div className="text-[11px] text-slate-500 font-mono">Router: 0x0bf3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59</div>
+            <div className="text-[11px] text-indigo-700 font-semibold">Zero-Gas View on Remote Chain</div>
+          </div>
+        </div>
+
+        {ccipResult && (
+          <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1 text-xs font-mono">
+            <div className="flex justify-between items-center text-emerald-900 font-bold">
+              <span>✓ CCIP Cross-Chain Attestation Verified</span>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                {ccipResult.status} ({ccipResult.latency})
+              </span>
+            </div>
+            <div className="text-[11px] text-slate-700 break-all">
+              CCIP Message ID: <span className="font-semibold text-slate-900">{ccipResult.messageId}</span>
+            </div>
+            <div className="text-[10px] text-slate-500 flex justify-between pt-1 border-t border-emerald-100">
+              <span>Lanes: {ccipResult.sourceChainSelector} &rarr; {ccipResult.destChainSelector}</span>
+              <span>Router Fee: {ccipResult.feeTokens}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 7. Live On-Chain Event Stream & Blockchain Audit Explorer */}
+      <div className="glass-panel p-6 sm:p-8 space-y-5 bg-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+          <div className="flex items-center space-x-2">
+            <History className="h-5 w-5 text-emerald-600" />
+            <h2 className="text-base font-bold text-slate-900">
+              Live On-Chain Event Stream &amp; Audit Trail ({events.length} Events Logged)
+            </h2>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <div className="relative">
+              <Search className="h-3.5 w-3.5 text-slate-400 absolute left-2.5 top-2" />
+              <input
+                type="text"
+                placeholder="Search token or hash..."
+                value={eventSearch}
+                onChange={(e) => setEventSearch(e.target.value)}
+                className="pl-8 pr-3 py-1 rounded-lg border border-slate-200 bg-slate-50 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 w-48"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Filter Pills */}
+        <div className="flex flex-wrap gap-1.5 text-xs">
+          {[
+            { id: 'ALL', label: `All (${events.length})` },
+            { id: 'DegreeIssued', label: 'DegreeIssued' },
+            { id: 'Locked', label: 'Locked' },
+            { id: 'Proposal', label: 'Proposals' },
+            { id: 'Revoked', label: 'Revocations' },
+          ].map((f) => (
+            <button
+              key={f.id}
+              onClick={() => setEventFilter(f.id)}
+              className={`px-3 py-1 rounded-lg font-semibold transition-all cursor-pointer ${
+                eventFilter === f.id
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Event List */}
+        <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+          {events
+            .filter((ev) => {
+              if (eventFilter === 'DegreeIssued') return ev.name === 'DegreeIssued';
+              if (eventFilter === 'Locked') return ev.name === 'Locked';
+              if (eventFilter === 'Proposal') return ev.name.includes('Proposal');
+              if (eventFilter === 'Revoked') return ev.name.includes('Revoked') || ev.name.includes('Reinstated');
+              return true;
+            })
+            .filter((ev) => {
+              if (!eventSearch.trim()) return true;
+              const s = eventSearch.toLowerCase();
+              return (
+                ev.name.toLowerCase().includes(s) ||
+                (ev.transactionHash || '').toLowerCase().includes(s) ||
+                JSON.stringify(ev.args).toLowerCase().includes(s)
+              );
+            })
+            .map((ev, i) => (
+              <div
+                key={i}
+                className="p-3 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 text-xs font-mono space-y-1 transition-colors"
+              >
+                <div className="flex flex-wrap justify-between items-center gap-1">
+                  <div className="flex items-center space-x-2">
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        ev.name === 'DegreeIssued'
+                          ? 'bg-emerald-100 text-emerald-800'
+                          : ev.name === 'Locked'
+                          ? 'bg-purple-100 text-purple-800'
+                          : ev.name === 'DegreeRevoked'
+                          ? 'bg-rose-100 text-rose-800'
+                          : ev.name === 'DegreeReinstated'
+                          ? 'bg-cyan-100 text-cyan-800'
+                          : 'bg-amber-100 text-amber-800'
+                      }`}
+                    >
+                      {ev.name}
+                    </span>
+                    <span className="text-[11px] font-bold text-slate-900">
+                      Block #{ev.blockNumber || 100}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-400">
+                    {formatDate(Math.floor((ev.timestamp || Date.now()) / 1000))}
+                  </span>
+                </div>
+
+                <div className="text-[11px] text-slate-600 truncate">
+                  Tx: <span className="text-slate-800">{ev.transactionHash}</span>
+                </div>
+
+                <div className="text-[10px] text-slate-500 bg-white p-2 rounded border border-slate-100 truncate">
+                  {Object.entries(ev.args || {})
+                    .filter(([k]) => isNaN(k))
+                    .map(([k, v]) => `${k}: ${v}`)
+                    .join(' • ') || 'Event parameters emitted on-chain'}
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </div>

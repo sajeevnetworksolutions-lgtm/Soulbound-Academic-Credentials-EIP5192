@@ -186,6 +186,61 @@ export default function RegistrarPortal({ setActiveTab }) {
     }
   };
 
+  const handleDownloadCsvTemplate = () => {
+    const csvContent =
+      'studentWallet,studentName,studentIdNumber,degreeName,majorSpecialization,cgpa,graduationDate,institutionName\n' +
+      '0x90F79bf6EB2c4f870365E785982E1f101E93b906,Kavya Sharma,1SI24CS110,Bachelor of Engineering (B.E.),Computer Science & Engineering,9.45 / 10.0,1775174400,Sri Siddhartha Institute of Technology (SSAHE) Tumakuru\n' +
+      '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65,Varun Deshmukh,1SI24AI111,Master of Technology (M.Tech),Artificial Intelligence & Data Science,9.20 / 10.0,1775174400,Sri Siddhartha Institute of Technology (SSAHE) Tumakuru\n';
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'ssit_cohort_template.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleCsvUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const text = evt.target.result;
+        const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0);
+        if (lines.length < 2) {
+          alert('CSV file must have a header row and at least 1 student row.');
+          return;
+        }
+        const records = [];
+        for (let i = 1; i < lines.length; i++) {
+          const cols = lines[i].split(',').map((c) => c.trim());
+          if (cols.length >= 7) {
+            records.push({
+              studentWallet: cols[0] || '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
+              studentName: cols[1] || 'Graduate Name',
+              studentIdNumber: cols[2] || `1SI24CS${100 + i}`,
+              degreeName: cols[3] || 'Bachelor of Engineering (B.E.)',
+              majorSpecialization: cols[4] || 'Computer Science & Engineering',
+              cgpa: cols[5] || '9.00 / 10.0',
+              graduationDate: parseInt(cols[6]) || 1775174400,
+              institutionName: cols[7] || 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
+            });
+          }
+        }
+        if (records.length > 0) {
+          setBatchJson(JSON.stringify(records, null, 2));
+          alert(`Successfully imported ${records.length} graduates from CSV!`);
+        }
+      } catch (err) {
+        alert('Failed to parse CSV: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+
   const presets = [
     {
       studentWallet: '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
@@ -592,18 +647,42 @@ export default function RegistrarPortal({ setActiveTab }) {
       ) : (
         /* Batch Issuance View */
         <div className="glass-panel p-6 sm:p-8 space-y-5">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <h2 className="text-base font-bold text-slate-900 flex items-center space-x-2">
-              <Layers className="h-5 w-5 text-emerald-600" />
-              <span>Batch Cohort Issuance Engine</span>
-            </h2>
-            <span className="text-xs text-slate-600 font-mono bg-slate-100 px-3 py-1 rounded-lg border border-slate-200 font-semibold">
-              JSON graduating payload
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+            <div>
+              <h2 className="text-base font-bold text-slate-900 flex items-center space-x-2">
+                <Layers className="h-5 w-5 text-emerald-600" />
+                <span>Batch Cohort Issuance Engine</span>
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Atomic cohort minting: Amortizes base transaction cost by 11.4% (46,200 gas / degree).
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <label className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-semibold cursor-pointer transition-colors shadow-sm">
+                <Upload className="h-3.5 w-3.5" />
+                <span>Import CSV File</span>
+                <input
+                  type="file"
+                  accept=".csv,text/csv"
+                  onChange={handleCsvUpload}
+                  className="hidden"
+                />
+              </label>
+
+              <button
+                type="button"
+                onClick={handleDownloadCsvTemplate}
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-semibold cursor-pointer transition-colors shadow-sm"
+              >
+                <Download className="h-3.5 w-3.5" />
+                <span>Template (.csv)</span>
+              </button>
+            </div>
           </div>
 
           <p className="text-xs text-slate-600 leading-relaxed">
-            Mint multiple soulbound degrees simultaneously in a single atomic batch transaction (Paper Section IV-B / Fig. 5). Yields an <strong>11.4% amortized gas efficiency increase</strong> (from 52,140 gas to 46,200 gas per credential across batch sizes B ∈ [1, 50]).
+            Mint multiple soulbound degrees simultaneously in a single atomic batch transaction (Paper Section IV-B / Fig. 5). Paste JSON below or import a standard university graduation CSV file.
           </p>
 
           <textarea
