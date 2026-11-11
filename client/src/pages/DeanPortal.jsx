@@ -14,8 +14,17 @@ import {
 import confetti from 'canvas-confetti';
 
 export default function DeanPortal({ setActiveTab }) {
-  const { proposals, approveProposalByDean, executeProposal, activeAddress } = useWeb3();
+  const {
+    proposals,
+    approveProposalByDean,
+    executeProposal,
+    activeAddress,
+    currentAccount,
+    switchPresetAccount,
+  } = useWeb3();
   const [loadingId, setLoadingId] = useState(null);
+  const isDeanRole = currentAccount?.role === 'Dean';
+  const isRegistrarOrDean = currentAccount?.role === 'Dean' || currentAccount?.role === 'Registrar';
 
   const pendingApprovalProposals = proposals.filter((p) => !p.deanApproved && !p.executed);
   const approvedReadyToExecute = proposals.filter((p) => p.deanApproved && !p.executed);
@@ -69,11 +78,41 @@ export default function DeanPortal({ setActiveTab }) {
                 Dean of Academic Affairs Multi-Signature Portal
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Dual-authorization protocol: Verify Registrar degree proposals and co-sign on-chain before soulbound minting.
+                Dual-authorization protocol (Eq. 5): Verify Registrar degree proposals and co-sign on-chain before soulbound minting.
               </p>
             </div>
           </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {!isDeanRole && (
+              <button
+                type="button"
+                onClick={() => switchPresetAccount('Dean')}
+                className="px-3.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 text-xs font-bold flex items-center space-x-1.5 transition-colors cursor-pointer"
+              >
+                <KeyRound className="h-3.5 w-3.5" />
+                <span>Switch to DEAN_ROLE Wallet</span>
+              </button>
+            )}
+            {!isRegistrarOrDean && (
+              <button
+                type="button"
+                onClick={() => switchPresetAccount('Registrar')}
+                className="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold transition-colors cursor-pointer"
+              >
+                Switch to Registrar
+              </button>
+            )}
+          </div>
         </div>
+
+        {!isDeanRole && (
+          <div className="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center justify-between gap-2 relative z-10">
+            <span>
+              Notice: Active signer is <strong>{currentAccount?.role}</strong> ({formatAddress(activeAddress)}). Switch to <strong>Dean</strong> to co-sign Eq. (5) proposals on live EVM.
+            </span>
+          </div>
+        )}
 
         {/* Status Pills */}
         <div className="flex flex-wrap gap-2.5 mt-6 relative z-10">

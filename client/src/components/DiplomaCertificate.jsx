@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QRCode from 'qrcode';
 import { generateCertificatePDF } from '../services/pdfGenerator';
+import { fetchFromIPFS } from '../services/ipfs';
 import { formatAddress, formatDate } from '../services/hashUtil';
 import {
   Download,
@@ -12,14 +13,29 @@ import {
   FileCode,
   Sparkles,
   AlertTriangle,
+  Database,
+  X,
 } from 'lucide-react';
 
 export default function DiplomaCertificate({ credential, onVerifyClick }) {
   const [qrSrc, setQrSrc] = useState('');
   const [copied, setCopied] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [ipfsJson, setIpfsJson] = useState(null);
+  const [loadingIpfs, setLoadingIpfs] = useState(false);
 
   const verifyUrl = `${window.location.origin}?verifyToken=${credential.tokenId}&hash=${credential.certificateHash}`;
+
+  const handleToggleIpfs = async () => {
+    if (ipfsJson) {
+      setIpfsJson(null);
+      return;
+    }
+    setLoadingIpfs(true);
+    const meta = await fetchFromIPFS(credential.ipfsCID);
+    setIpfsJson(meta);
+    setLoadingIpfs(false);
+  };
 
   useEffect(() => {
     QRCode.toDataURL(verifyUrl, {
@@ -89,7 +105,7 @@ export default function DiplomaCertificate({ credential, onVerifyClick }) {
             <ShieldCheck className="h-9 w-9" />
           </div>
           <h1 className="font-serif-title font-bold text-xl sm:text-3xl tracking-wider text-slate-900 uppercase">
-            {credential.institutionName || 'National Institute of Advanced Technologies'}
+            {credential.institutionName || 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru'}
           </h1>
           <p className="text-xs sm:text-sm font-serif-body italic text-slate-600 mt-1">
             Empowered by Academic Senate & Decentralized Identity Registry
@@ -208,13 +224,47 @@ export default function DiplomaCertificate({ credential, onVerifyClick }) {
         {onVerifyClick && (
           <button
             onClick={() => onVerifyClick(credential)}
-            className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs py-2.5 px-4 rounded-xl shadow-lg shadow-indigo-600/20 transition-all"
+            className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs py-2.5 px-4 rounded-xl shadow-lg shadow-indigo-600/20 transition-all cursor-pointer"
           >
             <ShieldCheck className="h-4 w-4" />
             <span>Test 1-Click Verification</span>
           </button>
         )}
+
+        <button
+          onClick={handleToggleIpfs}
+          className="flex items-center space-x-2 bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-sm cursor-pointer"
+        >
+          <Database className="h-4 w-4 text-purple-700" />
+          <span>
+            {loadingIpfs
+              ? 'Loading IPFS...'
+              : ipfsJson
+              ? 'Hide CertURI (Eq. 2)'
+              : 'Inspect IPFS Metadata (CertURI Eq. 2)'}
+          </span>
+        </button>
       </div>
+
+      {ipfsJson && (
+        <div className="mt-4 bg-white border border-purple-200 rounded-2xl p-4 shadow-md space-y-2">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+            <span className="text-xs font-bold text-purple-900 font-mono">
+              ipfs://{credential.ipfsCID} • Paper Eq. (2) Metadata Schema
+            </span>
+            <button
+              type="button"
+              onClick={() => setIpfsJson(null)}
+              className="p-1 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-800 cursor-pointer"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <pre className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-[11px] font-mono text-slate-900 overflow-x-auto max-h-60">
+            {JSON.stringify(ipfsJson, null, 2)}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

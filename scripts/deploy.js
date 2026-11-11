@@ -5,20 +5,25 @@ const path = require("path");
 async function main() {
   console.log("===============================================================");
   console.log("🚀 Deploying SoulboundAcademicCredential (EIP-5192) Platform...");
+  console.log("🏛️  Sri Siddhartha Institute of Technology (SSAHE), Tumakuru");
   console.log("===============================================================");
 
-  const [deployer, registrar, dean, disciplinaryBoard, student1, student2] =
+  // Matches frontend PRESET_ACCOUNTS indices cleanly (Accounts #0..#6)
+  const [deployer, registrar, dean, student1, student2, disciplinaryBoard, employer] =
     await hre.ethers.getSigners();
 
-  console.log(`Deployer Admin Account:        ${deployer.address}`);
-  console.log(`Registrar Account:             ${registrar ? registrar.address : deployer.address}`);
-  console.log(`Dean Account:                  ${dean ? dean.address : deployer.address}`);
-  console.log(`Disciplinary Board Account:    ${disciplinaryBoard ? disciplinaryBoard.address : deployer.address}`);
+  console.log(`Deployer Admin (#0):        ${deployer.address}`);
+  console.log(`Registrar (#1):             ${registrar ? registrar.address : deployer.address}`);
+  console.log(`Dean (#2):                  ${dean ? dean.address : deployer.address}`);
+  console.log(`Student 1 (#3):             ${student1 ? student1.address : deployer.address}`);
+  console.log(`Student 2 (#4):             ${student2 ? student2.address : deployer.address}`);
+  console.log(`Disciplinary Board (#5):    ${disciplinaryBoard ? disciplinaryBoard.address : deployer.address}`);
+  console.log(`Employer (#6):              ${employer ? employer.address : deployer.address}`);
 
   const SoulboundFactory = await hre.ethers.getContractFactory("SoulboundAcademicCredential");
   const contract = await SoulboundFactory.deploy(
-    "National Institute of Technology - Soulbound Degree Registry",
-    "NITSBT",
+    "Sri Siddhartha Academy of Higher Education - Soulbound Degree Registry",
+    "SSITSBT",
     deployer.address,
     registrar ? registrar.address : deployer.address,
     dean ? dean.address : deployer.address,
@@ -44,14 +49,16 @@ async function main() {
     address: contractAddress,
     network: hre.network.name,
     chainId: hre.network.config.chainId || 31337,
+    institution: "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
     deployedAt: new Date().toISOString(),
     accounts: {
       admin: deployer.address,
       registrar: registrar ? registrar.address : deployer.address,
       dean: dean ? dean.address : deployer.address,
+      student1: student1 ? student1.address : "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      student2: student2 ? student2.address : "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
       disciplinaryBoard: disciplinaryBoard ? disciplinaryBoard.address : deployer.address,
-      student1: student1 ? student1.address : "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-      student2: student2 ? student2.address : "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      employer: employer ? employer.address : "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
     },
     abi: contractArtifact.abi,
   };

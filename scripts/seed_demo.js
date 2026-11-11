@@ -1,11 +1,12 @@
 const hre = require("hardhat");
 const fs = require("fs");
 const path = require("path");
+const paperCohorts = require("../client/src/data/paperCohorts.json");
 
 async function main() {
-  console.log("🌱 Seeding Demo Soulbound Academic Credentials...");
+  console.log("🌱 Seeding Paper Table II Synthetic Academic Credential Testbed (N = 18)...");
 
-  const [deployer, registrar, dean, disciplinaryBoard, student1, student2] =
+  const [deployer, registrar, dean, student1, student2, disciplinaryBoard] =
     await hre.ethers.getSigners();
 
   const clientContractPath = path.join(
@@ -29,52 +30,114 @@ async function main() {
     registrar
   );
 
-  const demoStudents = [
-    {
-      wallet: student1.address,
-      name: "Dr. Jane Doe",
-      rollNo: "MTECH-AI-2026-042",
-      degree: "Master of Technology (M.Tech)",
-      major: "Artificial Intelligence & Machine Learning",
-      cgpa: "9.84 / 10.0 (First Class with Distinction)",
-      gradDate: 1775174400,
-      university: "National Institute of Advanced Technologies",
-      certHash: "0x3a4b9c1d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b",
-      cid: "ipfs://QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
-    },
-    {
-      wallet: student2.address,
-      name: "Alex Vance",
-      rollNo: "BTECH-CS-2026-108",
-      degree: "Bachelor of Technology (B.Tech)",
-      major: "Computer Science & Decentralized Systems",
-      cgpa: "9.45 / 10.0 (Honors)",
-      gradDate: 1775174400,
-      university: "National Institute of Advanced Technologies",
-      certHash: "0x8f9e0d1c2b3a4f5e6d7c8b9a0f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b7a8f9e",
-      cid: "ipfs://QmZtmD2qtWbpPyv6CW1bgX84TxjdVGsJNVsomNpNNq1xGQ",
-    },
-  ];
+  const undergrads = paperCohorts.credentials.filter((c) => c.cohortKey === "undergrad");
+  const multisigs = paperCohorts.credentials.filter((c) => c.cohortKey === "multisig");
+  const disciplinaries = paperCohorts.credentials.filter((c) => c.cohortKey === "disciplinary");
 
-  for (const st of demoStudents) {
-    console.log(`\n🎓 Issuing Soulbound Degree to ${st.name} (${st.wallet})...`);
-    const tx = await contract.issueDegree(
-      st.wallet,
-      st.name,
-      st.rollNo,
-      st.degree,
-      st.major,
+  // 1. Cohort 1 (N = 6): Active Undergraduates - Direct Registrar Issuance
+  console.log(`\n📘 Cohort 1: Seeding ${undergrads.length} Active Undergraduates (Direct Registrar)...`);
+  for (const st of undergrads) {
+    const tx = await contract.connect(registrar).issueDegree(
+      st.studentWallet,
+      st.studentName,
+      st.studentIdNumber,
+      st.degreeName,
+      st.majorSpecialization,
       st.cgpa,
-      st.gradDate,
-      st.university,
-      st.certHash,
-      st.cid
+      st.graduationDate,
+      st.institutionName,
+      st.certificateHash,
+      st.ipfsCID
     );
     await tx.wait();
-    console.log(`✅ Degree Issued & Locked via EIP-5192 standard!`);
+    console.log(`  ✔ Token #${st.tokenId}: ${st.studentName} (${st.studentIdNumber})`);
   }
 
-  console.log("\n✨ Demo Credential Seeding Complete!");
+  // 2. Cohort 2 (N = 6): Dual Multi-Sig Postgraduates - Registrar Proposal + Dean Co-Sign + Execution
+  console.log(`\n🔐 Cohort 2: Seeding ${multisigs.length} Dual Multi-Sig Postgraduates (Registrar + Dean)...`);
+  for (let i = 0; i < multisigs.length; i++) {
+    const st = multisigs[i];
+    const proposalId = i + 1;
+    await (
+      await contract.connect(registrar).proposeDegreeIssuance(
+        st.studentWallet,
+        st.studentName,
+        st.studentIdNumber,
+        st.degreeName,
+        st.majorSpecialization,
+        st.cgpa,
+        st.graduationDate,
+        st.institutionName,
+        st.certificateHash,
+        st.ipfsCID
+      )
+    ).wait();
+
+    await (await contract.connect(dean).approveProposalByDean(proposalId)).wait();
+    await (await contract.connect(registrar).executeProposal(proposalId)).wait();
+    console.log(`  ✔ Token #${st.tokenId} (Proposal #${proposalId} Co-Signed): ${st.studentName}`);
+  }
+
+  // 3. Cohort 3 (N = 6): Disciplinary Cases - Mint + Ethics Revocation + Appellate Reinstatement
+  console.log(`\n⚖️ Cohort 3: Seeding ${disciplinaries.length} Disciplinary Cases (Revoked / Reinstated)...`);
+  for (const st of disciplinaries) {
+    await (
+      await contract.connect(registrar).issueDegree(
+        st.studentWallet,
+        st.studentName,
+        st.studentIdNumber,
+        st.degreeName,
+        st.majorSpecialization,
+        st.cgpa,
+        st.graduationDate,
+        st.institutionName,
+        st.certificateHash,
+        st.ipfsCID
+      )
+    ).wait();
+
+    const reasonText =
+      st.revocationReason || "Ethics Panel Audit: Temporary suspension pending review.";
+    const reasonHash =
+      st.revocationReasonHash || hre.ethers.id(`disciplinary_case_${st.tokenId}`);
+
+    await (
+      await contract.connect(disciplinaryBoard).revokeDegree(st.tokenId, reasonHash, reasonText)
+    ).wait();
+
+    if (st.wasReinstated) {
+      await (
+        await contract
+          .connect(disciplinaryBoard)
+          .reinstateDegree(st.tokenId, st.reinstatementNote || "Cleared on Appeal")
+      ).wait();
+      console.log(`  ✔ Token #${st.tokenId} [REINSTATED]: ${st.studentName}`);
+    } else {
+      console.log(`  ✔ Token #${st.tokenId} [REVOKED]: ${st.studentName}`);
+    }
+  }
+
+  // 4. Create pending Proposal #7 awaiting live Dean Co-Signature
+  const pendingProp = paperCohorts.proposals.find((p) => !p.executed);
+  if (pendingProp) {
+    await (
+      await contract.connect(registrar).proposeDegreeIssuance(
+        pendingProp.studentWallet,
+        pendingProp.studentName,
+        pendingProp.studentIdNumber,
+        pendingProp.degreeName,
+        pendingProp.majorSpecialization,
+        pendingProp.cgpa,
+        pendingProp.graduationDate,
+        pendingProp.institutionName,
+        pendingProp.certificateHash,
+        pendingProp.ipfsCID
+      )
+    ).wait();
+    console.log(`\n📝 Pending Multi-Sig Proposal #7 created for Dean Co-Sign: ${pendingProp.studentName}`);
+  }
+
+  console.log(`\n✨ N = ${await contract.totalIssuedCredentials()} Credentials Seeded & EIP-5192 Locked!`);
 }
 
 main()

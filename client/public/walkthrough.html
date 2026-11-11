@@ -19,10 +19,10 @@
           <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
             EIP-5192 SOULBOUND
           </span>
-          <span class="text-xs font-mono text-slate-500">Polygon Amoy Testnet</span>
+          <span class="text-xs font-mono text-slate-500">SSIT / SSAHE Tumakuru • Polygon PoS / Hardhat</span>
         </div>
-        <h1 class="text-xl font-bold text-slate-900 mt-1">Platform Workflow & Lifecycle Simulator</h1>
-        <p class="text-xs text-slate-600">Simulate how a degree moves through the Registrar, Dean, Student, and Employer.</p>
+        <h1 class="text-xl font-bold text-slate-900 mt-1">Platform Workflow &amp; Lifecycle Simulator (Shilpa H R &amp; Veena N D)</h1>
+        <p class="text-xs text-slate-600">Simulate how an academic degree moves through the Registrar, Dean Multi-Sig (Eq. 5), Graduate Soul Wallet (Eq. 4), and 0-Gas Employer Verify (Eq. 6).</p>
       </div>
 
       <div class="flex items-center space-x-2">
@@ -77,12 +77,12 @@
         <div class="space-y-3 text-xs font-mono">
           <div class="flex justify-between items-center py-1 border-b border-slate-50">
             <span class="text-slate-500">Token ID:</span>
-            <span id="stateTokenId" class="font-bold text-slate-900">#1 (Pending)</span>
+            <span id="stateTokenId" class="font-bold text-slate-900">#7 (Pending)</span>
           </div>
 
           <div class="flex justify-between items-center py-1 border-b border-slate-50">
             <span class="text-slate-500">Candidate:</span>
-            <span id="stateCandidate" class="font-bold text-slate-900">Elena Rostova</span>
+            <span id="stateCandidate" class="font-bold text-slate-900">Shilpa H R (1SI24MAI01)</span>
           </div>
 
           <div class="flex justify-between items-center py-1 border-b border-slate-50">
@@ -96,7 +96,7 @@
           </div>
 
           <div class="flex justify-between items-center py-1 border-b border-slate-50">
-            <span class="text-slate-500">locked(1):</span>
+            <span class="text-slate-500">locked(7):</span>
             <span id="stateLocked" class="text-slate-500 font-bold">false (unminted)</span>
           </div>
 
@@ -160,11 +160,11 @@
         info: "Solidity override on `_update()` permanently rejects all transfers if `from != 0 && to != 0`."
       },
       4: {
-        title: "Step 4: Employer Instant 1-Click Verification",
-        desc: "An employer checks the graduate's credentials using 5 verification vectors: Student Wallet + Token ID, PDF Drag-and-Drop SHA-256 match, Transaction Hash lookup, or QR Code scan.",
+        title: "Step 4: Employer Instant 1-Click Verification (Eq. 6)",
+        desc: "An employer checks the graduate's credentials using the 4 verification vectors: Student Wallet + Token ID, PDF Drag-and-Drop SHA-256 match, Transaction Hash lookup, or QR Code scan.",
         actionBtn: "Execute 1-Click Verification Query (0 Gas)",
         actionFn: () => {
-          alert("✓ 100% Genuine Credential Verified in 23.4 ms! Zero gas cost incurred.");
+          alert("✓ 100% Genuine Credential Verified in 28.4 ms (mean latency)! Zero gas cost incurred.");
           goToStep(5);
         },
         info: "Sub-1.5s latency SLA achieved through static EVM view queries without network mining wait times."
@@ -205,7 +205,7 @@
       locked.innerText = isMinted ? "true (Locked EIP-5192)" : "false (unminted)";
       locked.className = isMinted ? "text-emerald-700 font-bold" : "text-slate-500 font-bold";
 
-      tokenId.innerText = isMinted ? "#1 (Minted On-Chain)" : "#1 (Pending)";
+      tokenId.innerText = isMinted ? "#7 (Minted On-Chain)" : "#7 (Pending)";
     }
 
     function goToStep(stepNum) {

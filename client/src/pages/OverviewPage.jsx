@@ -6,19 +6,17 @@ import {
   Zap,
   CheckCircle2,
   Database,
-  Users,
   FileCheck,
-  AlertTriangle,
   ArrowRight,
-  TrendingUp,
   Award,
   Layers,
   Sparkles,
-  QrCode,
   KeyRound,
   FileText,
   Clock,
   ShieldCheck,
+  BookOpen,
+  Scale,
 } from 'lucide-react';
 import { formatAddress } from '../services/hashUtil';
 
@@ -28,195 +26,293 @@ export default function OverviewPage({ setActiveTab }) {
   const totalDegrees = credentials.length;
   const revokedDegrees = credentials.filter((c) => c.isRevoked).length;
   const validDegrees = totalDegrees - revokedDegrees;
+  const pendingProposals = proposals.filter((p) => !p.executed).length;
+
+  const shilpaCred = credentials.find((c) => c.tokenId === 7) || credentials[0];
 
   const objectives = [
     {
       num: '01',
-      title: 'EIP-5192 Soulbound Smart Contracts',
-      desc: 'Formulate and deploy EIP-5192 compliant Soulbound Smart Contracts overriding ERC-721 transfer functions to enforce permanent non-transferability at the EVM bytecode level.',
-      status: '100% Validated',
+      title: 'EIP-5192 Soulbound Smart Contracts (0xb45a3c0e)',
+      desc: 'Programmable override of OpenZeppelin v5.2 _update() and approval functions enforces permanent EVM bytecode non-transferability (locked(id) == true).',
+      status: 'Theorem 1 Proven',
     },
     {
       num: '02',
-      title: 'Role-Based Multi-Signature Authorization',
-      desc: 'Registrar and Dean dual-authorization handshake preventing unauthorized single-admin degree minting and rogue diploma mill collusion.',
-      status: 'Dual-Sig Handshake Active',
+      title: 'Dual Multi-Signature Handshake (Eq. 5)',
+      desc: 'OpenZeppelin AccessControl separates REGISTRAR_ROLE and DEAN_ROLE, preventing single-administrator issuance or rogue diploma mill collusion.',
+      status: 'Registrar + Dean Co-Sign',
     },
     {
       num: '03',
-      title: 'IPFS Decentralized Storage & Hashing',
-      desc: 'Store encrypted high-resolution certificate PDFs and standard JSON metadata schemas on IPFS returning immutable CIDs and SHA-256 digests.',
-      status: 'Active Pinning & CIDs',
+      title: 'Deterministic SHA-256 & IPFS Merkle-DAG (Eq. 1–2)',
+      desc: 'Client-side A4 PDF bitstream digest H_cert = SHA-256(B) is embedded inside JSON CertURI pinned via Base58btc CIDv0 (Qm...) on IPFS.',
+      status: '100% Deterministic Hash',
     },
     {
       num: '04',
-      title: 'Dynamic On-Chain Revocation Logic',
-      desc: 'Integrate dynamic on-chain certificate revocation logic allowing university disciplinary boards to suspend credentials in cases of misconduct.',
-      status: 'Board Hooks Enabled',
+      title: 'Dynamic Disciplinary Revocation & Appeals',
+      desc: 'Independent DISCIPLINARY_BOARD_ROLE executes revokeDegree() and appellate reinstateDegree() with immutable audit reason hashes on-chain.',
+      status: 'Ethics Board Hooks Active',
     },
     {
       num: '05',
-      title: '1-Click Zero-Gas Employer Verification',
-      desc: 'Deliver an employer verification web portal where anyone can verify degrees via wallet address, transaction hash, or QR scan in < 1.5s.',
-      status: 'Sub-second Read Verified',
+      title: 'Sub-1.5s Zero-Gas Employer Verification (Eq. 6)',
+      desc: '4 verification vectors (Wallet+ID, PDF SHA-256 Drop, TxHash, jsQR Scan) execute via free eth_call static views in ~15–45 ms.',
+      status: '0 Gas ($0.00)',
     },
   ];
 
-  const comparativeData = [
+  const equations = [
     {
-      metric: 'Certificate Forgery Resistance',
-      traditional: '0% (Easily modified via Photoshop/PDF editors)',
-      proposed: '100% (Cryptographic ECDSA + Blockchain immutability)',
+      id: 'Eq. (1)',
+      label: 'Certificate Bitstream Digest',
+      formula: 'H_cert = SHA-256(B),  where B = [b0, b1, ..., b_(L-1)]',
+      note: 'Client-side deterministic A4 PDF digest anchored prior to minting',
     },
     {
-      metric: 'Verification Turnaround Time',
-      traditional: '1 to 2 Weeks (Manual postal/email verification)',
-      proposed: '< 1.5 Seconds (Instant 1-Click zero-gas read)',
+      id: 'Eq. (2)',
+      label: 'IPFS Metadata URI Schema',
+      formula: 'CertURI = IPFS_CID(JSON(Degree, CGPA, GradEpoch, H_cert, K_univ))',
+      note: 'Content-addressed Base58btc CIDv0 stored in tokenURIs[tokenId]',
     },
     {
-      metric: 'Verification Cost for Employers',
-      traditional: '$20 - $100 per credential check',
-      proposed: '$0.00 (Zero Gas on-chain view query)',
+      id: 'Eq. (3–4)',
+      label: 'EIP-5192 Transfer Invariant',
+      formula: '∀ from ≠ 0 ∧ to ≠ 0 ⇒ revert ErrSoulboundNonTransferable()',
+      note: 'Overrides _update(), approve(), and setApprovalForAll() unconditionally',
     },
     {
-      metric: 'Issuance Cost per Degree',
-      traditional: '$15 - $50 (Printing, stamping, postage)',
-      proposed: '< $0.01 (Polygon PoS Testnet ~52k Gas)',
+      id: 'Eq. (5)',
+      label: 'Multi-Sig Execution Guard',
+      formula: 'Exec(P_id) ⇔ (caller ∈ R) ∧ (P_id.deanApproved = true) ∧ (P_id.executed = false)',
+      note: 'Eliminates single-key registrar issuance & prevents double-minting',
     },
     {
-      metric: 'Degree Transferability',
-      traditional: 'Fake certificates sold on black markets',
-      proposed: 'Strictly Non-Transferable (EIP-5192 Soulbound)',
+      id: 'Eq. (6)',
+      label: 'Zero-Gas Verification Predicate',
+      formula: 'Verify(T_id, S_wallet) = (ownerOf(T_id) == S_wallet) ∧ (¬cred.isRevoked) ∧ locked(T_id)',
+      note: 'Evaluated via static EVM eth_call in ~15–45 ms at $0.00 cost',
+    },
+  ];
+
+  const table1PriorArt = [
+    {
+      study: 'Centralized Portals (NSC, Digitary) [4]',
+      ledger: 'Centralized RDBMS + X.509 PKI',
+      lock: 'N/A (Closed Silo)',
+      gov: 'Single-Admin DB Write',
+      perf: '1–2 Weeks | $20–$100 fee',
+      gap: 'Single point of failure; insider tampering risk; fee-heavy delays',
+    },
+    {
+      study: 'Sharples & Domingue (2016) [13]',
+      ledger: 'Conceptual Distributed Ledger',
+      lock: 'None (No Smart Contracts)',
+      gov: 'Conceptual Peer Validation',
+      perf: 'Unimplemented | Unknown',
+      gap: 'Purely conceptual; lacked smart contract automation & validation',
+    },
+    {
+      study: 'MIT Blockcerts (Schmidt et al., 2016) [6]',
+      ledger: 'Bitcoin Blockchain (OP_RETURN)',
+      lock: 'None (Anchored Hash Only)',
+      gov: 'Single-Key Institutional Wallet',
+      perf: '10–60 Mins | Bitcoin Tx Fee',
+      gap: 'Lacks EVM programmability; volatile fees; static revocation flaws',
+    },
+    {
+      study: 'EduCTX (Turkanovic et al., 2018) [5]',
+      ledger: 'Federated Custom Ark Consortium',
+      lock: 'None (Credit Balance)',
+      gov: 'Consortium Node Auth',
+      perf: '5–15 Secs | Consortium Fee',
+      gap: 'Requires dedicated institutional nodes; non-standard wallets',
+    },
+    {
+      study: 'Buterin et al. (2022) SBT Whitepaper [9]',
+      ledger: 'Ethereum EVM (Theoretical SBT)',
+      lock: 'Conceptual Soul Binding',
+      gov: 'Community Recovery Concept',
+      perf: 'Theoretical | Gas-dependent',
+      gap: 'Lacked institutional registrar multi-sig & dynamic revocation logic',
+    },
+    {
+      study: 'Proposed Framework (SSIT / SSAHE, 2026)',
+      ledger: 'EIP-5192 SBT + Dual Multi-Sig + IPFS',
+      lock: 'Strict Bytecode Lock (locked=true)',
+      gov: 'Dual Handshake (Registrar + Dean)',
+      perf: '~15–45 ms | 0 Gas ($0.00)',
+      gap: '100% fraud-proof; sub-1.5s zero-gas verification; dynamic revocation',
+      highlight: true,
+    },
+  ];
+
+  const table3Comparison = [
+    {
+      model: 'Traditional Manual (Clearinghouse / Postal)',
+      latency: '7–14 Days',
+      verifyCost: '$20–$100',
+      issueCost: '$15–$50',
+      forgery: '0% (Vulnerable)',
+      nonTransfer: 'Non-enforced',
+    },
+    {
+      model: 'MIT Blockcerts (Bitcoin OP_RETURN) [6]',
+      latency: '10–60 Mins',
+      verifyCost: 'Bitcoin Tx Fee',
+      issueCost: '$2.50–$8.00',
+      forgery: '100% (Cryptographic)',
+      nonTransfer: 'None (Hash only)',
+    },
+    {
+      model: 'EduCTX (Federated Ark Consortium) [5]',
+      latency: '5–15 Secs',
+      verifyCost: 'Consortium Fee',
+      issueCost: '$0.10–$0.50',
+      forgery: '100% (Cryptographic)',
+      nonTransfer: 'None (Transferable)',
+    },
+    {
+      model: 'Proposed Framework (EIP-5192 + IPFS, Ours)',
+      latency: '~15–45 ms',
+      verifyCost: '0 Gas ($0.00)',
+      issueCost: '~$0.0026 (52,140 Gas)',
+      forgery: '100% (SHA-256 + ECDSA)',
+      nonTransfer: '100% EVM Reversion',
+      highlight: true,
     },
   ];
 
   return (
-    <div className="space-y-12 pb-20">
-      {/* Hero Showcase Section */}
-      <div className="relative rounded-3xl bg-gradient-to-br from-white via-slate-50 to-emerald-50/30 border border-slate-200/90 p-8 sm:p-12 overflow-hidden shadow-lg">
-        {/* Ambient Gradient Lights */}
-        <div className="absolute -right-20 -top-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Text & Actions Column */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold shadow-sm">
+    <div className="space-y-10 pb-16">
+      {/* Hero Section */}
+      <div className="glass-panel rounded-3xl p-8 sm:p-10 relative overflow-hidden bg-gradient-to-br from-white via-emerald-50/40 to-indigo-50/50 border-slate-200/80 shadow-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-7 space-y-5">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold shadow-sm">
               <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
-              <span>M.Tech AI/ML Dissertation • Applied Blockchain & DID Research</span>
+              <span>Sri Siddhartha Institute of Technology (SSIT), SSAHE Tumakuru • IEEE Research Platform</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-              Decentralized Academic Credential Verification{' '}
-              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 bg-clip-text text-transparent">
-                Platform
-              </span>
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+              Decentralized Academic Credential Verification &amp;{' '}
+              <span className="gradient-text">Tamper-Proof Soulbound Registry</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
-              Eliminating diploma mills and credential fraud through{' '}
-              <strong className="text-emerald-700 font-semibold">EIP-5192 Soulbound Tokens (SBTs)</strong>,{' '}
-              <strong className="text-indigo-700 font-semibold">IPFS decentralized storage</strong>, and{' '}
-              <strong className="text-amber-700 font-semibold">Registrar Multi-Sig Handshakes</strong>.
-              Achieves 100% cryptographic forgery resistance and sub-1.5s zero-gas employer validation.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={() => setActiveTab('registrar')}
-                className="flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-xl shadow-lg shadow-emerald-600/20 hover:scale-[1.02] transition-all"
-              >
-                <span>Issue Soulbound Degree</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => setActiveTab('employer')}
-                className="flex items-center space-x-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 hover:border-purple-500 font-bold text-xs sm:text-sm py-3 px-6 rounded-xl shadow-sm transition-all"
-              >
-                <ShieldCheck className="h-4 w-4 text-purple-600" />
-                <span>Launch 1-Click Verification Portal</span>
-              </button>
+            <div className="p-3.5 rounded-xl bg-white/90 border border-slate-200 text-xs text-slate-700 space-y-1 shadow-sm">
+              <div className="font-bold text-slate-900 flex items-center space-x-2">
+                <BookOpen className="h-3.5 w-3.5 text-indigo-600" />
+                <span>Authors: Shilpa H R (M.Tech, CSE) &amp; Veena N D (Asst. Prof., CSE)</span>
+              </div>
+              <div className="text-[11px] text-slate-600">
+                Department of Computer Science and Engineering, Sri Siddhartha Institute of Technology, Sri Siddhartha Academy of Higher Education, Tumakuru, India • Polygon PoS + EIP-5192 + IPFS
+              </div>
             </div>
 
-            {/* Quick Spec Highlights */}
-            <div className="flex flex-wrap gap-3 pt-2 text-[11px] font-mono text-slate-600">
-              <span className="flex items-center space-x-1.5 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                <span>Zero-Gas Employer Read</span>
-              </span>
-              <span className="flex items-center space-x-1.5 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
-                <span>Strictly Non-Transferable</span>
-              </span>
-              <span className="flex items-center space-x-1.5 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
-                <span>Polygon PoS &lt; $0.01 Mint Cost</span>
-              </span>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Combines <strong className="text-slate-900">EIP-5192 Minimal Soulbound Tokens (0xb45a3c0e)</strong>,{' '}
+              <strong className="text-slate-900">Dual Multi-Sig Governance</strong> (Registrar + Dean),{' '}
+              <strong className="text-slate-900">Deterministic A4 PDF SHA-256 Anchoring</strong> on IPFS Merkle-DAG, and{' '}
+              <strong className="text-slate-900">Zero-Gas Sub-45 ms Verification</strong> across N = {totalDegrees} live cohort credentials.
+            </p>
+
+            {/* Primary Action CTAs */}
+            <div className="flex flex-wrap gap-3 pt-1">
+              <button
+                onClick={() => setActiveTab('employer')}
+                className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm px-5 py-3 rounded-xl shadow-md transition-all cursor-pointer"
+              >
+                <ShieldCheck className="h-4 w-4" />
+                <span>Verify Credentials (0 Gas)</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={() => setActiveTab('registrar')}
+                className="flex items-center space-x-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm transition-all cursor-pointer"
+              >
+                <FileCheck className="h-4 w-4 text-emerald-600" />
+                <span>Mint Degree (Registrar)</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('dean')}
+                className="flex items-center space-x-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-semibold text-sm px-4 py-3 rounded-xl shadow-sm transition-all cursor-pointer"
+              >
+                <KeyRound className="h-4 w-4 text-amber-700" />
+                <span>Dean Multi-Sig ({pendingProposals} Pending)</span>
+              </button>
             </div>
           </div>
 
-          {/* Right Holographic Preview Card Column */}
+          {/* Right: Live SSIT Credential Preview Card */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="w-full max-w-sm rounded-2xl p-6 bg-white border-2 border-emerald-500/50 shadow-xl relative animate-hologram">
-              {/* Header Badge */}
+            <div className="w-full max-w-sm rounded-2xl p-6 bg-white border-2 border-emerald-500/50 shadow-xl animate-hologram">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center space-x-2">
-                  <div className="h-7 w-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200">
+                  <div className="h-8 w-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200">
                     <Award className="h-4 w-4" />
                   </div>
                   <div>
                     <div className="font-serif-title text-xs font-bold text-slate-900 tracking-wide">
-                      NATIONAL INSTITUTE
+                      SSIT / SSAHE TUMAKURU
                     </div>
-                    <div className="text-[9px] text-slate-500">Senate Official Degree Registry</div>
+                    <div className="text-[9px] text-slate-500">Senate Official SBT Registry (SSITSBT)</div>
                   </div>
                 </div>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300">
-                  LOCKED SBT
+                  LOCKED SBT #{shilpaCred?.tokenId || 7}
                 </span>
               </div>
 
-              {/* Student Details Preview */}
               <div className="py-5 space-y-2.5">
                 <div>
                   <span className="text-[10px] text-slate-500 uppercase font-semibold">Awarded To</span>
-                  <div className="text-base font-bold text-slate-900">Dr. Jane Doe</div>
-                  <div className="text-[11px] font-mono text-emerald-700">Roll: MTECH-AI-2026-042</div>
+                  <div className="text-base font-bold text-slate-900">
+                    {shilpaCred?.studentName || 'Shilpa H R'}
+                  </div>
+                  <div className="text-[11px] font-mono text-emerald-700">
+                    USN: {shilpaCred?.studentIdNumber || '1SI24MAI01'}
+                  </div>
                 </div>
 
                 <div className="pt-2">
                   <div className="text-xs font-bold text-slate-800">
-                    Master of Technology (M.Tech)
+                    {shilpaCred?.degreeName || 'Master of Technology (M.Tech)'}
                   </div>
                   <div className="text-[11px] text-slate-600">
-                    Artificial Intelligence & Machine Learning
+                    {shilpaCred?.majorSpecialization || 'Computer Science and Engineering'}
                   </div>
                 </div>
 
                 <div className="pt-1 flex items-center justify-between text-xs">
-                  <span className="text-slate-500 font-mono text-[10px]">CGPA: 9.84 / 10.0</span>
-                  <span className="text-amber-700 font-bold text-[10px] bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                    Distinction
+                  <span className="text-slate-600 font-mono text-[10px]">
+                    {shilpaCred?.cgpa || '9.84 / 10.0'}
+                  </span>
+                  <span className="text-indigo-800 font-bold text-[10px] bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                    Dual Multi-Sig Cohort 2
                   </span>
                 </div>
               </div>
 
-              {/* Holographic Verification Chips */}
               <div className="pt-4 border-t border-slate-100 space-y-2 text-[10px] font-mono">
                 <div className="flex justify-between items-center text-slate-600">
                   <span>Soulbound Owner:</span>
-                  <span className="text-slate-800 font-bold">0x90F7...b906</span>
-                </div>
-                <div className="flex justify-between items-center text-slate-600">
-                  <span>Verification Status:</span>
-                  <span className="text-emerald-700 font-bold flex items-center space-x-1">
-                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
-                    <span>100% Genuine</span>
+                  <span className="text-slate-900 font-bold">
+                    {formatAddress(shilpaCred?.studentWallet || '0x90F79bf6EB2c4f870365E785982E1f101E93b906')}
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-slate-600">
-                  <span>Latency Response:</span>
-                  <span className="text-purple-700 font-bold">18 ms (&lt; 1.5s Target)</span>
+                  <span>EIP-5192 locked(id):</span>
+                  <span className="text-emerald-700 font-bold flex items-center space-x-1">
+                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                    <span>true (Non-Transferable)</span>
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600">
+                  <span>Paper Mean Latency:</span>
+                  <span className="text-purple-700 font-bold">28.4 ms (p95: 35.6 ms)</span>
                 </div>
               </div>
             </div>
@@ -224,25 +320,25 @@ export default function OverviewPage({ setActiveTab }) {
         </div>
       </div>
 
-      {/* KPI Performance Stat Cards */}
+      {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="glass-panel rounded-2xl p-6 glass-card-hover relative overflow-hidden">
+        <div className="glass-panel rounded-2xl p-6 glass-card-hover bg-white">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Total Issued Degrees
+              Experimental Cohort (Table II)
             </span>
             <div className="h-9 w-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200">
               <Award className="h-5 w-5" />
             </div>
           </div>
           <div className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight">{totalDegrees} SBTs</div>
-          <div className="mt-1 text-xs text-slate-500 font-mono">
+          <div className="mt-1 text-xs text-slate-600 font-mono">
             <span className="text-emerald-700 font-semibold">{validDegrees} Active</span> •{' '}
             <span className="text-rose-700 font-semibold">{revokedDegrees} Revoked</span>
           </div>
         </div>
 
-        <div className="glass-panel rounded-2xl p-6 glass-card-hover relative overflow-hidden">
+        <div className="glass-panel rounded-2xl p-6 glass-card-hover bg-white">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
               Verification Latency
@@ -251,163 +347,129 @@ export default function OverviewPage({ setActiveTab }) {
               <Zap className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-4 text-3xl font-extrabold text-emerald-700 tracking-tight">&lt; 1.5s</div>
-          <div className="mt-1 text-xs text-slate-500 font-mono">
-            ~18 – 45 ms Live Wall-Clock Speed
-          </div>
+          <div className="mt-4 text-3xl font-extrabold text-emerald-700 tracking-tight">~15–45 ms</div>
+          <div className="mt-1 text-xs text-slate-600 font-mono">Mean 28.4 ms • &lt; 1.5s SLA</div>
         </div>
 
-        <div className="glass-panel rounded-2xl p-6 glass-card-hover relative overflow-hidden">
+        <div className="glass-panel rounded-2xl p-6 glass-card-hover bg-white">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Employer Verification Cost
-            </span>
-            <div className="h-9 w-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200">
-              <TrendingUp className="h-5 w-5" />
-            </div>
-          </div>
-          <div className="mt-4 text-3xl font-extrabold text-amber-700 tracking-tight">0 Gas ($0.00)</div>
-          <div className="mt-1 text-xs text-slate-500 font-mono">
-            Free Static EVM Read Call
-          </div>
-        </div>
-
-        <div className="glass-panel rounded-2xl p-6 glass-card-hover relative overflow-hidden">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Issuance Gas Target
+              Employer Gas Cost
             </span>
             <div className="h-9 w-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-200">
-              <Lock className="h-5 w-5" />
+              <Shield className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-4 text-3xl font-extrabold text-purple-700 tracking-tight">52,140 Gas</div>
-          <div className="mt-1 text-xs text-slate-500 font-mono">
-            &lt; $0.01 per issued degree on Polygon
+          <div className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight">0 Gas</div>
+          <div className="mt-1 text-xs text-slate-600 font-mono">Static eth_call ($0.00 / query)</div>
+        </div>
+
+        <div className="glass-panel rounded-2xl p-6 glass-card-hover bg-white">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Polygon PoS Issuance
+            </span>
+            <div className="h-9 w-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200">
+              <Database className="h-5 w-5" />
+            </div>
+          </div>
+          <div className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight">$0.0026</div>
+          <div className="mt-1 text-xs text-slate-600 font-mono">52,140 gas (46,200 batch)</div>
+        </div>
+      </div>
+
+      {/* Figure 1 System Architecture Diagram & Formal Cryptographic Formulations */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-6 glass-panel p-6 sm:p-7 space-y-4 bg-white">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="flex items-center space-x-2">
+              <Layers className="h-4 w-4 text-emerald-600" />
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                Figure 1: System Architecture Overview
+              </h2>
+            </div>
+            <span className="text-[11px] font-mono text-slate-500">Polygon PoS + IPFS + EIP-5192</span>
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 overflow-hidden">
+            <img
+              src="/architecture-diagram.png"
+              alt="Figure 1: Decentralized Academic Credential Issuance & Verification Architecture"
+              className="w-full h-auto rounded-lg object-contain bg-white"
+            />
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed">
+            <strong>Architecture Flow:</strong> University Registrar generates deterministic A4 PDF &amp; SHA-256 digest <code className="bg-slate-100 px-1 rounded">H_cert</code>, pins EIP-721 metadata to IPFS (<code className="bg-slate-100 px-1 rounded">CertURI</code>), and initiates Multi-Sig Handshake co-signed by the Dean before irreversible Soulbound minting to the Graduate Wallet.
+          </p>
+        </div>
+
+        <div className="lg:col-span-6 glass-panel p-6 sm:p-7 space-y-4 bg-white">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="flex items-center space-x-2">
+              <FileText className="h-4 w-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                Formal Mathematical Model (Eq. 1 – Eq. 6)
+              </h2>
+            </div>
+            <span className="text-[11px] font-mono text-slate-500">Section III</span>
+          </div>
+
+          <div className="space-y-3">
+            {equations.map((eq) => (
+              <div key={eq.id} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-indigo-700 font-mono">{eq.id}</span>
+                  <span className="text-[11px] font-semibold text-slate-700">{eq.label}</span>
+                </div>
+                <div className="font-mono text-xs text-slate-900 font-semibold break-all bg-white px-2.5 py-1.5 rounded-lg border border-slate-200">
+                  {eq.formula}
+                </div>
+                <div className="text-[11px] text-slate-500">{eq.note}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Interactive Architecture Flow Diagram */}
-      <div className="glass-panel rounded-3xl p-8 sm:p-10">
-        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-8">
+      {/* Table I: Related Works / Prior Art Matrix */}
+      <div className="glass-panel rounded-3xl p-6 sm:p-8 space-y-4 bg-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
           <div>
-            <h2 className="text-xl font-bold text-slate-900 flex items-center space-x-2.5">
-              <Layers className="h-5 w-5 text-indigo-600" />
-              <span>Proposed System Architecture Pipeline</span>
+            <h2 className="text-base font-bold text-slate-900">
+              Table I: Qualitative &amp; Architectural Comparison with Related Academic Credentialing Studies
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              End-to-end cryptographic lifecycle from Registrar issuance to IPFS pinning and zero-gas employer validation.
+            <p className="text-xs text-slate-500 mt-0.5">
+              Comprehensive literature evaluation against Centralized Clearinghouses, Conceptual DLT, MIT Blockcerts, EduCTX, and Theoretical SBTs.
             </p>
           </div>
-          <span className="text-xs font-mono text-emerald-800 bg-emerald-50 border border-emerald-300 px-3 py-1 rounded-full self-start sm:self-auto font-semibold">
-            Figure 1 (Synopsis Architecture)
-          </span>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-          {/* Step 1 */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-emerald-400 transition-colors shadow-sm">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
-                  STEP 01
-                </span>
-                <Users className="h-4 w-4 text-slate-400" />
-              </div>
-              <h3 className="font-bold text-sm text-slate-900">Registrar Administration</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Registrar inputs student marks, generates official diploma PDF, and calculates client-side SHA-256 digest.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-emerald-700 font-mono font-semibold">
-              → SHA-256 PDF Hash
-            </div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-indigo-400 transition-colors shadow-sm">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-lg">
-                  STEP 02
-                </span>
-                <Database className="h-4 w-4 text-slate-400" />
-              </div>
-              <h3 className="font-bold text-sm text-slate-900">IPFS Pinning & Dean Dual-Sig</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Metadata schema pinned to IPFS. Dean of Academic Affairs co-signs the on-chain proposal via multi-sig.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-indigo-700 font-mono font-semibold">
-              → Immutable CID (ipfs://Qm...)
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-amber-400 transition-colors shadow-sm">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-lg">
-                  STEP 03
-                </span>
-                <Lock className="h-4 w-4 text-slate-400" />
-              </div>
-              <h3 className="font-bold text-sm text-slate-900">EIP-5192 Soulbound Mint</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                NFT minted and permanently bound to graduate's soul wallet. Transfer functions strictly revert on EVM level.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-amber-700 font-mono font-semibold">
-              → locked(tokenId) = true
-            </div>
-          </div>
-
-          {/* Step 4 */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-purple-400 transition-colors shadow-sm">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2.5 py-1 rounded-lg">
-                  STEP 04
-                </span>
-                <ShieldCheck className="h-4 w-4 text-slate-400" />
-              </div>
-              <h3 className="font-bold text-sm text-slate-900">Employer 1-Click Verify</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Recruiters verify credential authenticity via wallet, PDF drag-and-drop, tx hash, or QR scan in &lt; 1.5s.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-mono font-semibold">
-              → 0 Gas / 100% Fraud Proof
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Comparative Analysis Matrix */}
-      <div className="glass-panel rounded-3xl p-8 sm:p-10">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">
-          Comparative Analysis: Traditional vs. Proposed Soulbound Platform
-        </h2>
-        <p className="text-xs text-slate-500 mb-6">
-          Quantifiable improvements across fraud resistance, turnaround latency, issuance economics, and non-transferability.
-        </p>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs sm:text-sm">
+          <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[11px]">
-                <th className="py-3.5 px-4 font-bold">Evaluation Metric</th>
-                <th className="py-3.5 px-4 font-bold text-rose-600">Traditional System</th>
-                <th className="py-3.5 px-4 font-bold text-emerald-700">Proposed Soulbound Platform (2026)</th>
+              <tr className="border-b border-slate-200 text-slate-600 bg-slate-50 font-semibold">
+                <th className="py-3 px-3">Prior Study &amp; Architecture</th>
+                <th className="py-3 px-3">Ledger / Storage Paradigm</th>
+                <th className="py-3 px-3">EVM Non-Transferability</th>
+                <th className="py-3 px-3">Issuance Governance</th>
+                <th className="py-3 px-3">Latency &amp; Cost</th>
+                <th className="py-3 px-3">Key Gap / Advantage</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {comparativeData.map((row, idx) => (
-                <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="py-3.5 px-4 font-semibold text-slate-900">{row.metric}</td>
-                  <td className="py-3.5 px-4 text-slate-500">{row.traditional}</td>
-                  <td className="py-3.5 px-4 text-emerald-800 font-bold">{row.proposed}</td>
+              {table1PriorArt.map((row) => (
+                <tr key={row.study} className={row.highlight ? 'bg-emerald-50/60 font-medium' : 'hover:bg-slate-50/70'}>
+                  <td className={`py-3 px-3 ${row.highlight ? 'font-bold text-emerald-900' : 'font-semibold text-slate-800'}`}>
+                    {row.study}
+                  </td>
+                  <td className="py-3 px-3 text-slate-600">{row.ledger}</td>
+                  <td className="py-3 px-3 text-slate-700 font-mono text-[11px]">{row.lock}</td>
+                  <td className="py-3 px-3 text-slate-600">{row.gov}</td>
+                  <td className={`py-3 px-3 font-mono text-[11px] ${row.highlight ? 'text-emerald-700 font-bold' : 'text-slate-600'}`}>
+                    {row.perf}
+                  </td>
+                  <td className="py-3 px-3 text-slate-600">{row.gap}</td>
                 </tr>
               ))}
             </tbody>
@@ -415,30 +477,78 @@ export default function OverviewPage({ setActiveTab }) {
         </div>
       </div>
 
-      {/* Specific Research Objectives */}
-      <div className="glass-panel rounded-3xl p-8 sm:p-10">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">Specific Research Objectives & Deliverables</h2>
-        <p className="text-xs text-slate-500 mb-6">
-          Formal engineering deliverables formulated in Section 3 of the dissertation synopsis.
-        </p>
+      {/* Table III: Empirical Comparison Matrix */}
+      <div className="glass-panel rounded-3xl p-6 sm:p-8 space-y-4 bg-white">
+        <h2 className="text-base font-bold text-slate-900">
+          Table III: Comparative Credential Verification Performance Across Architectures
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 text-slate-600 bg-slate-50 font-semibold">
+                <th className="py-3.5 px-4">Model &amp; Architecture</th>
+                <th className="py-3.5 px-4">Verification Latency</th>
+                <th className="py-3.5 px-4">Verification Cost</th>
+                <th className="py-3.5 px-4">Issuance Cost / Degree</th>
+                <th className="py-3.5 px-4">Forgery Resistance</th>
+                <th className="py-3.5 px-4">EVM Non-Transferability</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {table3Comparison.map((r) => (
+                <tr key={r.model} className={r.highlight ? 'bg-emerald-50/70' : 'hover:bg-slate-50'}>
+                  <td className={`py-3.5 px-4 font-bold ${r.highlight ? 'text-emerald-900' : 'text-slate-800'}`}>
+                    {r.model}
+                  </td>
+                  <td className={`py-3.5 px-4 font-mono ${r.highlight ? 'text-emerald-700 font-bold' : 'text-slate-600'}`}>
+                    {r.latency}
+                  </td>
+                  <td className={`py-3.5 px-4 font-mono ${r.highlight ? 'text-emerald-700 font-bold' : 'text-slate-600'}`}>
+                    {r.verifyCost}
+                  </td>
+                  <td className="py-3.5 px-4 font-mono text-slate-700">{r.issueCost}</td>
+                  <td className={`py-3.5 px-4 font-semibold ${r.highlight ? 'text-emerald-800' : 'text-slate-600'}`}>
+                    {r.forgery}
+                  </td>
+                  <td className={`py-3.5 px-4 font-semibold ${r.highlight ? 'text-indigo-800' : 'text-slate-600'}`}>
+                    {r.nonTransfer}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Research Objectives Grid */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 className="text-lg font-bold text-slate-900">Research Engineering Milestones</h2>
+            <p className="text-xs text-slate-500">
+              Active Registry Address: <span className="font-mono text-slate-700">{formatAddress(contractAddress)}</span> • Network: {networkName}
+            </p>
+          </div>
+          <button
+            onClick={() => setActiveTab('benchmarks')}
+            className="text-xs font-bold text-indigo-700 hover:underline flex items-center space-x-1 cursor-pointer"
+          >
+            <Scale className="h-3.5 w-3.5" />
+            <span>Open Tables II, IV &amp; V Benchmarks →</span>
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {objectives.map((obj) => (
-            <div
-              key={obj.num}
-              className="bg-white border border-slate-200 rounded-2xl p-5 hover:border-emerald-400 transition-colors shadow-sm"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
-                  OBJ {obj.num}
-                </span>
-                <span className="text-[11px] text-emerald-700 font-bold flex items-center space-x-1">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                  <span>{obj.status}</span>
+            <div key={obj.num} className="glass-panel rounded-2xl p-6 space-y-3 bg-white hover:border-emerald-300 transition-all">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-black font-mono text-slate-200">{obj.num}</span>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
+                  {obj.status}
                 </span>
               </div>
-              <h3 className="font-bold text-sm text-slate-900">{obj.title}</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">{obj.desc}</p>
+              <h3 className="text-sm font-bold text-slate-900">{obj.title}</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">{obj.desc}</p>
             </div>
           ))}
         </div>

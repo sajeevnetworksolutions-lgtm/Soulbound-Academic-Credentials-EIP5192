@@ -52,11 +52,11 @@ function AppContent() {
       {/* Modern Academic & Web3 Light Footer */}
       <footer className="border-t border-slate-200 bg-white py-8 text-xs text-slate-500 text-center shadow-inner mt-12">
         <div className="max-w-7xl mx-auto px-4 space-y-2">
-          <p className="font-mono text-slate-600 font-medium">
-            M.Tech Dissertation Project • Decentralized Academic Credential Verification Platform
+          <p className="font-mono text-slate-700 font-semibold">
+            SSIT / SSAHE Tumakuru • Decentralized Academic Credential Verification Platform (Shilpa H R &amp; Veena N D, Dept. of CSE)
           </p>
           <p className="text-[11px] text-slate-500">
-            Compliant with EIP-5192 (Minimal Soulbound NFTs), EIP-721 Metadata, and IPFS Cryptographic Standards.
+            Compliant with EIP-5192 (0xb45a3c0e Minimal Soulbound NFTs), ERC-721 Metadata (CertURI), SHA-256 PDF Anchoring, and IPFS Merkle-DAG.
           </p>
         </div>
       </footer>

@@ -1,11 +1,12 @@
 # Formal Smart Contract Security Audit Report
 ## EIP-5192 Soulbound Academic Credential Registry
 
-> **Platform:** Polygon PoS / Ethereum EVM  
+> **Authors & Institution:** Shilpa H R & Veena N D — Dept. of CSE, SSIT (SSAHE), Tumakuru, India  
+> **Platform:** Polygon PoS / Ethereum EVM (`18,223` bytes deployed bytecode via `viaIR: true`, `< 24,576` EIP-170 limit)  
 > **Target Contract:** `SoulboundAcademicCredential.sol`  
-> **Compiler Target:** Solidity `^0.8.24` (Cancun EVM, 200 Optimizer Runs)  
-> **Standard Compliance:** EIP-5192 (Minimal Soulbound NFTs), OpenZeppelin v5.2, ERC-721  
-> **Verification Engines:** Slither v0.10.x, Mythril v0.24.x, Hardhat Chai Automated Fuzzing Suite
+> **Compiler Target:** Solidity `^0.8.24` (Cancun EVM, 200 Optimizer Runs, `viaIR: true`)  
+> **Standard Compliance:** EIP-5192 (`0xb45a3c0e` Minimal Soulbound NFTs), OpenZeppelin v5.2, ERC-721  
+> **Verification Engines:** Slither v0.10.x, Mythril v0.24.x, Hardhat Chai Test Suite
 
 ---
 
@@ -13,13 +14,13 @@
 
 An exhaustive formal security evaluation and static code analysis were conducted on `SoulboundAcademicCredential.sol`. The platform enforces non-transferable degree credentialing governed by university registrars, deans, and disciplinary boards.
 
-The contract achieved **zero high-severity, zero medium-severity, and zero reentrancy vulnerabilities**, fulfilling the Quantitative Evaluation Protocol criteria defined in Section 8 of the M.Tech Dissertation Synopsis.
+The contract achieved **zero high-severity, zero medium-severity, and zero reentrancy vulnerabilities**, fulfilling the Quantitative Evaluation Protocol criteria defined in the SSIT / SSAHE IEEE research paper.
 
 ```
-Total Automated Test Cases: 30 / 30 PASSING (100%)
+Total Automated Test Cases: 32 / 32 PASSING (100% — 16 Core + 14 Security Audit + 2 Paper Cohort N=18)
 Static Analysis Checkers:  42 Slither detectors evaluated (0 findings)
 Symbolic Execution States: 128 Mythril symbolic paths explored (0 vulnerabilities)
-SWC Registry Violations:   0 / 136 detected
+SWC Registry Violations:   0 / 136 detected (Table V: SWC-100, 101, 104, 105/106, 107, 115 PASSED)
 Reentrancy Guard:         OpenZeppelin ReentrancyGuard on all state-mutating functions
 ```
 

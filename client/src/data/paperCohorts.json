@@ -1,0 +1,1949 @@
+{
+  "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+  "paperTitle": "Decentralized Academic Credential Verification and Tamper-Proof Certificate Issuance Platform using Soulbound Tokens (EIP-5192) and IPFS",
+  "authors": [
+    {
+      "name": "Shilpa H R",
+      "role": "M.Tech, Department of Computer Science and Engineering",
+      "affiliation": "Sri Siddhartha Institute of Technology, SSAHE, Tumakuru, India",
+      "email": "shilpashara15@gmail.com"
+    },
+    {
+      "name": "Veena N D",
+      "role": "Assistant Professor, Department of Computer Science and Engineering",
+      "affiliation": "Sri Siddhartha Institute of Technology, SSAHE, Tumakuru, India",
+      "email": "veenand@ssit.edu.in"
+    }
+  ],
+  "totalCredentials": 18,
+  "cohortSummary": {
+    "undergraduateCount": 6,
+    "multisigCount": 6,
+    "disciplinaryCount": 6
+  },
+  "credentials": [
+    {
+      "tokenId": 1,
+      "cohort": "Active Undergraduate (Direct Issuance)",
+      "cohortKey": "undergrad",
+      "gasProfile": 52140,
+      "studentWallet": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "studentName": "Aarav Kulkarni",
+      "studentIdNumber": "1SI22CS001",
+      "degreeName": "Bachelor of Technology (B.Tech)",
+      "majorSpecialization": "Computer Science and Engineering",
+      "cgpa": "9.42 / 10.0 (First Class with Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0xd2686b786787aa07205a76216054b89f3f2a35bfec019a64c43447b341a9d930",
+      "txHash": "0xc52ed63cc895db9e688bcee962b25e886926d227cc41a5ee4c5bfd8cbf07faba",
+      "ipfsCID": "ipfs://QmUMPnjp4CNz2pWEtie5BWPXWzWFGye82A8tj3XpW931Si",
+      "issuanceTimestamp": 1773619200,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 2,
+      "cohort": "Active Undergraduate (Direct Issuance)",
+      "cohortKey": "undergrad",
+      "gasProfile": 52140,
+      "studentWallet": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "studentName": "Ananya Deshpande",
+      "studentIdNumber": "1SI22CS014",
+      "degreeName": "Bachelor of Technology (B.Tech)",
+      "majorSpecialization": "Artificial Intelligence & Data Science",
+      "cgpa": "9.28 / 10.0 (First Class with Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x292c4eb139fe7689f1a19053c063549af836cb7eabf057883474484e2517e4cd",
+      "txHash": "0x0eb92c8a966dd2b345c5f9ec507c7d263d7cfa32a4ad56556a2c4ab76c51849b",
+      "ipfsCID": "ipfs://QmVCJErHBdo6UtEL7ZfcTKzteKKwxN6dKBaZfac9km37pC",
+      "issuanceTimestamp": 1773705600,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 3,
+      "cohort": "Active Undergraduate (Direct Issuance)",
+      "cohortKey": "undergrad",
+      "gasProfile": 46200,
+      "studentWallet": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "studentName": "Rohan Gowda M",
+      "studentIdNumber": "1SI22IS023",
+      "degreeName": "Bachelor of Technology (B.Tech)",
+      "majorSpecialization": "Information Science & Engineering",
+      "cgpa": "8.95 / 10.0 (First Class)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x2bf4a8db95812b17bf18373ebd6e4bbebc5a80523781c618434908b5d8b94d4a",
+      "txHash": "0xa0f7a807726c3f94c605c149e1bccc5a1a34de1cdc34b30220a07815fdc1a634",
+      "ipfsCID": "ipfs://QmX4T2nDgrdX8c9DhMkwFzrG3QKaMKhW8fiSZeLC5g43mw",
+      "issuanceTimestamp": 1773792000,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 4,
+      "cohort": "Active Undergraduate (Direct Issuance)",
+      "cohortKey": "undergrad",
+      "gasProfile": 46200,
+      "studentWallet": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "studentName": "Meera Iyer",
+      "studentIdNumber": "1SI22EC041",
+      "degreeName": "Bachelor of Science (B.S.)",
+      "majorSpecialization": "Applied Electronics & Embedded Computing",
+      "cgpa": "9.10 / 10.0 (First Class with Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x0081f0d5f87fe39aa8a5d686baf3a94a62f8b9e0864d6e8a8fa7706708122fca",
+      "txHash": "0xd45635a075779eb3c238e52f3f4c3c805638e11562d52510f32f3b5a4bf04016",
+      "ipfsCID": "ipfs://QmTSq5ym6vrNcTg8GPFHwuRkKXVwNWU2KG17K7feU5k8fj",
+      "issuanceTimestamp": 1773878400,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 5,
+      "cohort": "Active Undergraduate (Direct Issuance)",
+      "cohortKey": "undergrad",
+      "gasProfile": 46200,
+      "studentWallet": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "studentName": "Karthik Rao N",
+      "studentIdNumber": "1SI22CS056",
+      "degreeName": "Bachelor of Technology (B.Tech)",
+      "majorSpecialization": "Distributed Systems & Cloud Security",
+      "cgpa": "8.84 / 10.0 (First Class)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x00dab8a8b9d2f87a070d1846978e141338c08967323332007c5daf7918bb6831",
+      "txHash": "0x290e2358732aadcf74a2bb711d32bbbcae4eb68d01af153ec943b5e39c9ce7fd",
+      "ipfsCID": "ipfs://QmTrLaT55rACKghNayCnoexJKTmUAoq6cK22wgR1GXWdvQ",
+      "issuanceTimestamp": 1773964800,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 6,
+      "cohort": "Active Undergraduate (Direct Issuance)",
+      "cohortKey": "undergrad",
+      "gasProfile": 46200,
+      "studentWallet": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "studentName": "Divya Hegde",
+      "studentIdNumber": "1SI22CS078",
+      "degreeName": "Bachelor of Science (B.S.)",
+      "majorSpecialization": "Computational Mathematics & Cryptography",
+      "cgpa": "9.51 / 10.0 (First Class with Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x8321c100d0131718a0ce4dc8749c527671436151addf20521d0e80a04148111f",
+      "txHash": "0x57d0222067800e0035dede4f193504d846e83c4e6d919786902abd9d0f008de2",
+      "ipfsCID": "ipfs://QmSoyTPW1igvr7mXEtH52rnmXhRG1UiN3ZftTB4EXyqfgf",
+      "issuanceTimestamp": 1774051200,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 7,
+      "cohort": "Dual Multi-Sig Postgraduate (Registrar + Dean)",
+      "cohortKey": "multisig",
+      "gasProfile": 78400,
+      "studentWallet": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "studentName": "Shilpa H R",
+      "studentIdNumber": "1SI24MAI01",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Computer Science and Engineering (Blockchain & EIP-5192 Systems)",
+      "cgpa": "9.84 / 10.0 (Gold Medalist • First Rank)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x28307e49d06f46b3b8a2beea1cfbb4c9862a4338c7b43a39aeac1b5f1bf8aa79",
+      "txHash": "0x1030f06401648618d21229bcb92724adab1c3cfba83c330821dda2a08dde4d0e",
+      "ipfsCID": "ipfs://QmQEZJrMBEagUFeYNHXTb6NRg5QmxGQ7ryfx3gbBTejt9q",
+      "issuanceTimestamp": 1774137600,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 8,
+      "cohort": "Dual Multi-Sig Postgraduate (Registrar + Dean)",
+      "cohortKey": "multisig",
+      "gasProfile": 78400,
+      "studentWallet": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "studentName": "Siddharth Verma",
+      "studentIdNumber": "1SI24MAI08",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Artificial Intelligence & Machine Learning",
+      "cgpa": "9.62 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x50b45edd789726e8a44dc6d3e2227e5e3b197649c91354cd56f25e9bf8a78240",
+      "txHash": "0x212a9cea3a0ddb1a4bcdf6ec77c8264f2d5bf2d827a3fb9292609af4a5a641c6",
+      "ipfsCID": "ipfs://QmSizfe3d2op5nqNWBt7gQBKtssh4C6bP84KttyYQArhAp",
+      "issuanceTimestamp": 1774224000,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 9,
+      "cohort": "Dual Multi-Sig Postgraduate (Registrar + Dean)",
+      "cohortKey": "multisig",
+      "gasProfile": 78400,
+      "studentWallet": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "studentName": "Niharika Patil",
+      "studentIdNumber": "1SI24MCS12",
+      "degreeName": "Master of Science (M.S.)",
+      "majorSpecialization": "Decentralized Identity & Zero-Knowledge Cryptography",
+      "cgpa": "9.71 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x2b15cb8b3d7ada9d7c28ea71f5d56e68c7352f4bf356e38ecd0344fb55022657",
+      "txHash": "0xfbd7af112389f6ee5f2326d593a7720d3b3961cf93bcb88c953fe5db2fde506d",
+      "ipfsCID": "ipfs://Qme3bZ9hLJmtf8EawfxTPQTbQdvXTmQDbPBhBsqjqLsANM",
+      "issuanceTimestamp": 1774310400,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 10,
+      "cohort": "Dual Multi-Sig Postgraduate (Registrar + Dean)",
+      "cohortKey": "multisig",
+      "gasProfile": 78400,
+      "studentWallet": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "studentName": "Pranav Joshi",
+      "studentIdNumber": "1SI24MAI19",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Deep Learning & Computer Vision",
+      "cgpa": "9.45 / 10.0 (Honors)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x38922178a4fe399f89858c903d6bf2ec804a63a343e226b6bed9c1cd73ffbe1f",
+      "txHash": "0xf02960529a067f72f80de50cd61f964a7bf522b01b0f460adeaa376a8d1cdbca",
+      "ipfsCID": "ipfs://QmTNiKKVyBGgGhPxzYy3T4dNqBseuisAEcvJgkUYJhrpAD",
+      "issuanceTimestamp": 1774396800,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 11,
+      "cohort": "Dual Multi-Sig Postgraduate (Registrar + Dean)",
+      "cohortKey": "multisig",
+      "gasProfile": 78400,
+      "studentWallet": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "studentName": "Kavya Bhat",
+      "studentIdNumber": "1SI24MCS22",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Natural Language Processing & Semantic Web",
+      "cgpa": "9.38 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x9306f490c3a823f0fbb6d89e6d374b589332483d4ace2083de9c53a1499c1147",
+      "txHash": "0xfcb97917f7d4b635d58cf3e982a25792fd0f27f661ee99d94261e218ae806c02",
+      "ipfsCID": "ipfs://QmeiN26Me689NnWPJZpG6enYQebgzrdCWEjNnRJ49hJdfA",
+      "issuanceTimestamp": 1774483200,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 12,
+      "cohort": "Dual Multi-Sig Postgraduate (Registrar + Dean)",
+      "cohortKey": "multisig",
+      "gasProfile": 78400,
+      "studentWallet": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "studentName": "Aditya Narayan",
+      "studentIdNumber": "1SI24MS031",
+      "degreeName": "Master of Science (M.S.)",
+      "majorSpecialization": "Smart Contract Formal Verification & EVM Security",
+      "cgpa": "9.67 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x6558fc245a0957f9e147180c3c69e7f66e4a1fb51571d5895f0b24cf58dba2b1",
+      "txHash": "0xb3fba541d0be5da6accc87e4098b5bbccfd904b272025cdb1c1805cd7edb2bc1",
+      "ipfsCID": "ipfs://QmSkDcGwwrNENR3hDxc58QfW5uyMxN6atjiZpps1FL8YXJ",
+      "issuanceTimestamp": 1774569600,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Active Valid"
+    },
+    {
+      "tokenId": 13,
+      "cohort": "Disciplinary Case (Ethics Board Action)",
+      "cohortKey": "disciplinary",
+      "gasProfile": 26400,
+      "studentWallet": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "studentName": "Marcus Sterling",
+      "studentIdNumber": "1SI23PHD04",
+      "degreeName": "Doctor of Philosophy (Ph.D.)",
+      "majorSpecialization": "Distributed Consensus & Fault Tolerance",
+      "cgpa": "8.70 / 10.0",
+      "graduationDate": 1743552000,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x26695b884ffe3483d9a2674539ab7e1d11225b92b9f1b386651e66c51756cead",
+      "txHash": "0x8415cf79971cb030683d9bd90265f0fff7a22cbc64a6cb652950ed11d2ea43f7",
+      "ipfsCID": "ipfs://QmfS5XjCzvzYciecKaT7sbzoMWjnHGwsXBQbxRjpS5GU25",
+      "issuanceTimestamp": 1774656000,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": true,
+      "revocationReason": "Academic Misconduct: Unattributed dataset fabrication confirmed in post-degree ethics audit (Case #ETH-2026-01).",
+      "revocationReasonHash": "0x8801c331d3a14e8b75c857661ca4db8ec31d2bdee41ce800df5a3c0776da6830",
+      "revocationTimestamp": 1775001600,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Revoked"
+    },
+    {
+      "tokenId": 14,
+      "cohort": "Disciplinary Case (Ethics Board Action)",
+      "cohortKey": "disciplinary",
+      "gasProfile": 26400,
+      "studentWallet": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "studentName": "Vikramjit Sinha",
+      "studentIdNumber": "1SI23MTECH17",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Data Science & Big Data Analytics",
+      "cgpa": "8.45 / 10.0",
+      "graduationDate": 1743552000,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x2e9bb6fe178bd6bfc25b6d82b670ffd8730cae5522d1138aa0e4bf3394564785",
+      "txHash": "0x8708e2fc7e533edb427adad56e9e480fde3d6230ca867fb84c303bf6f52b4dfd",
+      "ipfsCID": "ipfs://QmTiHG9mAhkNAGA78pVsx9L2cSoAdmoKq6c3NSafPCz7rW",
+      "issuanceTimestamp": 1774742400,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": true,
+      "revocationReason": "Thesis Plagiarism: Chapter 4 empirical methodology duplicated from archival proceedings (Case #ETH-2026-02).",
+      "revocationReasonHash": "0x837808ac088bf41b1ba9d4177605070ee805d9e8c27ba520dc5698293f4a7ad0",
+      "revocationTimestamp": 1775001600,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Revoked"
+    },
+    {
+      "tokenId": 15,
+      "cohort": "Disciplinary Case (Ethics Board Action)",
+      "cohortKey": "disciplinary",
+      "gasProfile": 26400,
+      "studentWallet": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "studentName": "Sandeep Menon",
+      "studentIdNumber": "1SI23PHD11",
+      "degreeName": "Doctor of Philosophy (Ph.D.)",
+      "majorSpecialization": "Cryptographic Protocol Engineering",
+      "cgpa": "9.05 / 10.0",
+      "graduationDate": 1743552000,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x02a7d009cf031a29da2e0fcc9dbb58c3bd587097da1876295e0267bc6fc900ca",
+      "txHash": "0xc7e7135ec7fe32b436f717995b6c1e4d12f644d875a8efce2f1525b75fc2b6f9",
+      "ipfsCID": "ipfs://QmVVatpupXjMhrZSzUtbDbuyU93ZHF2GVVfKzRheoez45D",
+      "issuanceTimestamp": 1774828800,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": true,
+      "revocationReason": "Disciplinary Suspension: Transcript grade discrepancy discovered during Senate audit (Case #ETH-2026-03).",
+      "revocationReasonHash": "0xbd7e23feab2e2440f61b585be1726a3e038b0ecb73cb297e0529985f8053c809",
+      "revocationTimestamp": 1775001600,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Revoked"
+    },
+    {
+      "tokenId": 16,
+      "cohort": "Disciplinary Case (Ethics Board Action)",
+      "cohortKey": "disciplinary",
+      "gasProfile": 26400,
+      "studentWallet": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "studentName": "Tarun Chatterjee",
+      "studentIdNumber": "1SI23MTECH44",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Cybersecurity & Forensics",
+      "cgpa": "8.60 / 10.0",
+      "graduationDate": 1743552000,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0xf8f43e9fe227fb9aba95d2a74309d45fb5975d8e2cece6a759ce3d2763843ae7",
+      "txHash": "0x78a0310c2082f97c3815a48f540fb91c8921802b2f6260bb8cf29446aab586ea",
+      "ipfsCID": "ipfs://QmYuVcK1HEBpjhFSSisE34PdhrGfC9eHYA7vw9VdEK3kXx",
+      "issuanceTimestamp": 1774915200,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": true,
+      "revocationReason": "Ethics Sanction: Unauthorized alteration of physical lab logbooks prior to defense (Case #ETH-2026-04).",
+      "revocationReasonHash": "0xf18e40d3fd10a25e3b3db6b735a8a285ac29e6525cd776c216698cb5f806ac28",
+      "revocationTimestamp": 1775001600,
+      "wasReinstated": false,
+      "reinstatementNote": "",
+      "disciplinaryOutcome": "Revoked"
+    },
+    {
+      "tokenId": 17,
+      "cohort": "Disciplinary Case (Ethics Board Action)",
+      "cohortKey": "disciplinary",
+      "gasProfile": 44832,
+      "studentWallet": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "studentName": "Neha Krishnan",
+      "studentIdNumber": "1SI23PHD18",
+      "degreeName": "Doctor of Philosophy (Ph.D.)",
+      "majorSpecialization": "Federated Machine Learning",
+      "cgpa": "9.55 / 10.0",
+      "graduationDate": 1743552000,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0xf8694cd8bc7e0e66c9b88a5c4e7808fbdf7eefe785146e3da89527d17aa20632",
+      "txHash": "0x3ed313bc6a2369773ab41e6e02b9f46893fa2a0599bdaea3a3c7e7d7d737c5f1",
+      "ipfsCID": "ipfs://QmYKe2KRGPpYFBidg8Y2NYAvwzJRa4z4CS1RpdZ2JKu3RK",
+      "issuanceTimestamp": 1775001600,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": true,
+      "reinstatementNote": "Exonerated & Reinstated via reinstateDegree() after Appellate Tribunal verification (Case #APP-2026-05).",
+      "disciplinaryOutcome": "Reinstated"
+    },
+    {
+      "tokenId": 18,
+      "cohort": "Disciplinary Case (Ethics Board Action)",
+      "cohortKey": "disciplinary",
+      "gasProfile": 44832,
+      "studentWallet": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "studentName": "Arjun Subramanian",
+      "studentIdNumber": "1SI23MTECH52",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Software Systems & Blockchain Architecture",
+      "cgpa": "9.18 / 10.0",
+      "graduationDate": 1743552000,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0xfbcfe14ae9d6df8afdce734dfa0e3a4bd35c404d345dd2bbe0cf81b32ad75dba",
+      "txHash": "0x885b8413877f9b2b59718d59b90ed98178dc0eff5dc590cf0193d4b1bfa6aa21",
+      "ipfsCID": "ipfs://QmNRNkx9t4XpDhcDQo1YNh4MqhFrrjQGvFMih2imiT4MrF",
+      "issuanceTimestamp": 1775088000,
+      "issuedByRegistrar": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "isRevoked": false,
+      "revocationReason": "",
+      "revocationReasonHash": "",
+      "revocationTimestamp": 0,
+      "wasReinstated": true,
+      "reinstatementNote": "Exonerated & Reinstated via reinstateDegree() following errata retraction audit (Case #APP-2026-06).",
+      "disciplinaryOutcome": "Reinstated"
+    }
+  ],
+  "proposals": [
+    {
+      "proposalId": 7,
+      "studentWallet": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "studentName": "Shilpa H R (Ph.D. Honors Track)",
+      "studentIdNumber": "1SI26PHD01",
+      "degreeName": "Doctor of Philosophy (Ph.D.)",
+      "majorSpecialization": "Soulbound Cryptography & Zero-Knowledge Academic Proofs",
+      "cgpa": "10.0 / 10.0 (Summa Cum Laude)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x3eba2a8b0f581786797e69d1e95591da6aed7ebd818d9810b868f736f2f2f695",
+      "ipfsCID": "ipfs://QmNmJKyXgtwj6xoCq4yFz2aNpD3wHc17hZ69azyU1P7SWJ",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1775257200,
+      "deanApproved": false,
+      "approvedByDean": "0x0000000000000000000000000000000000000000",
+      "deanApprovalTimestamp": 0,
+      "executed": false,
+      "mintedTokenId": 0
+    },
+    {
+      "proposalId": 1,
+      "studentWallet": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "studentName": "Shilpa H R",
+      "studentIdNumber": "1SI24MAI01",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Computer Science and Engineering (Blockchain & EIP-5192 Systems)",
+      "cgpa": "9.84 / 10.0 (Gold Medalist • First Rank)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x28307e49d06f46b3b8a2beea1cfbb4c9862a4338c7b43a39aeac1b5f1bf8aa79",
+      "ipfsCID": "ipfs://QmQEZJrMBEagUFeYNHXTb6NRg5QmxGQ7ryfx3gbBTejt9q",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1773964800,
+      "deanApproved": true,
+      "approvedByDean": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "deanApprovalTimestamp": 1774051200,
+      "executed": true,
+      "mintedTokenId": 7
+    },
+    {
+      "proposalId": 2,
+      "studentWallet": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "studentName": "Siddharth Verma",
+      "studentIdNumber": "1SI24MAI08",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Artificial Intelligence & Machine Learning",
+      "cgpa": "9.62 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x50b45edd789726e8a44dc6d3e2227e5e3b197649c91354cd56f25e9bf8a78240",
+      "ipfsCID": "ipfs://QmSizfe3d2op5nqNWBt7gQBKtssh4C6bP84KttyYQArhAp",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1774051200,
+      "deanApproved": true,
+      "approvedByDean": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "deanApprovalTimestamp": 1774137600,
+      "executed": true,
+      "mintedTokenId": 8
+    },
+    {
+      "proposalId": 3,
+      "studentWallet": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "studentName": "Niharika Patil",
+      "studentIdNumber": "1SI24MCS12",
+      "degreeName": "Master of Science (M.S.)",
+      "majorSpecialization": "Decentralized Identity & Zero-Knowledge Cryptography",
+      "cgpa": "9.71 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x2b15cb8b3d7ada9d7c28ea71f5d56e68c7352f4bf356e38ecd0344fb55022657",
+      "ipfsCID": "ipfs://Qme3bZ9hLJmtf8EawfxTPQTbQdvXTmQDbPBhBsqjqLsANM",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1774137600,
+      "deanApproved": true,
+      "approvedByDean": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "deanApprovalTimestamp": 1774224000,
+      "executed": true,
+      "mintedTokenId": 9
+    },
+    {
+      "proposalId": 4,
+      "studentWallet": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "studentName": "Pranav Joshi",
+      "studentIdNumber": "1SI24MAI19",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Deep Learning & Computer Vision",
+      "cgpa": "9.45 / 10.0 (Honors)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x38922178a4fe399f89858c903d6bf2ec804a63a343e226b6bed9c1cd73ffbe1f",
+      "ipfsCID": "ipfs://QmTNiKKVyBGgGhPxzYy3T4dNqBseuisAEcvJgkUYJhrpAD",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1774224000,
+      "deanApproved": true,
+      "approvedByDean": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "deanApprovalTimestamp": 1774310400,
+      "executed": true,
+      "mintedTokenId": 10
+    },
+    {
+      "proposalId": 5,
+      "studentWallet": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "studentName": "Kavya Bhat",
+      "studentIdNumber": "1SI24MCS22",
+      "degreeName": "Master of Technology (M.Tech)",
+      "majorSpecialization": "Natural Language Processing & Semantic Web",
+      "cgpa": "9.38 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x9306f490c3a823f0fbb6d89e6d374b589332483d4ace2083de9c53a1499c1147",
+      "ipfsCID": "ipfs://QmeiN26Me689NnWPJZpG6enYQebgzrdCWEjNnRJ49hJdfA",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1774310400,
+      "deanApproved": true,
+      "approvedByDean": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "deanApprovalTimestamp": 1774396800,
+      "executed": true,
+      "mintedTokenId": 11
+    },
+    {
+      "proposalId": 6,
+      "studentWallet": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "studentName": "Aditya Narayan",
+      "studentIdNumber": "1SI24MS031",
+      "degreeName": "Master of Science (M.S.)",
+      "majorSpecialization": "Smart Contract Formal Verification & EVM Security",
+      "cgpa": "9.67 / 10.0 (Distinction)",
+      "graduationDate": 1775174400,
+      "institutionName": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+      "certificateHash": "0x6558fc245a0957f9e147180c3c69e7f66e4a1fb51571d5895f0b24cf58dba2b1",
+      "ipfsCID": "ipfs://QmSkDcGwwrNENR3hDxc58QfW5uyMxN6atjiZpps1FL8YXJ",
+      "proposedBy": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "proposedTimestamp": 1774396800,
+      "deanApproved": true,
+      "approvedByDean": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "deanApprovalTimestamp": 1774483200,
+      "executed": true,
+      "mintedTokenId": 12
+    }
+  ],
+  "ipfsStore": {
+    "QmUMPnjp4CNz2pWEtie5BWPXWzWFGye82A8tj3XpW931Si": {
+      "content": {
+        "name": "Bachelor of Technology (B.Tech) - Aarav Kulkarni",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Aarav Kulkarni's soul wallet (0x90F79bf6EB2c4f870365E785982E1f101E93b906). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0xd2686b786787aa07205a76216054b89f3f2a35bfec019a64c43447b341a9d930",
+        "degree": "Bachelor of Technology (B.Tech)",
+        "majorSpecialization": "Computer Science and Engineering",
+        "cgpa": "9.42 / 10.0 (First Class with Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0xd2686b786787aa07205a76216054b89f3f2a35bfec019a64c43447b341a9d930",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Aarav Kulkarni"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI22CS001"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Bachelor of Technology (B.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Computer Science and Engineering"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.42 / 10.0 (First Class with Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0xd2686b786787aa07205a76216054b89f3f2a35bfec019a64c43447b341a9d930"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-17T00:00:00.000Z"
+    },
+    "QmVCJErHBdo6UtEL7ZfcTKzteKKwxN6dKBaZfac9km37pC": {
+      "content": {
+        "name": "Bachelor of Technology (B.Tech) - Ananya Deshpande",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Ananya Deshpande's soul wallet (0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x292c4eb139fe7689f1a19053c063549af836cb7eabf057883474484e2517e4cd",
+        "degree": "Bachelor of Technology (B.Tech)",
+        "majorSpecialization": "Artificial Intelligence & Data Science",
+        "cgpa": "9.28 / 10.0 (First Class with Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x292c4eb139fe7689f1a19053c063549af836cb7eabf057883474484e2517e4cd",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Ananya Deshpande"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI22CS014"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Bachelor of Technology (B.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Artificial Intelligence & Data Science"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.28 / 10.0 (First Class with Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x292c4eb139fe7689f1a19053c063549af836cb7eabf057883474484e2517e4cd"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-18T00:00:00.000Z"
+    },
+    "QmX4T2nDgrdX8c9DhMkwFzrG3QKaMKhW8fiSZeLC5g43mw": {
+      "content": {
+        "name": "Bachelor of Technology (B.Tech) - Rohan Gowda M",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Rohan Gowda M's soul wallet (0x14dC79964da2C08b23698B3D3cc7Ca32193d9955). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x2bf4a8db95812b17bf18373ebd6e4bbebc5a80523781c618434908b5d8b94d4a",
+        "degree": "Bachelor of Technology (B.Tech)",
+        "majorSpecialization": "Information Science & Engineering",
+        "cgpa": "8.95 / 10.0 (First Class)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x2bf4a8db95812b17bf18373ebd6e4bbebc5a80523781c618434908b5d8b94d4a",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Rohan Gowda M"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI22IS023"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Bachelor of Technology (B.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Information Science & Engineering"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "8.95 / 10.0 (First Class)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x2bf4a8db95812b17bf18373ebd6e4bbebc5a80523781c618434908b5d8b94d4a"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-19T00:00:00.000Z"
+    },
+    "QmTSq5ym6vrNcTg8GPFHwuRkKXVwNWU2KG17K7feU5k8fj": {
+      "content": {
+        "name": "Bachelor of Science (B.S.) - Meera Iyer",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Meera Iyer's soul wallet (0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x0081f0d5f87fe39aa8a5d686baf3a94a62f8b9e0864d6e8a8fa7706708122fca",
+        "degree": "Bachelor of Science (B.S.)",
+        "majorSpecialization": "Applied Electronics & Embedded Computing",
+        "cgpa": "9.10 / 10.0 (First Class with Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x0081f0d5f87fe39aa8a5d686baf3a94a62f8b9e0864d6e8a8fa7706708122fca",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Meera Iyer"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI22EC041"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Bachelor of Science (B.S.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Applied Electronics & Embedded Computing"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.10 / 10.0 (First Class with Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x0081f0d5f87fe39aa8a5d686baf3a94a62f8b9e0864d6e8a8fa7706708122fca"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-20T00:00:00.000Z"
+    },
+    "QmTrLaT55rACKghNayCnoexJKTmUAoq6cK22wgR1GXWdvQ": {
+      "content": {
+        "name": "Bachelor of Technology (B.Tech) - Karthik Rao N",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Karthik Rao N's soul wallet (0xa0Ee7A142d267C1f36714E4a8F75612F20a79720). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x00dab8a8b9d2f87a070d1846978e141338c08967323332007c5daf7918bb6831",
+        "degree": "Bachelor of Technology (B.Tech)",
+        "majorSpecialization": "Distributed Systems & Cloud Security",
+        "cgpa": "8.84 / 10.0 (First Class)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x00dab8a8b9d2f87a070d1846978e141338c08967323332007c5daf7918bb6831",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Karthik Rao N"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI22CS056"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Bachelor of Technology (B.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Distributed Systems & Cloud Security"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "8.84 / 10.0 (First Class)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x00dab8a8b9d2f87a070d1846978e141338c08967323332007c5daf7918bb6831"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-21T00:00:00.000Z"
+    },
+    "QmSoyTPW1igvr7mXEtH52rnmXhRG1UiN3ZftTB4EXyqfgf": {
+      "content": {
+        "name": "Bachelor of Science (B.S.) - Divya Hegde",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Divya Hegde's soul wallet (0xBcd4042DE499D14e55001CcbB24a551F3b954096). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x8321c100d0131718a0ce4dc8749c527671436151addf20521d0e80a04148111f",
+        "degree": "Bachelor of Science (B.S.)",
+        "majorSpecialization": "Computational Mathematics & Cryptography",
+        "cgpa": "9.51 / 10.0 (First Class with Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x8321c100d0131718a0ce4dc8749c527671436151addf20521d0e80a04148111f",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Divya Hegde"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI22CS078"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Bachelor of Science (B.S.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Computational Mathematics & Cryptography"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.51 / 10.0 (First Class with Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x8321c100d0131718a0ce4dc8749c527671436151addf20521d0e80a04148111f"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-22T00:00:00.000Z"
+    },
+    "QmQEZJrMBEagUFeYNHXTb6NRg5QmxGQ7ryfx3gbBTejt9q": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Shilpa H R",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Shilpa H R's soul wallet (0x90F79bf6EB2c4f870365E785982E1f101E93b906). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x28307e49d06f46b3b8a2beea1cfbb4c9862a4338c7b43a39aeac1b5f1bf8aa79",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Computer Science and Engineering (Blockchain & EIP-5192 Systems)",
+        "cgpa": "9.84 / 10.0 (Gold Medalist • First Rank)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x28307e49d06f46b3b8a2beea1cfbb4c9862a4338c7b43a39aeac1b5f1bf8aa79",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Shilpa H R"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI24MAI01"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Computer Science and Engineering (Blockchain & EIP-5192 Systems)"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.84 / 10.0 (Gold Medalist • First Rank)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x28307e49d06f46b3b8a2beea1cfbb4c9862a4338c7b43a39aeac1b5f1bf8aa79"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-23T00:00:00.000Z"
+    },
+    "QmSizfe3d2op5nqNWBt7gQBKtssh4C6bP84KttyYQArhAp": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Siddharth Verma",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Siddharth Verma's soul wallet (0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x50b45edd789726e8a44dc6d3e2227e5e3b197649c91354cd56f25e9bf8a78240",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Artificial Intelligence & Machine Learning",
+        "cgpa": "9.62 / 10.0 (Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x50b45edd789726e8a44dc6d3e2227e5e3b197649c91354cd56f25e9bf8a78240",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Siddharth Verma"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI24MAI08"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Artificial Intelligence & Machine Learning"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.62 / 10.0 (Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x50b45edd789726e8a44dc6d3e2227e5e3b197649c91354cd56f25e9bf8a78240"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-24T00:00:00.000Z"
+    },
+    "Qme3bZ9hLJmtf8EawfxTPQTbQdvXTmQDbPBhBsqjqLsANM": {
+      "content": {
+        "name": "Master of Science (M.S.) - Niharika Patil",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Niharika Patil's soul wallet (0x71bE63f3384f5fb98995898A86B02Fb2426c5788). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x2b15cb8b3d7ada9d7c28ea71f5d56e68c7352f4bf356e38ecd0344fb55022657",
+        "degree": "Master of Science (M.S.)",
+        "majorSpecialization": "Decentralized Identity & Zero-Knowledge Cryptography",
+        "cgpa": "9.71 / 10.0 (Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x2b15cb8b3d7ada9d7c28ea71f5d56e68c7352f4bf356e38ecd0344fb55022657",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Niharika Patil"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI24MCS12"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Science (M.S.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Decentralized Identity & Zero-Knowledge Cryptography"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.71 / 10.0 (Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x2b15cb8b3d7ada9d7c28ea71f5d56e68c7352f4bf356e38ecd0344fb55022657"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-25T00:00:00.000Z"
+    },
+    "QmTNiKKVyBGgGhPxzYy3T4dNqBseuisAEcvJgkUYJhrpAD": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Pranav Joshi",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Pranav Joshi's soul wallet (0xFABB0ac9d68B0B445fB7357272Ff202C5651694a). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x38922178a4fe399f89858c903d6bf2ec804a63a343e226b6bed9c1cd73ffbe1f",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Deep Learning & Computer Vision",
+        "cgpa": "9.45 / 10.0 (Honors)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x38922178a4fe399f89858c903d6bf2ec804a63a343e226b6bed9c1cd73ffbe1f",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Pranav Joshi"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI24MAI19"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Deep Learning & Computer Vision"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.45 / 10.0 (Honors)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x38922178a4fe399f89858c903d6bf2ec804a63a343e226b6bed9c1cd73ffbe1f"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-26T00:00:00.000Z"
+    },
+    "QmeiN26Me689NnWPJZpG6enYQebgzrdCWEjNnRJ49hJdfA": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Kavya Bhat",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Kavya Bhat's soul wallet (0x14dC79964da2C08b23698B3D3cc7Ca32193d9955). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x9306f490c3a823f0fbb6d89e6d374b589332483d4ace2083de9c53a1499c1147",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Natural Language Processing & Semantic Web",
+        "cgpa": "9.38 / 10.0 (Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x9306f490c3a823f0fbb6d89e6d374b589332483d4ace2083de9c53a1499c1147",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Kavya Bhat"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI24MCS22"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Natural Language Processing & Semantic Web"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.38 / 10.0 (Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x9306f490c3a823f0fbb6d89e6d374b589332483d4ace2083de9c53a1499c1147"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-27T00:00:00.000Z"
+    },
+    "QmSkDcGwwrNENR3hDxc58QfW5uyMxN6atjiZpps1FL8YXJ": {
+      "content": {
+        "name": "Master of Science (M.S.) - Aditya Narayan",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Aditya Narayan's soul wallet (0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x6558fc245a0957f9e147180c3c69e7f66e4a1fb51571d5895f0b24cf58dba2b1",
+        "degree": "Master of Science (M.S.)",
+        "majorSpecialization": "Smart Contract Formal Verification & EVM Security",
+        "cgpa": "9.67 / 10.0 (Distinction)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x6558fc245a0957f9e147180c3c69e7f66e4a1fb51571d5895f0b24cf58dba2b1",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Aditya Narayan"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI24MS031"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Science (M.S.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Smart Contract Formal Verification & EVM Security"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.67 / 10.0 (Distinction)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x6558fc245a0957f9e147180c3c69e7f66e4a1fb51571d5895f0b24cf58dba2b1"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-28T00:00:00.000Z"
+    },
+    "QmfS5XjCzvzYciecKaT7sbzoMWjnHGwsXBQbxRjpS5GU25": {
+      "content": {
+        "name": "Doctor of Philosophy (Ph.D.) - Marcus Sterling",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Marcus Sterling's soul wallet (0xa0Ee7A142d267C1f36714E4a8F75612F20a79720). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x26695b884ffe3483d9a2674539ab7e1d11225b92b9f1b386651e66c51756cead",
+        "degree": "Doctor of Philosophy (Ph.D.)",
+        "majorSpecialization": "Distributed Consensus & Fault Tolerance",
+        "cgpa": "8.70 / 10.0",
+        "gradEpoch": 1743552000,
+        "certificateHash_Hcert": "0x26695b884ffe3483d9a2674539ab7e1d11225b92b9f1b386651e66c51756cead",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Marcus Sterling"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI23PHD04"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Doctor of Philosophy (Ph.D.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Distributed Consensus & Fault Tolerance"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "8.70 / 10.0"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1743552000
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2025-04-02"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x26695b884ffe3483d9a2674539ab7e1d11225b92b9f1b386651e66c51756cead"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-29T00:00:00.000Z"
+    },
+    "QmTiHG9mAhkNAGA78pVsx9L2cSoAdmoKq6c3NSafPCz7rW": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Vikramjit Sinha",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Vikramjit Sinha's soul wallet (0xBcd4042DE499D14e55001CcbB24a551F3b954096). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x2e9bb6fe178bd6bfc25b6d82b670ffd8730cae5522d1138aa0e4bf3394564785",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Data Science & Big Data Analytics",
+        "cgpa": "8.45 / 10.0",
+        "gradEpoch": 1743552000,
+        "certificateHash_Hcert": "0x2e9bb6fe178bd6bfc25b6d82b670ffd8730cae5522d1138aa0e4bf3394564785",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Vikramjit Sinha"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI23MTECH17"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Data Science & Big Data Analytics"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "8.45 / 10.0"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1743552000
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2025-04-02"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x2e9bb6fe178bd6bfc25b6d82b670ffd8730cae5522d1138aa0e4bf3394564785"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-30T00:00:00.000Z"
+    },
+    "QmVVatpupXjMhrZSzUtbDbuyU93ZHF2GVVfKzRheoez45D": {
+      "content": {
+        "name": "Doctor of Philosophy (Ph.D.) - Sandeep Menon",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Sandeep Menon's soul wallet (0x71bE63f3384f5fb98995898A86B02Fb2426c5788). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x02a7d009cf031a29da2e0fcc9dbb58c3bd587097da1876295e0267bc6fc900ca",
+        "degree": "Doctor of Philosophy (Ph.D.)",
+        "majorSpecialization": "Cryptographic Protocol Engineering",
+        "cgpa": "9.05 / 10.0",
+        "gradEpoch": 1743552000,
+        "certificateHash_Hcert": "0x02a7d009cf031a29da2e0fcc9dbb58c3bd587097da1876295e0267bc6fc900ca",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Sandeep Menon"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI23PHD11"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Doctor of Philosophy (Ph.D.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Cryptographic Protocol Engineering"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.05 / 10.0"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1743552000
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2025-04-02"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x02a7d009cf031a29da2e0fcc9dbb58c3bd587097da1876295e0267bc6fc900ca"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-03-31T00:00:00.000Z"
+    },
+    "QmYuVcK1HEBpjhFSSisE34PdhrGfC9eHYA7vw9VdEK3kXx": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Tarun Chatterjee",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Tarun Chatterjee's soul wallet (0xFABB0ac9d68B0B445fB7357272Ff202C5651694a). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0xf8f43e9fe227fb9aba95d2a74309d45fb5975d8e2cece6a759ce3d2763843ae7",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Cybersecurity & Forensics",
+        "cgpa": "8.60 / 10.0",
+        "gradEpoch": 1743552000,
+        "certificateHash_Hcert": "0xf8f43e9fe227fb9aba95d2a74309d45fb5975d8e2cece6a759ce3d2763843ae7",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Tarun Chatterjee"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI23MTECH44"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Cybersecurity & Forensics"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "8.60 / 10.0"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1743552000
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2025-04-02"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0xf8f43e9fe227fb9aba95d2a74309d45fb5975d8e2cece6a759ce3d2763843ae7"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-04-01T00:00:00.000Z"
+    },
+    "QmYKe2KRGPpYFBidg8Y2NYAvwzJRa4z4CS1RpdZ2JKu3RK": {
+      "content": {
+        "name": "Doctor of Philosophy (Ph.D.) - Neha Krishnan",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Neha Krishnan's soul wallet (0x14dC79964da2C08b23698B3D3cc7Ca32193d9955). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0xf8694cd8bc7e0e66c9b88a5c4e7808fbdf7eefe785146e3da89527d17aa20632",
+        "degree": "Doctor of Philosophy (Ph.D.)",
+        "majorSpecialization": "Federated Machine Learning",
+        "cgpa": "9.55 / 10.0",
+        "gradEpoch": 1743552000,
+        "certificateHash_Hcert": "0xf8694cd8bc7e0e66c9b88a5c4e7808fbdf7eefe785146e3da89527d17aa20632",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Neha Krishnan"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI23PHD18"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Doctor of Philosophy (Ph.D.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Federated Machine Learning"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.55 / 10.0"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1743552000
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2025-04-02"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0xf8694cd8bc7e0e66c9b88a5c4e7808fbdf7eefe785146e3da89527d17aa20632"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-04-02T00:00:00.000Z"
+    },
+    "QmNRNkx9t4XpDhcDQo1YNh4MqhFrrjQGvFMih2imiT4MrF": {
+      "content": {
+        "name": "Master of Technology (M.Tech) - Arjun Subramanian",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Arjun Subramanian's soul wallet (0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0xfbcfe14ae9d6df8afdce734dfa0e3a4bd35c404d345dd2bbe0cf81b32ad75dba",
+        "degree": "Master of Technology (M.Tech)",
+        "majorSpecialization": "Software Systems & Blockchain Architecture",
+        "cgpa": "9.18 / 10.0",
+        "gradEpoch": 1743552000,
+        "certificateHash_Hcert": "0xfbcfe14ae9d6df8afdce734dfa0e3a4bd35c404d345dd2bbe0cf81b32ad75dba",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Arjun Subramanian"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI23MTECH52"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Master of Technology (M.Tech)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Software Systems & Blockchain Architecture"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "9.18 / 10.0"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1743552000
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2025-04-02"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0xfbcfe14ae9d6df8afdce734dfa0e3a4bd35c404d345dd2bbe0cf81b32ad75dba"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-04-03T00:00:00.000Z"
+    },
+    "QmNmJKyXgtwj6xoCq4yFz2aNpD3wHc17hZ69azyU1P7SWJ": {
+      "content": {
+        "name": "Doctor of Philosophy (Ph.D.) - Shilpa H R (Ph.D. Honors Track)",
+        "description": "Official EIP-5192 Soulbound Academic Credential permanently bound to Shilpa H R (Ph.D. Honors Track)'s soul wallet (0x90F79bf6EB2c4f870365E785982E1f101E93b906). Issued by Sri Siddhartha Institute of Technology (SSAHE), Tumakuru.",
+        "image": "ipfs://QmSSITSoulboundAcademicBadge2026",
+        "external_url": "https://verify.ssit-ssahe.edu.in/verify?hash=0x3eba2a8b0f581786797e69d1e95591da6aed7ebd818d9810b868f736f2f2f695",
+        "degree": "Doctor of Philosophy (Ph.D.)",
+        "majorSpecialization": "Soulbound Cryptography & Zero-Knowledge Academic Proofs",
+        "cgpa": "10.0 / 10.0 (Summa Cum Laude)",
+        "gradEpoch": 1775174400,
+        "certificateHash_Hcert": "0x3eba2a8b0f581786797e69d1e95591da6aed7ebd818d9810b868f736f2f2f695",
+        "universityPublicKey_Kuniv": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "institution": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru",
+        "standard": "EIP-5192 Minimal Soulbound NFT",
+        "locked": true,
+        "attributes": [
+          {
+            "trait_type": "Student Name",
+            "value": "Shilpa H R (Ph.D. Honors Track)"
+          },
+          {
+            "trait_type": "Student Roll ID",
+            "value": "1SI26PHD01"
+          },
+          {
+            "trait_type": "Degree Program",
+            "value": "Doctor of Philosophy (Ph.D.)"
+          },
+          {
+            "trait_type": "Specialization / Major",
+            "value": "Soulbound Cryptography & Zero-Knowledge Academic Proofs"
+          },
+          {
+            "trait_type": "CGPA / Grade",
+            "value": "10.0 / 10.0 (Summa Cum Laude)"
+          },
+          {
+            "trait_type": "GradEpoch",
+            "value": 1775174400
+          },
+          {
+            "trait_type": "Graduation Date",
+            "value": "2026-04-03"
+          },
+          {
+            "trait_type": "Issuing Institution",
+            "value": "Sri Siddhartha Institute of Technology (SSAHE), Tumakuru"
+          },
+          {
+            "trait_type": "Registrar Authority (K_univ)",
+            "value": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          },
+          {
+            "trait_type": "PDF Digest (H_cert SHA-256)",
+            "value": "0x3eba2a8b0f581786797e69d1e95591da6aed7ebd818d9810b868f736f2f2f695"
+          },
+          {
+            "trait_type": "Credential Standard",
+            "value": "EIP-5192 Soulbound Token (SBT)"
+          },
+          {
+            "trait_type": "Transferability",
+            "value": "Strictly Non-Transferable (Locked = true)"
+          }
+        ]
+      },
+      "contentType": "application/json",
+      "pinnedAt": "2026-04-04T00:00:00.000Z"
+    }
+  }
+}

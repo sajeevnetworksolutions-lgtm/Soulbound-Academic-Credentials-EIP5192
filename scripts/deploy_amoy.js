@@ -24,8 +24,8 @@ async function main() {
 
   const SoulboundFactory = await hre.ethers.getContractFactory("SoulboundAcademicCredential");
   const contract = await SoulboundFactory.deploy(
-    "National Institute of Technology - Soulbound Degree Registry",
-    "NITSBT",
+    "Sri Siddhartha Academy of Higher Education - Soulbound Degree Registry",
+    "SSITSBT",
     deployer.address,
     registrarAddress,
     deanAddress,

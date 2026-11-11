@@ -10,10 +10,13 @@ import "./interfaces/IERC5192.sol";
 
 /**
  * @title SoulboundAcademicCredential
- * @notice Decentralized, Non-Transferable Academic Credential Verification Platform
- *         utilizing EIP-5192 Soulbound Tokens, Role-Based Multi-Sig Authorization,
- *         and IPFS Decentralized Storage.
- * @dev Fully overrides ERC-721 transfer functions to enforce permanent non-transferability.
+ * @notice Decentralized Academic Credential Verification and Tamper-Proof Certificate
+ *         Issuance Platform using Soulbound Tokens (EIP-5192) and IPFS.
+ * @author Shilpa H R (M.Tech, Dept. of CSE) & Veena N D (Assistant Professor, Dept. of CSE)
+ *         Sri Siddhartha Institute of Technology (SSAHE), Tumakuru, India
+ * @dev Implements EIP-5192 Minimal Soulbound NFTs (`locked(uint256)`), dual-signature
+ *      Registrar + Dean authorization handshake, deterministic SHA-256 certificate digest
+ *      anchoring, dynamic Disciplinary Board revocation hooks, and zero-gas view verification.
  */
 contract SoulboundAcademicCredential is ERC721, AccessControl, Pausable, ReentrancyGuard, IERC5192 {
 
@@ -500,6 +503,10 @@ contract SoulboundAcademicCredential is ERC721, AccessControl, Pausable, Reentra
     // 1-Click Zero-Gas Employer & Public Verification Views (< 1.5s latency)
     // =========================================================================
 
+    /**
+     * @notice Verifies degree authenticity in a single 0-gas static EVM call.
+     * @dev Enforces Eq. (6): Verify(Tid, Sw) = (ownerOf(Tid) == Sw) && (!isRevoked) && locked(Tid)
+     */
     function verifyDegree(
         address studentAddress,
         uint256 tokenId
@@ -515,10 +522,34 @@ contract SoulboundAcademicCredential is ERC721, AccessControl, Pausable, Reentra
 
         cred = _credentials[tokenId];
         bool ownerMatches = (actualOwner == studentAddress);
+        bool isLocked = (actualOwner != address(0)); // Invariant: locked(tokenId) == true
         isRevoked = cred.isRevoked;
-        isValid = ownerMatches && !isRevoked;
+        isValid = ownerMatches && !isRevoked && isLocked;
 
         return (isValid, isRevoked, cred);
+    }
+
+    /**
+     * @notice Extended Eq. (6) boolean verification returning validity, revocation, and EIP-5192 lock state.
+     */
+    function verifyDegreeStatusEq6(
+        address studentAddress,
+        uint256 tokenId
+    ) external view returns (
+        bool isValid,
+        bool isRevoked,
+        bool isLocked
+    ) {
+        address actualOwner = _ownerOf(tokenId);
+        if (actualOwner == address(0)) {
+            return (false, false, false);
+        }
+
+        isLocked = true;
+        isRevoked = _credentials[tokenId].isRevoked;
+        isValid = (actualOwner == studentAddress) && !isRevoked && isLocked;
+
+        return (isValid, isRevoked, isLocked);
     }
 
     function verifyByCertificateHash(
@@ -530,7 +561,7 @@ contract SoulboundAcademicCredential is ERC721, AccessControl, Pausable, Reentra
         Credential memory cred
     ) {
         uint256 tokenId = _certificateHashToTokenId[certHash];
-        if (tokenId == 0) {
+        if (tokenId == 0 || _ownerOf(tokenId) == address(0)) {
             return (false, false, false, cred);
         }
 

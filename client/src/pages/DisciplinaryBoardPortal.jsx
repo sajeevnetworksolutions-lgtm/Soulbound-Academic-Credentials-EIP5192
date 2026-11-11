@@ -14,7 +14,15 @@ import {
 } from 'lucide-react';
 
 export default function DisciplinaryBoardPortal() {
-  const { credentials, revokeDegree, reinstateDegree, activeAddress } = useWeb3();
+  const {
+    credentials,
+    revokeDegree,
+    reinstateDegree,
+    activeAddress,
+    currentAccount,
+    switchPresetAccount,
+  } = useWeb3();
+  const isBoardRole = currentAccount?.role === 'DisciplinaryBoard';
 
   const [selectedTokenId, setSelectedTokenId] = useState('');
   const [reason, setReason] = useState(
@@ -76,13 +84,29 @@ export default function DisciplinaryBoardPortal() {
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-              Academic Disciplinary & Ethics Board Portal
+              Academic Disciplinary &amp; Ethics Board Portal
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-              Dynamic on-chain credential suspension, revocation, and appeal reinstatement hooks (Objective 4).
+              Dynamic on-chain credential suspension, revocation, and appeal reinstatement hooks (Paper Table II Cohort 3 &amp; Eq. 6).
             </p>
           </div>
         </div>
+
+        {!isBoardRole && (
+          <div className="mt-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
+            <span className="text-xs text-rose-900">
+              Active wallet is <strong>{currentAccount?.role}</strong> ({formatAddress(activeAddress)}). Live EVM requires <code className="font-mono font-bold">DISCIPLINARY_BOARD_ROLE</code>.
+            </span>
+            <button
+              type="button"
+              onClick={() => switchPresetAccount('DisciplinaryBoard')}
+              className="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold flex items-center space-x-1.5 shrink-0 transition-colors cursor-pointer"
+            >
+              <KeyRound className="h-3.5 w-3.5" />
+              <span>Switch to Disciplinary Board</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {actionMessage && (

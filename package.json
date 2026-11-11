@@ -7,7 +7,7 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
-    "deploy:amoy": "hardhat run scripts/deploy.js --network polygonAmoy",
+    "deploy:amoy": "hardhat run scripts/deploy_amoy.js --network polygonAmoy",
     "node": "hardhat node",
     "seed": "hardhat run scripts/seed_demo.js --network localhost",
     "client:dev": "npm --prefix client run dev",
@@ -22,7 +22,7 @@
     "web3",
     "polygon"
   ],
-  "author": "M.Tech Scholar",
+  "author": "Shilpa H R (Guided by Veena N D) — Dept. of CSE, SSIT (SSAHE), Tumakuru",
   "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",

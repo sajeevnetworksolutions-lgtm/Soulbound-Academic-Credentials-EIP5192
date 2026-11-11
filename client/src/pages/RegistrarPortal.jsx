@@ -16,12 +16,16 @@ import {
   KeyRound,
   FileText,
   UserCheck,
+  Download,
 } from 'lucide-react';
 import DiplomaCertificate from '../components/DiplomaCertificate';
 
 export default function RegistrarPortal({ setActiveTab }) {
   const {
     activeAddress,
+    currentAccount,
+    switchPresetAccount,
+    getNextTokenId,
     issueDegree,
     issueBatchDegrees,
     proposeDegreeIssuance,
@@ -29,21 +33,24 @@ export default function RegistrarPortal({ setActiveTab }) {
     setPinataJwt,
   } = useWeb3();
 
+  const isRegistrarRole = currentAccount?.role === 'Registrar';
+  const nextTokenId = getNextTokenId();
+
   const [mode, setMode] = useState('single'); // 'single' | 'batch'
   const [issuanceType, setIssuanceType] = useState('direct'); // 'direct' | 'multisig'
   const [loading, setLoading] = useState(false);
   const [successResult, setSuccessResult] = useState(null);
 
-  // Form State
+  // Form State (SSIT / SSAHE Tumakuru Defaults)
   const [formData, setFormData] = useState({
     studentWallet: '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
-    studentName: 'Elena Rostova',
-    studentIdNumber: 'MTECH-AI-2026-099',
+    studentName: 'Shilpa H R (Honors)',
+    studentIdNumber: '1SI24MAI01-H',
     degreeName: 'Master of Technology (M.Tech)',
-    majorSpecialization: 'Artificial Intelligence & Machine Learning',
-    cgpa: '9.75 / 10.0 (Gold Medalist)',
+    majorSpecialization: 'Computer Science & Engineering (Blockchain & AI)',
+    cgpa: '9.85 / 10.0 (First Class with Distinction)',
     graduationDate: 1775174400,
-    institutionName: 'National Institute of Advanced Technologies',
+    institutionName: 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
   });
 
   // Batch CSV/JSON input state
@@ -52,23 +59,23 @@ export default function RegistrarPortal({ setActiveTab }) {
       [
         {
           studentWallet: '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
-          studentName: 'Priya Sharma',
-          studentIdNumber: 'MTECH-2026-101',
-          degreeName: 'Master of Technology',
-          majorSpecialization: 'Computer Vision & Robotics',
-          cgpa: '9.65 / 10.0',
+          studentName: 'Nithya Shree R',
+          studentIdNumber: '1SI24CS101',
+          degreeName: 'Bachelor of Engineering (B.E.)',
+          majorSpecialization: 'Computer Science & Engineering',
+          cgpa: '9.35 / 10.0',
           graduationDate: 1775174400,
-          institutionName: 'National Institute of Advanced Technologies',
+          institutionName: 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
         },
         {
           studentWallet: '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65',
-          studentName: 'Daniel Kim',
-          studentIdNumber: 'MTECH-2026-102',
-          degreeName: 'Master of Technology',
-          majorSpecialization: 'Natural Language Processing',
-          cgpa: '9.50 / 10.0',
+          studentName: 'Rahul Verma K',
+          studentIdNumber: '1SI24AI102',
+          degreeName: 'Bachelor of Engineering (B.E.)',
+          majorSpecialization: 'Artificial Intelligence & Data Science',
+          cgpa: '9.18 / 10.0',
           graduationDate: 1775174400,
-          institutionName: 'National Institute of Advanced Technologies',
+          institutionName: 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
         },
       ],
       null,
@@ -86,15 +93,18 @@ export default function RegistrarPortal({ setActiveTab }) {
     setSuccessResult(null);
 
     try {
-      // 1. Generate PDF and calculate cryptographic hash
+      const assignedTokenId = getNextTokenId();
+
+      // 1. Generate deterministic PDF (Paper Eq. 1: H_cert = SHA-256(B))
       const { hash: certHash } = await generateCertificatePDF({
         ...formData,
-        tokenId: 'PREVIEW',
+        tokenId: assignedTokenId,
         issuedByRegistrar: activeAddress,
       });
 
       const payload = {
         ...formData,
+        tokenId: assignedTokenId,
         certificateHash: certHash,
       };
 
@@ -139,14 +149,19 @@ export default function RegistrarPortal({ setActiveTab }) {
       const parsed = JSON.parse(batchJson);
       const batchWithHashes = [];
 
-      for (const item of parsed) {
+      const baseTokenId = getNextTokenId();
+
+      for (let idx = 0; idx < parsed.length; idx++) {
+        const item = parsed[idx];
+        const assignedId = baseTokenId + idx;
         const { hash } = await generateCertificatePDF({
           ...item,
-          tokenId: 'BATCH',
+          tokenId: assignedId,
           issuedByRegistrar: activeAddress,
         });
         batchWithHashes.push({
           ...item,
+          tokenId: assignedId,
           certificateHash: hash,
         });
       }
@@ -174,33 +189,33 @@ export default function RegistrarPortal({ setActiveTab }) {
   const presets = [
     {
       studentWallet: '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
-      studentName: 'Elena Rostova',
-      studentIdNumber: 'MTECH-AI-2026-099',
+      studentName: 'Shilpa H R (Honors)',
+      studentIdNumber: '1SI24MAI01-H',
       degreeName: 'Master of Technology (M.Tech)',
-      majorSpecialization: 'Artificial Intelligence & Machine Learning',
-      cgpa: '9.75 / 10.0 (Gold Medalist)',
+      majorSpecialization: 'Computer Science & Engineering (Blockchain & AI)',
+      cgpa: '9.85 / 10.0 (First Class with Distinction)',
       graduationDate: 1775174400,
-      institutionName: 'National Institute of Advanced Technologies',
+      institutionName: 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
     },
     {
       studentWallet: '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65',
-      studentName: 'Aarav Patel',
-      studentIdNumber: 'MTECH-CS-2026-042',
-      degreeName: 'Master of Technology (M.Tech)',
-      majorSpecialization: 'Distributed Systems & Blockchain Architecture',
-      cgpa: '9.60 / 10.0',
+      studentName: 'Karthik Gowda S',
+      studentIdNumber: '1SI24CS042',
+      degreeName: 'Bachelor of Engineering (B.E.)',
+      majorSpecialization: 'Distributed Systems & Smart Contracts',
+      cgpa: '9.45 / 10.0',
       graduationDate: 1775174400,
-      institutionName: 'National Institute of Advanced Technologies',
+      institutionName: 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
     },
     {
       studentWallet: '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc',
-      studentName: 'Sophia Chen',
-      studentIdNumber: 'MTECH-CYBER-2026-081',
+      studentName: 'Divya Bharathi M',
+      studentIdNumber: '1SI24CY081',
       degreeName: 'Master of Technology (M.Tech)',
-      majorSpecialization: 'Applied Cryptography & Zero-Knowledge Proofs',
-      cgpa: '9.82 / 10.0 (Summa Cum Laude)',
+      majorSpecialization: 'Information & Network Security',
+      cgpa: '9.62 / 10.0',
       graduationDate: 1775174400,
-      institutionName: 'National Institute of Advanced Technologies',
+      institutionName: 'Sri Siddhartha Institute of Technology (SSAHE), Tumakuru',
     },
   ];
 
@@ -223,10 +238,21 @@ export default function RegistrarPortal({ setActiveTab }) {
                 University Registrar Administration Portal
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Mint EIP-5192 Soulbound Academic Credentials permanently locked to verified graduate soul wallets.
+                SSIT / SSAHE Tumakuru: Mint EIP-5192 Soulbound Credentials permanently locked to graduate wallets (Next Token #{nextTokenId}).
               </p>
             </div>
           </div>
+
+          {!isRegistrarRole && (
+            <button
+              type="button"
+              onClick={() => switchPresetAccount('Registrar')}
+              className="mt-3 sm:mt-0 px-3.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 text-xs font-bold flex items-center space-x-1.5 transition-colors cursor-pointer"
+            >
+              <KeyRound className="h-3.5 w-3.5" />
+              <span>Switch to REGISTRAR_ROLE Wallet</span>
+            </button>
+          )}
         </div>
 
         <div className="flex items-center bg-slate-100 p-1.5 rounded-xl border border-slate-200 relative z-10">
@@ -276,14 +302,22 @@ export default function RegistrarPortal({ setActiveTab }) {
               {successResult.type === 'issued' && (
                 <div className="mt-4 flex flex-wrap gap-3">
                   <button
+                    type="button"
+                    onClick={() => generateCertificatePDF(successResult.credential, { download: true })}
+                    className="text-xs bg-white hover:bg-slate-50 px-4 py-2 rounded-xl font-bold text-emerald-800 border border-emerald-300 transition-all shadow-sm flex items-center space-x-1.5 cursor-pointer"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    <span>Download Official PDF (Token #{successResult.tokenId})</span>
+                  </button>
+                  <button
                     onClick={() => setActiveTab('student')}
-                    className="text-xs bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-xl font-bold text-white shadow-sm transition-all"
+                    className="text-xs bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-xl font-bold text-white shadow-sm transition-all cursor-pointer"
                   >
                     View in Student Soul Wallet →
                   </button>
                   <button
                     onClick={() => setActiveTab('employer')}
-                    className="text-xs bg-white hover:bg-slate-50 px-4 py-2 rounded-xl font-semibold text-slate-700 border border-slate-300 transition-all shadow-sm"
+                    className="text-xs bg-white hover:bg-slate-50 px-4 py-2 rounded-xl font-semibold text-slate-700 border border-slate-300 transition-all shadow-sm cursor-pointer"
                   >
                     Verify as Employer
                   </button>
@@ -480,7 +514,7 @@ export default function RegistrarPortal({ setActiveTab }) {
                   <label className="text-slate-600 text-[11px] font-medium">
                     Decentralized Storage: Local IPFS Simulator (or custom Pinata JWT)
                   </label>
-                  <span className="text-[10px] text-emerald-700 font-mono font-semibold">CID v1 Enabled</span>
+                  <span className="text-[10px] text-emerald-700 font-mono font-semibold">IPFS Merkle-DAG CIDv0 (Qm...)</span>
                 </div>
                 <input
                   type="password"
@@ -536,7 +570,7 @@ export default function RegistrarPortal({ setActiveTab }) {
               <div className="transform scale-[0.8] origin-top sm:scale-100">
                 <DiplomaCertificate
                   credential={{
-                    tokenId: 'PREVIEW',
+                    tokenId: nextTokenId,
                     studentWallet: formData.studentWallet,
                     studentName: formData.studentName,
                     studentIdNumber: formData.studentIdNumber,
@@ -546,7 +580,7 @@ export default function RegistrarPortal({ setActiveTab }) {
                     graduationDate: formData.graduationDate,
                     institutionName: formData.institutionName,
                     certificateHash: '0x' + 'e'.repeat(64),
-                    ipfsCID: 'ipfs://QmPendingIssuanceCID',
+                    ipfsCID: 'ipfs://QmPendingMerkleDAGCertURI',
                     issuedByRegistrar: activeAddress,
                     isRevoked: false,
                   }}
@@ -569,7 +603,7 @@ export default function RegistrarPortal({ setActiveTab }) {
           </div>
 
           <p className="text-xs text-slate-600 leading-relaxed">
-            Mint multiple soulbound degrees simultaneously in a single atomic batch transaction. Reduces average administrative gas fees by ~42% compared to sequential single mints.
+            Mint multiple soulbound degrees simultaneously in a single atomic batch transaction (Paper Section IV-B / Fig. 5). Yields an <strong>11.4% amortized gas efficiency increase</strong> (from 52,140 gas to 46,200 gas per credential across batch sizes B ∈ [1, 50]).
           </p>
 
           <textarea

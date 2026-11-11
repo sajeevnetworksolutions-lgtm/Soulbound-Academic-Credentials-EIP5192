@@ -15,6 +15,7 @@ import {
   GraduationCap,
   Scale,
   CheckCircle2,
+  RotateCcw,
 } from 'lucide-react';
 import { formatAddress } from '../services/hashUtil';
 
@@ -23,6 +24,8 @@ export default function Navbar({ activeTab, setActiveTab }) {
     currentAccount,
     switchPresetAccount,
     isMetaMaskConnected,
+    isLocalRpcConnected,
+    resetToPaperCohort,
     connectMetaMask,
     activeAddress,
     networkName,
@@ -62,7 +65,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
                   EIP-5192
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">Decentralized Academic Credentials</p>
+              <p className="text-[11px] text-slate-500 font-medium">SSIT / SSAHE • Academic SBT Registry</p>
             </div>
           </div>
 
@@ -75,7 +78,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span className="font-mono text-[11px] font-semibold tracking-tight text-slate-700">
-                {networkName}
+                {isMetaMaskConnected ? networkName : isLocalRpcConnected ? 'Hardhat Live EVM' : networkName}
               </span>
             </div>
 
@@ -170,16 +173,26 @@ export default function Navbar({ activeTab, setActiveTab }) {
                     })}
                   </div>
 
-                  <div className="p-3 border-t border-slate-100">
+                  <div className="p-3 border-t border-slate-100 space-y-2">
                     <button
                       onClick={() => {
                         connectMetaMask();
                         setIsDropdownOpen(false);
                       }}
-                      className="w-full flex items-center justify-center space-x-2 py-2 px-3 bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 rounded-xl text-xs font-bold text-white shadow-md shadow-indigo-600/10 transition-all"
+                      className="w-full flex items-center justify-center space-x-2 py-2 px-3 bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 rounded-xl text-xs font-bold text-white shadow-md shadow-indigo-600/10 transition-all cursor-pointer"
                     >
                       <Wallet className="h-3.5 w-3.5 text-white" />
                       <span>Connect External MetaMask Wallet</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        resetToPaperCohort();
+                        setIsDropdownOpen(false);
+                      }}
+                      className="w-full flex items-center justify-center space-x-2 py-1.5 px-3 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl text-[11px] font-semibold text-slate-700 transition-all cursor-pointer"
+                    >
+                      <RotateCcw className="h-3 w-3 text-slate-600" />
+                      <span>Reset Seeded N=18 Paper Cohort</span>
                     </button>
                   </div>
                 </div>
